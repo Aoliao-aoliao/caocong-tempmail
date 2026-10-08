@@ -4,7 +4,7 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '.vitepress/dist');
 const files = (await readdir(root)).filter(x => x.endsWith('.html'));
-assert.equal(files.length, 17, 'Expected 16 documentation pages and the 404 page');
+assert.equal(files.length, 18, 'Expected 17 documentation pages and the 404 page');
 let checked = 0;
 for (const file of files) {
   const html = await readFile(resolve(root, file), 'utf8');

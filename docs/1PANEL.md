@@ -1,10 +1,10 @@
-# 用 1Panel 搭建 NodeMail（新手教程）
+# 用 1Panel 搭建 草丛临时邮箱（新手教程）
 
 [返回项目首页](../README.md)
 
 **按顺序完成：上传源码 → 启动程序 → 绑定域名 → 登录后台 → 配置收信。**
 
-适用于全新安装、1Panel v2 和同一台 Linux 服务器。不同版本菜单文字可能略有区别。当前没有 NodeMail 应用商店一键安装包，需要在面板的服务器终端复制几段命令。
+适用于全新安装、1Panel v2 和同一台 Linux 服务器。不同版本菜单文字可能略有区别。当前没有 草丛临时邮箱 应用商店一键安装包，需要在面板的服务器终端复制几段命令。
 
 > 当前仓库仍为私有预览，下载需要仓库访问权限。本文已对照安装代码和 1Panel 官方文档核对，尚未完成真实 1Panel 环境的逐屏安装验收。
 
@@ -48,7 +48,7 @@ node --version
 
 ![上传与解压操作示意](assets/upload.svg)
 
-1. 在电脑浏览器登录 GitHub，打开 [NodeMail 仓库](https://github.com/Aoliao-aoliao/nodemail)。
+1. 在电脑浏览器登录 GitHub，打开 [草丛临时邮箱 仓库](https://github.com/Aoliao-aoliao/nodemail)。
 2. 点击绿色 **Code → Download ZIP**，下载源码压缩包。
 3. 回到 1Panel，打开 **系统 → 文件**（部分版本直接叫“文件”）。
 4. 进入 `/opt`，新建文件夹 `nodemail`，进入后点击 **上传**，选刚下载的 ZIP。
@@ -245,4 +245,4 @@ https://你的域名/admin/
 
 ---
 
-Copyright © 2026 草丛（Aoliao-aoliao） · NodeMail
+Copyright © 2026 草丛（Aoliao-aoliao） · 草丛临时邮箱

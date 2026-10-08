@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="public/assets/brand/nodemail-mark.jpg" width="80" height="80" alt="NodeMail 标志" />
-  <h1>NodeMail</h1>
+  <img src="public/assets/brand/nodemail-mark.jpg" width="80" height="80" alt="草丛临时邮箱 标志" />
+  <h1>草丛临时邮箱</h1>
   <p><strong>把邮箱服务部署在自己的服务器上。</strong></p>
   <p>临时邮箱 · 中继收信 · 会员与积分 · OpenAPI</p>
   <p><a href="#功能一览">功能</a> · <a href="docs-site/README.md">文档站预览</a> · <a href="docs/1PANEL.md">1Panel 图文教程</a> · <a href="docs/DATA-ISOLATION.md">数据隔离</a> · <a href="docs/UPGRADING.md">更新说明</a></p>
@@ -10,7 +10,7 @@
 
 ## 项目介绍
 
-NodeMail 是一个可自行部署的网页邮箱平台。你可以接入自己的域名收取邮件，也可以配置上游邮箱，通过中继别名提供网页收信服务。用户在网页中申请邮箱、查看邮件和附件，管理员在同一套后台管理域名、账号、会员、积分与接入配置。
+草丛临时邮箱 是一个可自行部署的网页邮箱平台。你可以接入自己的域名收取邮件，也可以配置上游邮箱，通过中继别名提供网页收信服务。用户在网页中申请邮箱、查看邮件和附件，管理员在同一套后台管理域名、账号、会员、积分与接入配置。
 
 每个安装环境使用自己的数据库、管理员账户和服务商凭据。更新程序不会把维护者站点的用户、订单或邮件复制到你的站点，也不会把你的业务数据同步给维护者。
 
@@ -32,7 +32,7 @@ NodeMail 是一个可自行部署的网页邮箱平台。你可以接入自己�
 
 ## 文档站
 
-已提供独立中文文档站：章节目录、全文搜索、图文安装、手机端阅读和更新维护说明。当前先在本机预览，尚未公开托管。
+已提供独立中文文档站：章节目录、全文搜索、图文安装、手机端阅读和更新维护说明。在线文档：[草丛临时邮箱文档](https://aoliao-aoliao.github.io/caocong-tempmail-docs/)。文档单独公开，当前应用源码仓库继续私有。
 
 在 `docs-site` 目录执行 `npm ci`、`npm run build`、`npm run preview`，打开终端显示的本机地址。详细操作见 [文档站使用说明](docs-site/README.md)。
 
@@ -64,7 +64,7 @@ NodeMail 是一个可自行部署的网页邮箱平台。你可以接入自己�
 
 | 顺序 | 要做什么 | 完成后得到什么 |
 | --- | --- | --- |
-| ① 下载并构建 | 复制下面第一段命令 | 本机 NodeMail 程序镜像 |
+| ① 下载并构建 | 复制下面第一段命令 | 本机 草丛临时邮箱 程序镜像 |
 | ② 填自己的信息 | 改域名、联系邮箱和 MX，再初始化 | 自己的配置和数据库 |
 | ③ 创建管理员 | 设置登录邮箱与密码，再启动 | 可以运行的网站 |
 | ④ 绑定 HTTPS 域名 | 反向代理到本机 4321 端口 | 浏览器可以打开的登录页 |
@@ -177,6 +177,6 @@ npm audit
 ---
 
 <div align="center">
-  <p><strong>Copyright © 2026 草丛（Aoliao-aoliao） · NodeMail</strong></p>
+  <p><strong>Copyright © 2026 草丛（Aoliao-aoliao） · 草丛临时邮箱</strong></p>
   <p><a href="COPYRIGHT.md">版权与署名</a> · <a href="LICENSE-STATUS.md">许可状态</a></p>
 </div>

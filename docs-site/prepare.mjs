@@ -7,7 +7,7 @@ const root = resolve(here, '..');
 const pages = {
   'docs/INTRODUCTION.md': 'introduction', 'docs/PREPARATION.md': 'preparation',
   'docs/1PANEL.md': 'panel', 'docs/BEGINNER.md': 'linux', 'installer/README.md': 'installation',
-  'docs/ADMIN-GUIDE.md': 'admin', 'docs/MAIL-GUIDE.md': 'mail', 'docs/INTEGRATIONS.md': 'integrations',
+  'docs/ADMIN-GUIDE.md': 'admin', 'docs/MAIL-GUIDE.md': 'mail', 'docs/INTEGRATIONS.md': 'integrations', 'docs/PAYMENTS.md': 'payments',
   'docs/UPGRADING.md': 'upgrading', 'docs/BACKUP.md': 'backup', 'docs/TROUBLESHOOTING.md': 'troubleshooting',
   'docs/DATA-ISOLATION.md': 'data', 'docs/VALIDATION.md': 'validation',
   'COPYRIGHT.md': 'copyright', 'LICENSE-STATUS.md': 'license'

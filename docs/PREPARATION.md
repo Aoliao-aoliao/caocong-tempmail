@@ -31,7 +31,7 @@ df -h /opt
 
 三个名字有不同用途。网页用的 A 记录配好了，并不代表收信需要的 MX 也配好了。
 
-如果这个域名已经在使用企业邮箱，不要覆盖原有 MX。先使用一个专门的子域名做 NodeMail 收信，例如 `inbox.example.com`，相应邮箱就是 `hello@inbox.example.com`。
+如果这个域名已经在使用企业邮箱，不要覆盖原有 MX。先使用一个专门的子域名做 草丛临时邮箱 收信，例如 `inbox.example.com`，相应邮箱就是 `hello@inbox.example.com`。
 
 ## 先决定怎样收信
 

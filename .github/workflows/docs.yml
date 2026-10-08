@@ -1,18 +1,25 @@
 name: Documentation
 on:
   workflow_dispatch:
+  release:
+    types: [published, edited]
   push:
     branches: [main]
-    paths: ['docs-site/**', '.github/workflows/docs.yml']
+    paths: ['docs-site/**', 'release-tools/**', '.github/workflows/docs.yml']
   pull_request:
-    paths: ['docs-site/**', '.github/workflows/docs.yml']
+    paths: ['docs-site/**', 'release-tools/**', '.github/workflows/docs.yml']
 permissions:
   contents: read
 concurrency:
-  group: documentation-${{ github.ref }}
+  group: documentation-production
   cancel-in-progress: false
 jobs:
+  release-check:
+    if: github.event_name == 'release' && !github.event.release.prerelease && !github.event.release.draft
+    uses: ./.github/workflows/verify.yml
   build:
+    needs: release-check
+    if: always() && (github.event_name != 'release' || needs.release-check.result == 'success')
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
@@ -20,12 +27,20 @@ jobs:
         working-directory: docs-site
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event_name == 'release' && 'main' || github.sha }}
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version: '24'
           cache: npm
           cache-dependency-path: docs-site/package-lock.json
       - run: npm ci
+      - name: Read official stable release metadata
+        if: github.event_name != 'pull_request' && github.repository == 'Aoliao-aoliao/caocong-tempmail'
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node release-tools/feed.mjs
       - run: npm run build
       - run: npm test
       - run: npm audit
@@ -34,7 +49,7 @@ jobs:
         with:
           path: docs-site/.vitepress/dist
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.event_name == 'release') && !github.event.repository.private
     needs: build
     runs-on: ubuntu-24.04
     permissions:

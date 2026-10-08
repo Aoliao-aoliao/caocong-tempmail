@@ -1,0 +1,92 @@
+name: Deploy owner website
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs-site/**', '**/*.md']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    uses: ./.github/workflows/verify.yml
+  image:
+    needs: verify
+    if: github.repository == 'Aoliao-aoliao/caocong-tempmail' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build the release image
+        run: |
+          docker build --platform linux/amd64 -t "nodemail:${GITHUB_SHA}" .
+          docker run --rm --entrypoint node "nodemail:${GITHUB_SHA}" --input-type=module -e "await import('./server/relay/poller.mjs'); await import('./server/relay/cleanup.mjs'); await import('./server/member/mutations.mjs');"
+          docker save "nodemail:${GITHUB_SHA}" | gzip > nodemail-image.tar.gz
+          sha256sum nodemail-image.tar.gz > nodemail-image.tar.gz.sha256
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: nodemail-${{ github.sha }}
+          path: |
+            nodemail-image.tar.gz
+            nodemail-image.tar.gz.sha256
+          retention-days: 7
+          if-no-files-found: error
+
+  deploy:
+    needs: image
+    # Absent/false by default. Enable only AFTER the server preparation is confirmed.
+    if: github.ref == 'refs/heads/main' && vars.NODEMAIL_DEPLOY_ENABLED == 'true'
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    concurrency:
+      group: nodemail-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Refuse an obsolete main revision
+        run: |
+          git fetch origin main
+          test "$(git rev-parse origin/main)" = "$GITHUB_SHA"
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nodemail-${{ github.sha }}
+          path: release
+      - name: Verify artifact
+        working-directory: release
+        run: sha256sum -c nodemail-image.tar.gz.sha256
+      - name: Install password authentication helper
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y sshpass
+      - name: Transfer release and deploy only NodeMail
+        env:
+          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
+          SSH_PORT: ${{ secrets.DEPLOY_PORT }}
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          SSHPASS: ${{ secrets.DEPLOY_PASSWORD }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        shell: bash
+        run: |
+          set +x
+          set -euo pipefail
+          [[ "$SSH_HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]
+          test "$SSH_USER" = root
+          [[ "$SSH_PORT" =~ ^[0-9]+$ ]] && (( SSH_PORT >= 1 && SSH_PORT <= 65535 ))
+          test -n "$SSHPASS" && test -n "$SSH_KNOWN_HOSTS"
+          umask 077
+          ssh_dir=$(mktemp -d "$RUNNER_TEMP/nodemail-ssh.XXXXXX")
+          trap 'rm -rf -- "$ssh_dir"' EXIT
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          opts=(-o PreferredAuthentications=password -o PubkeyAuthentication=no
+            -o KbdInteractiveAuthentication=no -o BatchMode=no -o NumberOfPasswordPrompts=1
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$ssh_dir/known_hosts"
+            -o GlobalKnownHostsFile=/dev/null -o UpdateHostKeys=no
+            -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=3)
+          target="$SSH_USER@$SSH_HOST"
+          # Do not create or initialize a production checkout.
+          sshpass -e ssh "${opts[@]}" -p "$SSH_PORT" "$target" "test -f /opt/nodemail/.deploy/READY && mkdir -p /opt/nodemail/.deploy/incoming/$GITHUB_SHA"
+          source scripts/transfer_release.sh
+          transfer_release
+          sshpass -e ssh "${opts[@]}" -p "$SSH_PORT" "$target" "bash /opt/nodemail/.deploy/incoming/$GITHUB_SHA/deploy.sh $GITHUB_SHA"

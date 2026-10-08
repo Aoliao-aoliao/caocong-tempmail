@@ -26,7 +26,7 @@
 ```bash
 git clone https://github.com/Aoliao-aoliao/caocong-tempmail.git
 cd caocong-tempmail
-docker build -t nodemail-local:0.0.1 .
+docker build -t nodemail-local:0.0.2 .
 cd installer
 ```
 
@@ -35,13 +35,13 @@ cd installer
 ## 2. 填写自己的信息
 
 ```bash
-node manage.mjs configure --image nodemail-local:0.0.1 --site https://mail.example.com --public https://mail.example.com --contact admin@example.com --mx mx.example.com
+node manage.mjs configure --image nodemail-local:0.0.2 --site https://mail.example.com --public https://mail.example.com --contact admin@example.com --mx mx.example.com
 node manage.mjs init
 ```
 
 | 参数 | 填什么 |
 | --- | --- |
-| `--image` | 与刚构建的 `nodemail-local:0.0.1` 一致 |
+| `--image` | 与刚构建的 `nodemail-local:0.0.2` 一致 |
 | `--site` | 自己的 HTTPS 网站地址，不带登录路径 |
 | `--public` | 新手填与 `--site` 相同即可 |
 | `--contact` | 自己用于联系用户的邮箱 |

@@ -33,7 +33,7 @@ location / {
 ```bash
 git clone https://github.com/Aoliao-aoliao/caocong-tempmail.git
 cd caocong-tempmail
-docker build -t nodemail-local:0.0.1 .
+docker build -t nodemail-local:0.0.2 .
 cd installer
 ```
 
@@ -44,7 +44,7 @@ cd installer
 在源码的 `installer/` 目录运行以下命令，把示例域名和邮箱换成自己的值。若已按上一节构建，保留该本地镜像标签：
 
 ```sh
-node manage.mjs configure --image nodemail-local:0.0.1 --site https://mail.example.com --public https://www.example.com --contact admin@example.com --mx mx.example.com
+node manage.mjs configure --image nodemail-local:0.0.2 --site https://mail.example.com --public https://www.example.com --contact admin@example.com --mx mx.example.com
 node manage.mjs init
 ```
 

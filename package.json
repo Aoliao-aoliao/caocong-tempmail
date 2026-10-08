@@ -1,6 +1,6 @@
 {
   "name": "nodemail",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "engines": {
@@ -17,7 +17,7 @@
     "astro": "astro",
     "check": "astro check",
     "test:installer": "node --test tests/installer.test.mjs",
-    "test:offline": "node --test tests/installer.test.mjs tests/release-boundary.test.mjs tests/updates.test.mjs"
+    "test:offline": "node --test tests/installer.test.mjs tests/release-boundary.test.mjs tests/updates.test.mjs tests/release-feed.test.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.5",

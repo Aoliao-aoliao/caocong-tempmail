@@ -3,7 +3,7 @@
   <h1>NodeMail</h1>
   <p><strong>把邮箱服务部署在自己的服务器上。</strong></p>
   <p>临时邮箱 · 中继收信 · 会员与积分 · OpenAPI</p>
-  <p><a href="#功能一览">功能</a> · <a href="docs/1PANEL.md">1Panel 搭建教程</a> · <a href="docs/DATA-ISOLATION.md">数据隔离</a> · <a href="docs/UPGRADING.md">更新说明</a></p>
+  <p><a href="#功能一览">功能</a> · <a href="docs-site/README.md">文档站预览</a> · <a href="docs/1PANEL.md">1Panel 图文教程</a> · <a href="docs/DATA-ISOLATION.md">数据隔离</a> · <a href="docs/UPGRADING.md">更新说明</a></p>
 </div>
 
 > **私有发布预览**：这是包含完整前后端源码的独立仓库，供维护者审核项目介绍与安装流程。尚未正式公开发布；开源许可证和首个正式版本待确认。
@@ -29,6 +29,14 @@ NodeMail 是一个可自行部署的网页邮箱平台。你可以接入自己�
 | 页面与语言 | 响应式布局，主要业务界面提供简体中文、繁体中文与英文 |
 
 **功能边界**：Telegram 当前仅绑定账号，不推送邮件或通知，也不能用于登录。支付、中继与 OAuth 不附带可用的公共账号或密钥；各安装者需要完成自己的服务商配置。SMTP 收信不等于提供可任意对外发信的服务。
+
+## 文档站
+
+已提供独立中文文档站：章节目录、全文搜索、图文安装、手机端阅读和更新维护说明。当前先在本机预览，尚未公开托管。
+
+在 `docs-site` 目录执行 `npm ci`、`npm run build`、`npm run preview`，打开终端显示的本机地址。详细操作见 [文档站使用说明](docs-site/README.md)。
+
+不启动文档站，也可以直接阅读 [项目介绍](docs/INTRODUCTION.md)、[1Panel 图文安装](docs/1PANEL.md)、[后台配置](docs/ADMIN-GUIDE.md)、[收信说明](docs/MAIL-GUIDE.md) 和 [问题排查](docs/TROUBLESHOOTING.md)。
 
 ## 怎么搭建？新手从这里开始
 

@@ -1,0 +1,28 @@
+name: Verify documentation site
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'docs-site/**', 'installer/README.md', 'COPYRIGHT.md', 'LICENSE-STATUS.md', '.github/workflows/docs.yml']
+  pull_request:
+    paths: ['docs/**', 'docs-site/**', 'installer/README.md', 'COPYRIGHT.md', 'LICENSE-STATUS.md', '.github/workflows/docs.yml']
+permissions:
+  contents: read
+jobs:
+  docs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: docs-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: docs-site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm audit

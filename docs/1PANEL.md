@@ -46,6 +46,8 @@ node --version
 
 ## 第 2 步：下载并上传源码
 
+![上传与解压操作示意](assets/upload.svg)
+
 1. 在电脑浏览器登录 GitHub，打开 [NodeMail 仓库](https://github.com/Aoliao-aoliao/nodemail)。
 2. 点击绿色 **Code → Download ZIP**，下载源码压缩包。
 3. 回到 1Panel，打开 **系统 → 文件**（部分版本直接叫“文件”）。
@@ -144,6 +146,8 @@ docker inspect --format '{{.HostConfig.NetworkMode}}' 实际容器名
 
 ### 4.3 在 1Panel 创建网站
 
+![反向代理填写示意](assets/proxy.svg)
+
 打开 **网站 → 创建网站 → 反向代理**，按下表填写：
 
 | 页面上的项目 | 怎么填 |
@@ -172,6 +176,8 @@ location / {
 这些设置让程序正确识别你的域名、HTTPS 和访问者 IP。同名请求头在该规则内只保留一条设置，关闭反向代理缓存。保存时如果面板提示配置校验失败，先修正错误再应用，不要重启整个 OpenResty 碰运气。
 
 ### 4.4 开启 HTTPS
+
+![HTTPS 配置顺序示意](assets/https.svg)
 
 在面板 **证书 / SSL 证书** 中为 `mail.example.com` 申请证书，或上传已有的有效证书。申请方式按面板提示完成域名验证；证书必须包含你的网站域名。
 

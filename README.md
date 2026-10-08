@@ -20,7 +20,7 @@
 ```bash
 git clone https://github.com/Aoliao-aoliao/caocong-tempmail.git
 cd caocong-tempmail
-docker build -t nodemail-local:0.0.1 .
+docker build -t nodemail-local:0.0.2 .
 ```
 
 然后按教程生成自己的配置、初始化空数据库、创建管理员并设置 HTTPS。镜像中的 `nodemail` 是内部技术名称，不用自行改名。当前提供源码构建方式，不提供预构建镜像。

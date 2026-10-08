@@ -66,10 +66,10 @@ node --version
 
 ```bash
 cd /opt/nodemail/caocong-tempmail-main
-docker build -t nodemail-local:0.0.1 .
+docker build -t nodemail-local:0.0.2 .
 ```
 
-这一步会下载依赖，需要等待。最后没有 `ERROR`，并完成镜像导出/命名，才继续。`nodemail-local:0.0.1` 是本机程序版本名称，保持原样即可。
+这一步会下载依赖，需要等待。最后没有 `ERROR`，并完成镜像导出/命名，才继续。`nodemail-local:0.0.2` 是本机程序版本名称，保持原样即可。
 
 ### 3.2 填域名，创建自己的数据库
 
@@ -83,7 +83,7 @@ cd /opt/nodemail/caocong-tempmail-main/installer
 
 ```bash
 node manage.mjs configure \
-  --image nodemail-local:0.0.1 \
+  --image nodemail-local:0.0.2 \
   --site https://mail.example.com \
   --public https://mail.example.com \
   --contact admin@example.com \

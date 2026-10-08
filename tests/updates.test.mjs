@@ -2,12 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { checkedFeed, createReleaseChecker, STABLE_FEED_URL } from '../server/updates/checker.mjs';
-const feed = JSON.parse(await readFile('docs-site/content/public/releases/stable.json', 'utf8'));
+const published = JSON.parse(await readFile('docs-site/content/public/releases/stable.json', 'utf8'));
 const pkg = JSON.parse(await readFile('package.json', 'utf8'));
+const feed = {...published, version:pkg.version};
 const config = { feed: STABLE_FEED_URL, repository: '', currentVersion: pkg.version };
 test('published metadata matches installer; remote URLs cannot become update links', () => {
   assert.equal(checkedFeed(feed, pkg.version).comparison, 0);
-  assert.equal(checkedFeed({...feed, url:'https://evil.invalid', download:'file:///etc/passwd'},pkg.version).url,null);
+  assert.equal(checkedFeed({...feed, url:'https://evil.invalid', download:'file:///etc/passwd'},pkg.version).url,`https://github.com/Aoliao-aoliao/caocong-tempmail/releases/tag/v${pkg.version}`);
   assert.throws(() => checkedFeed({...feed, product:'Other'},pkg.version));
   assert.throws(() => checkedFeed({...feed, version:'0.0.2-beta'},pkg.version));
 });

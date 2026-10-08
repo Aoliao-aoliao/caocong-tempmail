@@ -136,6 +136,8 @@ def main():
             print("PASS: image boundary and explicit installation check")
             node_once("""import assert from 'node:assert/strict';
 import {createReleaseChecker,STABLE_FEED_URL} from './server/updates/checker.mjs';
+const {version:installed}=JSON.parse(await (await import('node:fs/promises')).readFile('./package.json','utf8'));
+const parts=installed.split('.').map(Number);parts[2]++;const next=parts.join('.');
 let requests=0;
 const check=createReleaseChecker({fetcher:async(url,options)=>{
   requests++;assert.equal(url,STABLE_FEED_URL);assert.equal(new URL(url).search,'');
@@ -144,9 +146,9 @@ const check=createReleaseChecker({fetcher:async(url,options)=>{
   assert.deepEqual([...headers.keys()].sort(),['accept','cache-control','user-agent']);
   const sent=JSON.stringify({url,headers:[...headers]});
   for(const value of [process.env.GUEST_SESSION_SECRET,process.env.MYSQL_PASSWORD,process.env.TEST_LOGIN_EMAIL])assert(!sent.includes(value),'Update request leaked installation/account data');
-  return new Response(JSON.stringify({schema:1,product:'NodeMail',channel:'stable',version:'0.0.2',publishedAt:'2026-10-08T13:00:00.000Z',notes:'Synthetic update test'}),{headers:{'content-type':'application/json'}});
+  return new Response(JSON.stringify({schema:1,product:'NodeMail',channel:'stable',version:next,publishedAt:'2026-10-08T13:00:00.000Z',notes:'Synthetic update test'}),{headers:{'content-type':'application/json'}});
 }});
-const result=await check({force:true});assert.equal(requests,1);assert.equal(result.currentVersion,'0.0.1');assert.equal(result.status,'available');assert.equal(result.latest.version,'0.0.2');
+const result=await check({force:true});assert.equal(requests,1);assert.equal(result.currentVersion,installed);assert.equal(result.status,'available');assert.equal(result.latest.version,next);
 """)
             print("PASS: actual image detects a mocked official update without sending secrets or account data")
             node_once("""import assert from 'node:assert/strict';import {createHash} from 'node:crypto';

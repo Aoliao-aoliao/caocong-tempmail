@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -42,14 +43,20 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - name: Validate formal release version
+        if: github.event_name == 'release'
+        run: node release-tools/validate-tag.mjs
       - run: npm ci
       - run: npm run check
       - run: npm run test:offline
+      - run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - run: bash -n scripts/deploy.sh scripts/transfer_release.sh
       - run: npm run build
       - run: npm audit
       - name: Fresh installation in disposable local MySQL
         run: node --test tests/installation.test.mjs
       - name: Build complete-source image
         run: docker build -t "nodemail-distribution-ci:${GITHUB_SHA}" .
+      - run: python3 tests/snapshot-rollback-docker.py "nodemail-distribution-ci:${GITHUB_SHA}"
       - name: Login, authorization and data-preserving image replacement
         run: python3 tests/container.py "nodemail-distribution-ci:${GITHUB_SHA}"

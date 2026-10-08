@@ -15,7 +15,7 @@ export function checkedFeed(data, currentVersion) {
     version: data.version, comparison: compareStableRelease(data.version, currentVersion),
     publishedAt: data.publishedAt, notes: data.notes.slice(0, 8000),
     // No remote-supplied URLs, downloads, commands or HTML are accepted.
-    url: null,
+    url: `https://github.com/Aoliao-aoliao/caocong-tempmail/releases/tag/v${data.version.replace(/^v/, '')}`,
   };
 }
 

@@ -10,6 +10,6 @@ export const site = {
   appOrigin: env.NODEMAIL_SITE_ORIGIN || defaults.siteOrigin,
   appPath: (env.NODEMAIL_SITE_ORIGIN || defaults.siteOrigin) + '/tools/mail.cgi',
   contactEmail: env.NODEMAIL_CONTACT_EMAIL || defaults.contactEmail,
-  emailDomain: defaults.emailDomain,
-  inboxDomains: [defaults.emailDomain],
+  emailDomain: env.NODEMAIL_EMAIL_DOMAIN || defaults.emailDomain,
+  inboxDomains: [env.NODEMAIL_EMAIL_DOMAIN || defaults.emailDomain],
 } as const;

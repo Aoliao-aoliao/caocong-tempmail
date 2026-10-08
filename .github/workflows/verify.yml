@@ -1,4 +1,4 @@
-name: Verify private source preview
+name: Verify application
 
 on:
   push:
@@ -44,8 +44,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
-      - run: npm run test:installer
-      - run: node --test tests/release-boundary.test.mjs
+      - run: npm run test:offline
       - run: npm run build
       - run: npm audit
       - name: Fresh installation in disposable local MySQL

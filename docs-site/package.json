@@ -1,16 +1,16 @@
 {
-  "name": "nodemail-docs",
+  "name": "caocong-tempmail-docs",
   "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "prepare:pages": "node prepare.mjs",
-    "dev": "node prepare.mjs && vitepress dev --host 127.0.0.1",
-    "build": "node prepare.mjs && vitepress build",
+    "dev": "vitepress dev --host 127.0.0.1",
+    "build": "vitepress build",
     "preview": "vitepress preview --host 127.0.0.1",
     "test": "node verify.mjs"
   },
   "devDependencies": {
     "vitepress": "2.0.0-alpha.20"
-  }
+  },
+  "license": "AGPL-3.0-only"
 }

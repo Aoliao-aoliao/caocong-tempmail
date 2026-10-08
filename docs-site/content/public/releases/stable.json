@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "product": "NodeMail",
+  "channel": "stable",
+  "version": "0.0.1",
+  "publishedAt": "2026-10-09T00:00:00.000Z",
+  "notes": "草丛临时邮箱首个公开源码版本。包含独立安装工具、完整前后端及中文文档。升级工具仅支持数据库结构不变的版本。"
+}

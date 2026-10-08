@@ -1,6 +1,6 @@
 # 验证范围
 
-此预览的工作流只做检查，不部署站点、不发布镜像、不连接生产环境。
+应用 CI 只做检查，不连接生产环境或发布镜像。文档工作流仅发布静态文档站。
 
 - Astro 类型诊断、生产构建、安装工具离线回归和依赖审计。
 - 独立 MySQL 8 服务，仅通过 `127.0.0.1` 使用 `nodemail_ci` 测试库，并要求 `NODEMAIL_ISOLATED_TESTS=1` 与 `NODEMAIL_DISTRIBUTION_FRESH_TEST=1`。

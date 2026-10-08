@@ -1,18 +1,18 @@
 # 用 1Panel 搭建 草丛临时邮箱（新手教程）
 
-[返回项目首页](../README.md)
+[返回项目首页](/)
 
 **按顺序完成：上传源码 → 启动程序 → 绑定域名 → 登录后台 → 配置收信。**
 
 适用于全新安装、1Panel v2 和同一台 Linux 服务器。不同版本菜单文字可能略有区别。当前没有 草丛临时邮箱 应用商店一键安装包，需要在面板的服务器终端复制几段命令。
 
-> 当前仓库仍为私有预览，下载需要仓库访问权限。本文已对照安装代码和 1Panel 官方文档核对，尚未完成真实 1Panel 环境的逐屏安装验收。
+> 源码仓库公开，可直接下载。本文已对照安装代码和 1Panel 官方文档核对，尚未完成真实 1Panel 环境的逐屏安装验收。
 
 ## 先准备好
 
 - 一台已安装 1Panel 的 Linux 服务器，能在面板终端以 root 或具备 Docker 权限的用户操作。
 - 一个自己的域名，例如 `example.com`，能修改它的 DNS 解析。
-- 本仓库的访问权限。没有权限时 GitHub 显示 404，不是服务器故障。
+- 能访问公开源码仓库并下载 ZIP，无需商户资料或站点管理员密码。
 
 本文的示例请统一替换：
 
@@ -46,15 +46,15 @@ node --version
 
 ## 第 2 步：下载并上传源码
 
-![上传与解压操作示意](assets/upload.svg)
+![上传与解压操作示意](/illustrations/upload.svg)
 
-1. 在电脑浏览器登录 GitHub，打开 [草丛临时邮箱 仓库](https://github.com/Aoliao-aoliao/nodemail)。
+1. 在电脑浏览器登录 GitHub，打开 [草丛临时邮箱 仓库](https://github.com/Aoliao-aoliao/caocong-tempmail)。
 2. 点击绿色 **Code → Download ZIP**，下载源码压缩包。
 3. 回到 1Panel，打开 **系统 → 文件**（部分版本直接叫“文件”）。
 4. 进入 `/opt`，新建文件夹 `nodemail`，进入后点击 **上传**，选刚下载的 ZIP。
 5. 上传完成，选中 ZIP，点击 **解压**，解压到当前目录。
 
-下载 main 分支时，通常会得到 `/opt/nodemail/nodemail-main`。点进去，应能看到 `Dockerfile`、`package.json`、`installer`、`server`。如果多套了一层文件夹，以下命令的路径应改为真正含有 `Dockerfile` 的那层。
+下载 main 分支时，通常会得到 `/opt/nodemail/caocong-tempmail-main`。点进去，应能看到 `Dockerfile`、`package.json`、`installer`、`server`。如果多套了一层文件夹，以下命令的路径应改为真正含有 `Dockerfile` 的那层。
 
 不要把源码上传到公开网站目录，也不要覆盖旧站目录。
 
@@ -65,7 +65,7 @@ node --version
 ### 3.1 构建程序
 
 ```bash
-cd /opt/nodemail/nodemail-main
+cd /opt/nodemail/caocong-tempmail-main
 docker build -t nodemail-local:0.0.1 .
 ```
 
@@ -76,7 +76,7 @@ docker build -t nodemail-local:0.0.1 .
 先进入安装目录：
 
 ```bash
-cd /opt/nodemail/nodemail-main/installer
+cd /opt/nodemail/caocong-tempmail-main/installer
 ```
 
 把下面的域名和邮箱换成自己的，再复制整段执行。每行末尾的 `\` 表示命令尚未结束，末尾不要加空格。
@@ -146,7 +146,7 @@ docker inspect --format '{{.HostConfig.NetworkMode}}' 实际容器名
 
 ### 4.3 在 1Panel 创建网站
 
-![反向代理填写示意](assets/proxy.svg)
+![反向代理填写示意](/illustrations/proxy.svg)
 
 打开 **网站 → 创建网站 → 反向代理**，按下表填写：
 
@@ -177,7 +177,7 @@ location / {
 
 ### 4.4 开启 HTTPS
 
-![HTTPS 配置顺序示意](assets/https.svg)
+![HTTPS 配置顺序示意](/illustrations/https.svg)
 
 在面板 **证书 / SSL 证书** 中为 `mail.example.com` 申请证书，或上传已有的有效证书。申请方式按面板提示完成域名验证；证书必须包含你的网站域名。
 
@@ -215,7 +215,7 @@ https://你的域名/admin/
 
 | 看到的现象 | 先检查什么 |
 | --- | --- |
-| GitHub 404 / 无法下载 | 当前仓库私有，登录有访问权限的 GitHub 账号 |
+| GitHub 404 / 无法下载 | 核对是否访问 caocong-tempmail 仓库，以及 GitHub 网络连接 |
 | `node: command not found` | 在服务器主机安装 Node.js，不是只安装容器内运行环境 |
 | 找不到 Dockerfile / manage.mjs | 当前目录不对，按第 2 步确认解压路径 |
 | 25 端口被占用 | 检查服务器原有邮件服务；不要直接停止其他项目 |
@@ -230,7 +230,7 @@ https://你的域名/admin/
 
 ## 以后更新、备份怎么办？
 
-后台“检查更新”只提醒有新版本，不会自动改动程序。按 [更新教程](UPGRADING.md) 操作，**不要重新执行 `init`，也不要用新 ZIP 覆盖正在使用的安装目录**。
+后台“检查更新”只提醒有新版本，不会自动改动程序。按 [更新教程](/upgrading.html) 操作，**不要重新执行 `init`，也不要用新 ZIP 覆盖正在使用的安装目录**。
 
 需要保留：`installer/.env`、`.active-image`（如有）、自己的数据库、附件数据卷，以及使用中的 TLS 文件。1Panel 的网站目录备份不等于已经备份 Docker 数据卷。不要勾选“删除数据卷”来重建服务。
 
@@ -241,7 +241,7 @@ https://你的域名/admin/
 - [1Panel：创建反向代理网站](https://1panel.pro/docs/v2/user_manual/websites/website_create/)
 - [1Panel：代理设置与 HTTPS](https://1panel.pro/docs/v2/user_manual/websites/website_config_basic/)
 - [1Panel 维护者对 OpenResty host 网络的说明](https://github.com/1Panel-dev/1Panel/discussions/6115)；实际安装仍以容器详情为准。
-- [本项目安装与隔离测试范围](VALIDATION.md)。本教程不代表已完成真实面板部署测试。
+- [本项目安装与隔离测试范围](/validation.html)。本教程不代表已完成真实面板部署测试。
 
 ---
 

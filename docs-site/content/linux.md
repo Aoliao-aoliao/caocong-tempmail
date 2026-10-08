@@ -1,6 +1,6 @@
 # 第一次搭建 草丛临时邮箱
 
-> 使用 1Panel 面板？优先看 [按页面操作的搭建教程](1PANEL.md)，包含填写示例与常见问题。
+> 使用 1Panel 面板？优先看 [按页面操作的搭建教程](/panel.html)，包含填写示例与常见问题。
 
 这份教程只用于一套全新的环境。你安装的是自己的网站，所有账户和数据由自己的服务器保存。
 
@@ -24,13 +24,13 @@
 ## 1. 下载源码并构建
 
 ```bash
-git clone https://github.com/Aoliao-aoliao/nodemail.git
-cd nodemail
+git clone https://github.com/Aoliao-aoliao/caocong-tempmail.git
+cd caocong-tempmail
 docker build -t nodemail-local:0.0.1 .
 cd installer
 ```
 
-私有预览需要仓库访问权限，不能匿名克隆；正式公开后才可公开下载。不要把 GitHub token 写进克隆网址或截图。第一次构建会下载基础镜像和依赖，耗时取决于网络和服务器。
+公开仓库可以匿名克隆，不需要填写 GitHub token。第一次构建会下载基础镜像和依赖，耗时取决于网络和服务器。
 
 ## 2. 填写自己的信息
 
@@ -87,7 +87,7 @@ location / {
 }
 ```
 
-这是站点内部的代理规则，不是完整 Nginx 配置；证书和站点名称由自己的网站配置提供。域名必须与第 2 步一致。使用 Cloudflare 时先配置可信代理范围，详见 [完整部署指南](../installer/README.md)。
+这是站点内部的代理规则，不是完整 Nginx 配置；证书和站点名称由自己的网站配置提供。域名必须与第 2 步一致。使用 Cloudflare 时先配置可信代理范围，详见 [完整部署指南](/installation.html)。
 
 浏览器打开：
 
@@ -127,7 +127,7 @@ location / {
 
 | 现象 | 先检查什么 |
 | --- | --- |
-| GitHub 提示没有权限 | 当前是私有预览，登录有仓库权限的账户 |
+| GitHub 无法下载 | 核对仓库地址及本机访问 GitHub 的网络 |
 | `node: command not found` | 尚未安装 Node.js，或 SSH 环境找不到它 |
 | Docker 无法连接 | Docker 服务是否运行、当前用户是否有权限 |
 | `.env already exists` | 已生成配置，不要反复 configure；保留原文件，核对后续步骤 |
@@ -136,7 +136,7 @@ location / {
 | 页面返回 421 | 请求域名是否与配置一致；代理是否覆盖 Host 和 X-Forwarded-Host |
 | 网页正常但收不到邮件 | MX、入站 TCP 25、后台域名状态或中继连接状态 |
 | 多个用户一起被限流 | 检查代理是否正确覆盖 X-Real-IP |
-| 忘记更新方法 | 看 [更新与恢复](UPGRADING.md)，不要重新初始化 |
+| 忘记更新方法 | 看 [更新与恢复](/upgrading.html)，不要重新初始化 |
 
 提供错误信息前去除敏感内容，不要分享 `.env`、私钥或真实邮件。
 

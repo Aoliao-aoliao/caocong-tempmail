@@ -1,68 +1,16 @@
-# 草丛临时邮箱文档站
+# 文档维护
 
-独立的静态文档网站。包含中文搜索、左侧章节目录、右侧本页目录、上一篇/下一篇、代码复制、深浅色和移动端菜单。文档站不连接数据库，也不调用邮件、支付或登录 API。
-
-## 在线文档与项目区分
-
-文档地址：https://aoliao-aoliao.github.io/caocong-tempmail-docs/
-
-文档仓库：https://github.com/Aoliao-aoliao/caocong-tempmail-docs
-
-演示站：https://nodemail.513399.xyz/
-
-英文项目名为 Caocong TempMail；与另一个草丛 Mail 项目及其 `nodemail-docs` 仓库分开维护。公开仓库只保存明确挑选的文档、图示及构建文件，不含应用源码、数据库或生产配置。
-
-公开文档在独立仓库的 `content/` 修改，提交 main 后自动发布。此目录用于应用仓库内的预览；两边没有自动同步任务，后续同步应审阅文档差异，不能整仓复制。
-
-## 本地查看
-
-在本目录执行，使用 Node.js 22.12+：
+源码、安装工具、文档统一在 caocong-tempmail 仓库维护。正文只编辑 `content/`，不再生成或同步另一份 Markdown。导航在 `.vitepress/config.mjs`，图片在 `content/public/`。
 
 ```bash
 npm ci
 npm run build
+npm test
 npm run preview -- --port 4178
 ```
 
-用这台电脑的浏览器打开 `http://127.0.0.1:4178/`。这里是本机预览地址，其他设备（包括手机）不能用这个地址打开。预览服务仅监听本机，不会自动公开。
+预览地址是 http://127.0.0.1:4178/caocong-tempmail/ ，仅本机可访问。线上文档是 https://aoliao-aoliao.github.io/caocong-tempmail/ 。演示站 https://nodemail.513399.xyz/ 。
 
-修改内容时可用 `npm run dev`。命令运行后显示实际访问地址。
+推送文档修改后，Pages 工作流会构建、检查并发布静态页面。它不连接邮箱数据库，不部署邮箱服务。更新公告在 `content/public/releases/stable.json`，只在实际发行版本时更新；保持内部 product 字段 NodeMail 与代码兼容。
 
-## 改文章到哪里改？
-
-正文继续放在仓库 `docs/`，完整安装参数来自 `installer/README.md`，版权信息来自根目录版权文件。`prepare.mjs` 中的明确清单决定哪些文件进入站点，不扫描整个仓库。`content/` 是自动生成目录，不手工编辑、不提交。
-
-首页文案在 `home.md`，导航在 `.vitepress/config.mjs`，样式在 `.vitepress/theme/style.css`。图示在 `docs/assets/`，不包含服务密码或实际用户数据。操作示意图已标注为非面板截图。
-
-新增文章时在 `prepare.mjs` 和导航清单各增加一项。使用相对 Markdown 链接连接原文，构建脚本会转换为网页地址。找不到映射的本地链接会让构建失败，不会悄悄指向不存在的页面。
-
-## 构建与检查
-
-```bash
-npm run build
-npm run test
-npm audit
-```
-
-本项目使用锁定版本的 VitePress 2.0.0-alpha.20（预发布版）。初次评估的 1.6.4 会引入已报告漏洞的旧构建依赖，因此当前选择经本次构建和浏览器验收的版本；以后升级需重新验证导航、搜索及移动端。文档依赖单独锁定，不影响邮箱应用依赖。
-
-## 以后怎么部署文档站？
-
-构建结果在 `.vitepress/dist/`。正式确认公开后，可把这个目录的**内容**放进独立静态网站的根目录，例如 1Panel 新建的静态站；不需要 Node 进程或 MySQL。
-
-不要上传仓库根目录、源码、`.env` 或 `node_modules` 作为公开网站。当前使用 `.html` 路由，服务器直接访问文件即可，不要求 SPA 路由回退。本配置针对独立域名根路径，放子目录前需要设置 VitePress 的 `base` 并重新构建。
-
-应用仓库内没有文档自动发布任务；独立公开文档仓库已配置 GitHub Pages 自动发布。预览设置了 `noindex`，它只是告诉搜索引擎不要索引，并不是访问控制；需要给他人私下验收时，必须使用带认证的托管方式。
-
-## 本次验收（2026-10-09）
-
-- 16 页正文及 404 页面构建成功，495 个站内资源引用检查通过。
-- Edge 无头浏览器检查 375、390、768、1440 像素宽度下的首页和关键文档页，无整页横向溢出，图片均加载成功。
-- 实际点击移动端目录，验证跳转；搜索“收信”和“502”有结果；本页目录锚点检查通过，没有浏览器脚本错误。
-- `npm audit`：0 个已知漏洞。未连接生产环境，未进行 1Panel 实机安装或真实邮件/支付测试。
-
-Copyright © 2026 草丛（Aoliao-aoliao） · 草丛临时邮箱
-
-## 公开文档更新（2026-10-09）
-
-公开仓库提交 `5b40912` 已重排首页、加入 GitHub 图标，并添加 `payment-nodeloc.md`、`payment-usdt.md` 两篇详细对接教程。演示站以 `https://nodemail.513399.xyz/` 为准。本站预览内容不能直接覆盖公开文档仓库；继续维护时先读取公开仓库最新版本。
+文档框架锁定 VitePress 2.0.0-alpha.20，升级它后需重新核对搜索、导航和移动端。当前支持独立 GitHub Pages 项目路径。

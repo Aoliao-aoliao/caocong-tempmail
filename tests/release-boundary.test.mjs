@@ -13,7 +13,7 @@ test('tracked release excludes private installation state and operational histor
     assert(!/(^|\/)\.env(?:\.|$)/.test(path)||path==='installer/.env.example',path);
     if(!/\.(?:mjs|js|ts|tsx|astro|json|md|yml|sql|example)$/.test(path)||path==='tests/release-boundary.test.mjs')continue;
     let text=await readFile(path,'utf8');
-    if(['server/updates/checker.mjs','server/updates/release-config.mjs'].includes(path))text=text.replaceAll('https://app.513399.xyz/releases/stable.json','PUBLIC_UPDATE_METADATA');
+    if(['server/updates/checker.mjs','server/updates/release-config.mjs'].includes(path))text=text.replaceAll('https://aoliao-aoliao.github.io/caocong-tempmail/releases/stable.json','PUBLIC_UPDATE_METADATA');
     const forbiddenMarkers=JSON.parse(process.env.NODEMAIL_RELEASE_FORBIDDEN_MARKERS||'[]');
     for(const marker of forbiddenMarkers)assert(!text.includes(marker),`Private site reference: ${path}`);
     assert(!/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(text),`Private key material: ${path}`);

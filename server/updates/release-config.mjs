@@ -5,5 +5,5 @@ import packageInfo from '../../package.json' with { type: 'json' };
 export const releaseConfig = Object.freeze({
   currentVersion: packageInfo.version,
   repository: '',
-  feed: 'https://app.513399.xyz/releases/stable.json',
+  feed: 'https://aoliao-aoliao.github.io/caocong-tempmail/releases/stable.json',
 });

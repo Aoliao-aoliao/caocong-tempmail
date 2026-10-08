@@ -4,7 +4,7 @@ import { releaseConfig } from './release-config.mjs';
 const SUCCESS_TTL = 6 * 60 * 60 * 1000;
 const ERROR_TTL = 15 * 60 * 1000;
 const MANUAL_COOLDOWN = 60 * 1000;
-export const STABLE_FEED_URL = 'https://app.513399.xyz/releases/stable.json';
+export const STABLE_FEED_URL = 'https://aoliao-aoliao.github.io/caocong-tempmail/releases/stable.json';
 
 export function checkedFeed(data, currentVersion) {
   if (!data || data.schema !== 1 || data.product !== 'NodeMail' || data.channel !== 'stable'

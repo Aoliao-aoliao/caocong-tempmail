@@ -16,7 +16,8 @@
     "setup:admin": "node distribution/runtime/bootstrap.mjs",
     "astro": "astro",
     "check": "astro check",
-    "test:installer": "node --test tests/installer.test.mjs"
+    "test:installer": "node --test tests/installer.test.mjs",
+    "test:offline": "node --test tests/installer.test.mjs tests/release-boundary.test.mjs tests/updates.test.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.5",
@@ -48,9 +49,10 @@
     "name": "草丛（Aoliao-aoliao）",
     "url": "https://github.com/Aoliao-aoliao"
   },
-  "description": "NodeMail：可自行部署的临时邮箱与中继收信平台",
+  "description": "草丛临时邮箱（Caocong TempMail）：可自行部署的临时邮箱与中继收信平台",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aoliao-aoliao/nodemail.git"
-  }
+    "url": "https://github.com/Aoliao-aoliao/caocong-tempmail.git"
+  },
+  "license": "AGPL-3.0-only"
 }

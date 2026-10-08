@@ -1,0 +1,4 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro'; import AdminConsole from '../../components/AdminConsole'; import { getAdminData } from '../../../server/admin/read-model.mjs'; const data = await getAdminData();
+---
+<AdminLayout title="邮件管理 | NodeMail 管理后台" active="messages"><AdminConsole view="messages" data={data} client:load /></AdminLayout>

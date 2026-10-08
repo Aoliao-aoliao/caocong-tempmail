@@ -1,0 +1,15 @@
+---
+import { site } from '../../../config/site';
+import Layout from '../../../layouts/Layout.astro';
+import IdentityGenerator from '../../../components/IdentityGenerator';
+import type { CountryCode } from '../../../lib/random';
+const countries = { us: ['United States', 'The US uses five-digit ZIP codes and two-letter state abbreviations.'], uk: ['United Kingdom', 'UK postcodes combine letters and digits in outward and inward sections.'], ca: ['Canada', 'Canadian postal codes alternate letters and digits across six characters.'], au: ['Australia', 'Australia uses four-digit postcodes and state abbreviations.'], de: ['Germany', 'Germany uses five-digit postcodes and a distinct street-number order.'], jp: ['Japan', 'Japanese addresses use prefecture and municipality levels with a seven-digit postcode.'], sg: ['Singapore', 'Singapore uses six-digit postal codes for buildings and delivery points.'], hk: ['Hong Kong', 'Hong Kong addresses use district and street structure without a postcode.'] } as const;
+const country = Astro.params.country as CountryCode;
+if (!country || !(country in countries)) return new Response('Page not found.', { status: 404 });
+const [countryName, rule] = countries[country];
+---
+<Layout locale="en" title={`${countryName} address generator · NodeMail`}>
+  <section class="generator-hero"><div class="shell generator-hero-grid"><div data-reveal><p class="eyebrow">ADDRESS GENERATOR</p><h1>{countryName} address generator</h1><p>Generate a coherent name, address, phone number and anonymous email in a common {countryName} format.</p><div class="hero-actions"><a class="btn btn-primary" href={site.appPath}>Get an anonymous inbox</a><a class="btn btn-secondary" href="/en/identity/">How generation works</a></div></div><div data-reveal><IdentityGenerator country={country} locale="en" client:load /></div></div></section>
+  <section class="section section-soft"><div class="shell generator-rule-grid"><article data-reveal><h2>{countryName} postal format</h2><p>{rule}</p></article><article data-reveal><h2>How the address is ordered</h2><p>The result keeps house number, street, city, administrative area and postal code in a locally familiar order, with matching phone grouping.</p></article></div></section>
+  <section class="section"><div class="shell section-heading" data-reveal><p class="eyebrow">COMMON ERRORS</p><h2>Details most often entered incorrectly</h2><p>Country codes, regional abbreviations, postal spacing and field order vary. Copying the complete set prevents individual edits from contradicting one another.</p></div></section>
+</Layout>

@@ -1,0 +1,205 @@
+---
+import {requestLocale,translator} from '../../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import AuthLayout from '../../layouts/AuthLayout.astro';
+import NodelocLogin from '../../components/NodelocLogin';
+import {nodelocOAuth} from '../../../server/auth/nodeloc-oauth.mjs';
+import { site } from '../../config/site';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+import { getResolvedTurnstilePublicConfig } from '../../../server/security/turnstile.mjs';
+
+if (await getSessionUser(Astro.cookies.get(sessionCookieName)?.value)) {
+  return Astro.redirect('/user/center.cgi');
+}
+const turnstile = await getResolvedTurnstilePublicConfig();
+const nodeloc=await nodelocOAuth.config();
+---
+<AuthLayout title={`注册 | ${site.name}`}>
+  <a slot="top-action" class="auth-top-action" href="/user/login.cgi">{t("登录")}</a>
+  <section class="auth-story" aria-labelledby="register-story-title">
+    <p class="auth-story-label">{t("创建您的访问空间")}</p>
+    <h1 id="register-story-title">{t("从一个账户开始建立邮件边界")}</h1>
+    <p class="auth-story-copy">{t("只需账户邮箱与登录密码，即可开启专属邮箱服务，建立清晰、可持续的邮件边界。")}</p>
+    <ul class="auth-trust-list"><li><strong>{t("极简注册")}</strong><small>{t("简化步骤，快速开启专属服务")}</small></li><li><strong>{t("安全守护")}</strong><small>{t("多重保护降低异常使用风险")}</small></li><li><strong>{t("统一管理")}</strong><small>{t("集中管理邮箱和邮件记录")}</small></li></ul>
+  </section>
+  <section class="auth-card" aria-labelledby="register-title">
+    <h2 id="register-title">{t("创建账户")}</h2>
+    <p class="auth-card-copy">{t("只需账户邮箱和登录密码，即可开始使用。")}</p>
+    <form class="auth-form" data-auth-form="register" novalidate>
+      <label for="register-email">{t("账户邮箱")}</label>
+      <input id="register-email" name="email" type="email" autocomplete="username" maxlength="254" placeholder="name@example.com" required />
+      <label for="register-password">{t("密码")}</label>
+      <div class="auth-password-field">
+        <input id="register-password" name="password" type="password" minlength="8" maxlength="255" autocomplete="new-password" placeholder={t("至少 8 个字符")} required />
+        <button type="button" class="auth-password-toggle" data-password-toggle aria-label={t("显示密码")} aria-pressed="false"><span>{t("显示")}</span></button>
+      </div>
+      <p class="auth-form-message" data-form-message role="status" hidden></p>
+      <button class="auth-submit" type="submit">{t("创建")}{site.name}{t("账户")}</button>
+    </form>
+    {nodeloc.enabled&&nodeloc.secretConfigured&&nodeloc.origin===Astro.url.origin&&<NodelocLogin client:load />}
+    <p class="auth-card-footnote">{t("注册即表示你同意合理使用服务并保护账户安全。")}</p>
+    <p class="auth-card-footnote">{t("已有账户？")}<a href="/user/login.cgi">{t("直接登录")}</a></p>
+  </section>
+  <dialog class="auth-captcha-dialog" data-captcha-dialog>
+    <form method="dialog" class="auth-captcha-card">
+      <button class="auth-dialog-close" value="cancel" aria-label={t("关闭")}>×</button>
+      <p class="auth-card-label">{t("人机验证")}</p>
+      <h2>{t("完成验证后注册")}</h2>
+      <p>{t("请确认本次注册由你本人操作。")}</p>
+      <div class="auth-turnstile-shell"><div data-register-turnstile data-sitekey={turnstile.siteKey} data-configured={turnstile.configured ? 'true' : 'false'}></div></div>
+      <p class="auth-form-message is-error" data-captcha-message role="status" hidden>{t("请先完成人机验证。")}</p>
+      <div class="auth-dialog-actions"><button value="cancel">{t("取消")}</button><button type="button" data-captcha-confirm>{t("继续注册")}</button></div>
+    </form>
+  </dialog>
+</AuthLayout>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+<script is:inline>
+  (function () {
+    var form = document.querySelector('[data-auth-form="register"]');
+    var toggle = document.querySelector('[data-password-toggle]');
+    var password = document.querySelector('#register-password');
+    var dialog = document.querySelector('[data-captcha-dialog]');
+    var confirm = document.querySelector('[data-captcha-confirm]');
+    var turnstileContainer = document.querySelector('[data-register-turnstile]');
+    var captchaMessage = document.querySelector('[data-captcha-message]');
+    var pending = null;
+    var turnstileToken = '';
+    var turnstileWidgetId = null;
+    var turnstileWidgetSize = '';
+    var turnstileWidgetState = null;
+    var turnstilePollTimer = null;
+    var turnstileGeneration = 0;
+    function clearTurnstileToken() {
+      turnstileToken = '';
+      confirm.disabled = true;
+    }
+    function stopTurnstilePolling() {
+      turnstileGeneration += 1;
+      if (turnstilePollTimer !== null) {
+        window.clearTimeout(turnstilePollTimer);
+        turnstilePollTimer = null;
+      }
+    }
+    function setCaptchaError(text) {
+      clearTurnstileToken();
+      captchaMessage.textContent = text;
+      captchaMessage.hidden = false;
+    }
+    function getTurnstileSize() {
+      var shell = turnstileContainer?.parentElement;
+      var width = shell?.getBoundingClientRect().width || shell?.clientWidth || turnstileContainer?.getBoundingClientRect().width || turnstileContainer?.clientWidth || 0;
+      return width > 0 && width < 300 ? 'compact' : 'normal';
+    }
+    function renderOrResetTurnstile(generation, size, attempt) {
+      if (generation !== turnstileGeneration || !dialog.open) return;
+      var sitekey = turnstileContainer?.getAttribute('data-sitekey') || '';
+      var configured = turnstileContainer?.getAttribute('data-configured') === 'true';
+      if (!configured || !sitekey) { setCaptchaError(window.NodeMailI18n.t("人机验证尚未配置，请联系管理员。")); return; }
+      if (!window.turnstile) {
+        if (attempt < 99) {
+          turnstilePollTimer = window.setTimeout(function () {
+            turnstilePollTimer = null;
+            renderOrResetTurnstile(generation, size, attempt + 1);
+          }, 100);
+        } else setCaptchaError(window.NodeMailI18n.t("人机验证加载失败，请刷新页面后重试。"));
+        return;
+      }
+      try {
+        if (turnstileWidgetId !== null) {
+          if (turnstileWidgetSize === size && turnstileWidgetState) {
+            turnstileWidgetState.generation = generation;
+            window.turnstile.reset(turnstileWidgetId);
+            return;
+          }
+          turnstileWidgetState = null;
+          window.turnstile.remove(turnstileWidgetId);
+          turnstileWidgetId = null;
+          turnstileWidgetSize = '';
+        }
+        var widgetState = { generation: generation };
+        turnstileWidgetState = widgetState;
+        turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+          sitekey: sitekey,
+          action: 'register',
+          theme: 'light',
+          size: size,
+          language: 'zh-cn',
+          callback: function (token) {
+            if (turnstileWidgetState !== widgetState || widgetState.generation !== turnstileGeneration || !dialog.open) return;
+            turnstileToken = token;
+            captchaMessage.hidden = true;
+            confirm.disabled = false;
+          },
+          'expired-callback': function () {
+            if (turnstileWidgetState === widgetState && widgetState.generation === turnstileGeneration && dialog.open) setCaptchaError(window.NodeMailI18n.t("验证已过期，请重新完成验证。"));
+          },
+          'error-callback': function () {
+            if (turnstileWidgetState === widgetState && widgetState.generation === turnstileGeneration && dialog.open) setCaptchaError(window.NodeMailI18n.t("人机验证暂时不可用，请稍后重试。"));
+          }
+        });
+        turnstileWidgetSize = size;
+      } catch {
+        turnstileWidgetState = null;
+        turnstileWidgetId = null;
+        turnstileWidgetSize = '';
+        setCaptchaError(window.NodeMailI18n.t("人机验证暂时不可用，请稍后重试。"));
+      }
+    }
+    function startTurnstile() {
+      stopTurnstilePolling();
+      var generation = turnstileGeneration;
+      renderOrResetTurnstile(generation, getTurnstileSize(), 0);
+    }
+    toggle?.addEventListener('click', function () {
+      var show = password?.getAttribute('type') === 'password';
+      password?.setAttribute('type', show ? 'text' : 'password');
+      var toggleLabel = toggle.querySelector('span');
+      if (toggleLabel) toggleLabel.textContent = show ? window.NodeMailI18n.t("隐藏") : window.NodeMailI18n.t("显示");
+      toggle.setAttribute('aria-pressed', String(show));
+      toggle.setAttribute('aria-label', show ? window.NodeMailI18n.t("隐藏密码") : window.NodeMailI18n.t("显示密码"));
+    });
+    form?.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var data = new FormData(form);
+      var email = String(data.get('email') || '').trim();
+      var pass = String(data.get('password') || '');
+      var message = form.querySelector('[data-form-message]');
+      if (!/^\S+@\S+\.\S+$/.test(email)) { message.textContent = window.NodeMailI18n.t("请输入有效的账户邮箱。"); message.className = 'auth-form-message is-error'; message.hidden = false; return; }
+      if (pass.length < 8) { message.textContent = window.NodeMailI18n.t("密码长度至少为 8 个字符。"); message.className = 'auth-form-message is-error'; message.hidden = false; return; }
+      message.hidden = true;
+      pending = { email: email, password: pass };
+      clearTurnstileToken(); captchaMessage.hidden = true;
+      dialog.showModal();
+      startTurnstile();
+    });
+    confirm?.addEventListener('click', async function () {
+      if (!turnstileToken) { captchaMessage.textContent = window.NodeMailI18n.t("请先完成人机验证。"); captchaMessage.hidden = false; return; }
+      if (!pending) return;
+      var message = form.querySelector('[data-form-message]');
+      var submit = form.querySelector('button[type="submit"]');
+      captchaMessage.hidden = true; confirm.disabled = true; submit.disabled = true;
+      try {
+        var response = await fetch('/api/auth/register', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: pending.email, password: pending.password, turnstileToken: turnstileToken }) });
+        var result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.message || window.NodeMailI18n.t("注册失败，请稍后重试。"));
+        clearTurnstileToken();
+        dialog.close();
+        message.textContent = result.message; message.className = 'auth-form-message is-success'; message.hidden = false;
+        window.location.assign(result.redirect || '/user/center.cgi');
+      } catch (error) {
+        clearTurnstileToken();
+        dialog.close();
+        message.textContent = error instanceof Error ? error.message : window.NodeMailI18n.t("注册失败，请稍后重试。"); message.className = 'auth-form-message is-error'; message.hidden = false;
+      } finally {
+        submit.disabled = false;
+        if (dialog.open) confirm.disabled = !turnstileToken;
+      }
+    });
+    dialog?.addEventListener('close', function () {
+      if (dialog.open) return;
+      stopTurnstilePolling();
+      clearTurnstileToken();
+      pending = null;
+    });
+  })();
+</script>

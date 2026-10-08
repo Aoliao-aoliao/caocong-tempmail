@@ -1,0 +1,66 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: nodemail
+      MYSQL_USER: nodemail
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Run configure first}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Run configure first}
+    volumes:
+      - database:/var/lib/mysql
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_PASSWORD" mysqladmin ping -h 127.0.0.1 -unodemail --silent']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  app:
+    image: ${NODEMAIL_IMAGE:?An explicit backend image is required}
+    restart: unless-stopped
+    command: [node, distribution/runtime/start.mjs]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4321
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: nodemail
+      MYSQL_USER: nodemail
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Run configure first}
+      GUEST_SESSION_SECRET: ${GUEST_SESSION_SECRET:?Run configure first}
+      NODEMAIL_SITE_ORIGIN: ${NODEMAIL_SITE_ORIGIN:?Set your HTTPS application origin}
+      NODEMAIL_PUBLIC_ORIGIN: ${NODEMAIL_PUBLIC_ORIGIN:?Set your HTTPS public origin}
+      NODEMAIL_CONTACT_EMAIL: ${NODEMAIL_CONTACT_EMAIL:?Set your contact email}
+      NODEMAIL_GMPAY_ORIGIN: ${NODEMAIL_GMPAY_ORIGIN:-}
+      GMPAY_SITE_ORIGIN: ${NODEMAIL_SITE_ORIGIN}
+      GMPAY_ENABLED: 'false'
+      SMTP_HOST: 0.0.0.0
+      SMTP_PORT: 2525
+      SMTP_NAME: ${SMTP_NAME:?Set your MX hostname}
+      SMTP_TLS_KEY_FILE: ${SMTP_TLS_KEY_FILE:-}
+      SMTP_TLS_CERT_FILE: ${SMTP_TLS_CERT_FILE:-}
+      MAIL_ATTACHMENT_DIR: /app/data/mail-attachments
+    ports:
+      - '${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-4321}:4321'
+      - '${SMTP_BIND:-0.0.0.0}:${SMTP_PORT:-25}:2525'
+    volumes:
+      - attachments:/app/data/mail-attachments
+      - ./tls:/app/tls:ro
+    networks: [database, outbound]
+    healthcheck:
+      test: [CMD, node, distribution/runtime/healthcheck.mjs]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+networks:
+  database:
+    internal: true
+  outbound: {}
+volumes:
+  database: {}
+  attachments: {}

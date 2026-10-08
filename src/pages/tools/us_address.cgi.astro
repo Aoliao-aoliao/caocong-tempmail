@@ -1,0 +1,19 @@
+---
+import MemberLayout from '../../layouts/MemberLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
+import UsAddressTool from '../../components/UsAddressTool';
+import '../../styles/address-tool.css';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+import { getResolvedTurnstilePublicConfig } from '../../../server/security/turnstile.mjs';
+const sessionUser = await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+const turnstile = await getResolvedTurnstilePublicConfig();
+---
+{sessionUser ? (
+  <MemberLayout title="地址生成 | NodeMail" description="生成用于开发和表单测试的美国格式地址与随机身份。" active="address">
+    <div class="app-shell app-address-tool-page address-workspace"><UsAddressTool isAuthenticated={true} client:load /></div>
+  </MemberLayout>
+) : (
+  <AppLayout title="地址生成 | NodeMail" description="生成用于开发和表单测试的美国格式地址与随机身份。">
+    <div class="app-shell app-address-tool-page guest-address-tool-page"><UsAddressTool turnstileSiteKey={turnstile.siteKey} turnstileConfigured={turnstile.configured} client:load /></div>
+  </AppLayout>
+)}

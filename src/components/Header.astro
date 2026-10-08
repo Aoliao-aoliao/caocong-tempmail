@@ -1,0 +1,110 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Brand from './Brand.astro';
+import { site } from '../config/site';
+
+interface Props { locale?: 'zh' | 'en'; }
+const { locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
+const prefix = isEn ? '/en' : '';
+const currentPath = Astro.url.pathname;
+const zhHref = currentPath.startsWith('/en/') ? currentPath.slice(3) || '/' : currentPath === '/en' ? '/' : currentPath;
+const enHref = currentPath.startsWith('/en') ? currentPath : `/en${currentPath}`;
+
+const products = isEn ? [
+  { href: `${prefix}/temp-mail/`, name: 'Disposable temp mail', note: 'No sign-up, expires automatically' },
+  { href: `${prefix}/anonymous-email/`, name: 'Anonymous email alias', note: 'Long-lived, forwards to you' },
+  { href: `${prefix}/email-forwarding/`, name: 'Email forwarding', note: 'Delivered to your everyday inbox' },
+  { href: `${prefix}/custom-domain/`, name: 'Custom domain', note: 'Aliases on a domain you own' },
+] : [
+  { href: '/temp-mail/', name: '临时匿名邮箱', note: '免注册，7 天后自毁' },
+  { href: '/anonymous-email/', name: '长效匿名邮箱', note: '长期有效，可转发' },
+  { href: '/email-forwarding/', name: '邮件转发', note: '送到你日常使用的邮箱' },
+  { href: '/custom-domain/', name: '自定义域名', note: '在自己的域名上创建别名' },
+];
+
+const labels = isEn ? {
+  home: 'home', features: 'Features', intro: 'Four tools for temporary mail, lasting aliases, forwarding and your own domain.',
+  cases: 'Explore use cases', how: 'How it works', privacy: 'Privacy', faq: 'FAQ', blog: 'Blog', identity: 'Real address generator', open: 'Open app', menu: 'Open menu', main: 'Main navigation', mobile: 'Mobile navigation',
+} : {
+  home: '首页', features: '产品功能', intro: '四件事，各管一段：临时的、长期的、转发的、用自己域名的。',
+  cases: '使用场景', how: '工作原理', privacy: '隐私承诺', faq: '常见问题', blog: '新闻资讯', identity: '真实地址身份生成', open: '打开应用', menu: '打开菜单', main: '主导航', mobile: '移动端导航',
+};
+---
+
+<header class="site-header" data-site-header>
+  <div class="shell header-row">
+    <a class="brand-link" href={isEn ? '/en/' : '/'} aria-label={`${site.name} ${labels.home}`}><Brand /></a>
+    <nav class="desktop-nav" aria-label={labels.main}>
+      <div class="nav-menu" data-menu>
+        <button class="nav-link nav-menu-trigger" type="button" aria-expanded="false" aria-controls="product-menu">{labels.features} <span class="nav-chevron" aria-hidden="true">⌄</span></button>
+        <div class="product-menu plate" id="product-menu" hidden>
+          <p class="product-menu-intro">{labels.intro}</p>
+          <ul class="product-menu-grid">{products.map((item) => <li><a class="product-menu-item" href={item.href}><span class="product-menu-name">{item.name}</span><span class="product-menu-tagline">{item.note}</span></a></li>)}</ul>
+          <a class="product-menu-foot" href={`${prefix}/use/`}>{labels.cases} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <a class="nav-link" href={`${prefix}/#how`}>{labels.how}</a>
+      <a class="nav-link" href={`${prefix}/#privacy`}>{labels.privacy}</a>
+      <a class="nav-link" href={`${prefix}/#faq`}>{labels.faq}</a>
+      <a class="nav-link" href={`${prefix}/blog/`}>{labels.blog}</a>
+    </nav>
+    <div class="header-actions">
+      <a class="identity-link" href={`${site.appOrigin}/tools/us_address.cgi`} target="_blank" rel="noopener noreferrer" aria-label={`${labels.identity}${isEn ? ' (opens in a new window)' : '（在新窗口打开）'}`}><span class="pin-icon" aria-hidden="true">⌾</span> {labels.identity}</a>
+      <ThemeToggle />
+      <span class="language-switch" aria-label="Language"><a class:list={{ 'is-active': !isEn }} href={zhHref}>中文</a><a class:list={{ 'is-active': isEn }} href={enHref}>EN</a></span>
+      <a class="btn btn-primary header-open" href={site.appPath}>{labels.open}</a>
+    </div>
+    <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label={labels.menu}><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav class="shell" aria-label={labels.mobile}>
+      {products.map((item) => <a href={item.href}>{item.name}<small>{item.note}</small></a>)}
+      <a href={`${site.appOrigin}/tools/us_address.cgi`} target="_blank" rel="noopener noreferrer">{labels.identity}</a>
+      <a href={`${prefix}/use/`}>{labels.cases}</a>
+      <a href={`${prefix}/blog/`}>{labels.blog}</a>
+      <span class="mobile-language"><a class:list={{ 'is-active': !isEn }} href={zhHref}>中文</a><a class:list={{ 'is-active': isEn }} href={enHref}>EN</a></span>
+      <a class="mobile-app-link" href={site.appPath}>{labels.open}</a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-site-header]');
+    if (!root) return;
+    var menu = root.querySelector('[data-menu]');
+    var trigger = menu && menu.querySelector('.nav-menu-trigger');
+    var panel = menu && menu.querySelector('.product-menu');
+    function setProductMenu(open) {
+      if (!trigger || !panel) return;
+      trigger.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+    }
+    if (trigger && panel) {
+      trigger.addEventListener('click', function () { setProductMenu(trigger.getAttribute('aria-expanded') !== 'true'); });
+      menu.addEventListener('mouseenter', function () { setProductMenu(true); });
+      menu.addEventListener('mouseleave', function () { setProductMenu(false); });
+    }
+    var mobileButton = root.querySelector('.mobile-menu-button');
+    var mobilePanel = root.querySelector('.mobile-menu');
+    if (mobileButton && mobilePanel) {
+      mobileButton.addEventListener('click', function () {
+        var open = mobileButton.getAttribute('aria-expanded') !== 'true';
+        mobileButton.setAttribute('aria-expanded', String(open));
+        mobilePanel.hidden = !open;
+        document.body.classList.toggle('menu-open', open);
+      });
+    }
+    document.addEventListener('click', function (event) { if (menu && !menu.contains(event.target)) setProductMenu(false); });
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      setProductMenu(false);
+      if (mobileButton && mobilePanel) {
+        mobileButton.setAttribute('aria-expanded', 'false');
+        mobilePanel.hidden = true;
+        document.body.classList.remove('menu-open');
+      }
+    });
+  })();
+</script>

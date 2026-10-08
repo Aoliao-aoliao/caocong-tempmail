@@ -1,0 +1,28 @@
+---
+import {requestLocale} from '../lib/locale';
+import catalog from '../lib/ui-translations.json';
+const locale=requestLocale(Astro);
+const choices=[['zh-CN','简体中文','简'],['zh-TW','繁體中文','繁'],['en-US','English','EN']];
+---
+<div class="language-switcher" data-language-switcher>
+  <button class="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label={locale==='en-US'?'Language':'语言'}><span class="language-current">{choices.find(c=>c[0]===locale)?.[1]}</span><i class="language-chevron" aria-hidden="true"/></button>
+  <div class="language-menu" role="listbox" hidden>{choices.map(([code,label,symbol])=><button type="button" class="language-option" role="option" aria-selected={locale===code} data-language={code}><span class="language-symbol" aria-hidden="true">{symbol}</span><span class="language-copy"><strong>{label}</strong><small>{code.toUpperCase()}</small></span><span class="language-check" aria-hidden="true">✓</span></button>)}</div>
+</div>
+<script is:inline define:vars={{catalog,locale}}>
+  window.NodeMailI18n={t:(text,...values)=>{const row=catalog[text];const value=locale==='en-US'?(row?.en||text):locale==='zh-TW'?(row?.tw||text):text;return value.replace(/\{(\d+)\}/g,(_,n)=>String(values[Number(n)]??`{${n}}`));}};
+</script>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-language-switcher]').forEach(root=>{
+    if(root.dataset.ready)return;root.dataset.ready='true';
+    const trigger=root.querySelector<HTMLButtonElement>('.language-trigger')!,menu=root.querySelector<HTMLElement>('.language-menu')!;
+    const close=()=>{root.classList.remove('open');menu.hidden=true;trigger.setAttribute('aria-expanded','false');};
+    trigger.addEventListener('click',()=>{const open=Boolean(menu.hidden);root.classList.toggle('open',open);menu.hidden=!open;trigger.setAttribute('aria-expanded',String(open));if(open)menu.querySelector<HTMLElement>('[aria-selected=true]')?.focus();});
+    menu.querySelectorAll<HTMLButtonElement>('[data-language]').forEach(button=>button.addEventListener('click',()=>{
+      const language=button.dataset.language!;
+      document.cookie=`nodemail_locale=${language}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`;
+      const next=new URL(location.href);next.searchParams.set('lang',language);location.assign(next.pathname+next.search+next.hash);
+    }));
+    root.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();close();trigger.focus();}if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();const options=Array.from(menu.querySelectorAll<HTMLButtonElement>('button'));if(menu.hidden){root.classList.add('open');menu.hidden=false;trigger.setAttribute('aria-expanded','true');}const i=options.indexOf(document.activeElement as HTMLButtonElement);options[(i+(event.key==='ArrowDown'?1:-1)+options.length)%options.length]?.focus();}});
+    root.addEventListener('focusout',event=>{if(!root.contains(event.relatedTarget as Node))close();});document.addEventListener('pointerdown',event=>{if(!root.contains(event.target as Node))close();});
+  });
+</script>

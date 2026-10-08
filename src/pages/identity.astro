@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../config/site';
+
+const anatomy = [
+  ['01', '门牌号', '4712', '按照街道常见编号范围生成，并保持奇偶与街区格式一致。'],
+  ['02', '街道名', 'Juniper Ridge Rd', '从地区命名结构中组合词根与道路后缀，读起来像属于当地。'],
+  ['03', '城市与邮编', 'Raleigh, NC 27613', '城市、州缩写与邮编保持同一地区关系，避免各字段互相冲突。'],
+  ['04', '电话号码', '+1 (919) 555-0164', '国家码、区号和分组方式跟随所选国家与地区格式。'],
+];
+---
+<Layout title="随机地址与身份生成 · NodeMail">
+  <section class="identity-hero">
+    <div class="shell identity-hero-grid">
+      <div data-reveal>
+        <p class="eyebrow">真实地址格式 · 虚拟身份生成</p>
+        <h1 class="product-display">每个地址、身份<br />都符合格式，<br /><span>但与你无关。</span></h1>
+        <p class="product-lede">门牌、街道、城市、邮编和电话按照不同地区的规则组合，再生成一套前后一致、仅用于测试与占位的虚拟身份。</p>
+        <div class="hero-actions"><a class="btn btn-primary" href={site.appOrigin}>生成一份身份</a><a class="btn btn-secondary" href="#anatomy">看看它怎样组成</a></div>
+      </div>
+      <div class="map-visual" data-reveal aria-label="地址生成示意">
+        <div class="map-grid-lines"></div>
+        <span class="map-block b1"></span><span class="map-block b2"></span><span class="map-block b3"></span><span class="map-block b4"></span><span class="map-block b5"></span><span class="map-block b6"></span>
+        <span class="map-cross horizontal"></span><span class="map-cross vertical"></span><span class="map-pin"></span>
+        <div class="map-address-card"><small>NODEMAIL · 27613</small><code>4712 Juniper Ridge Rd<br />Raleigh, NC 27613<br />+1 (919) 555-0164</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft" id="anatomy">
+    <div class="shell">
+      <div class="section-heading" data-reveal><p class="eyebrow">地址解剖</p><h2>不是随手编造，而是按规则组合</h2><p>单纯的随机字符串很容易被表单格式校验拦下。这里让每个字段服从所在地区的基本规则，并让整套资料彼此一致。</p></div>
+      <div class="anatomy-list">
+        {anatomy.map(([no, label, value, text]) => <div class="anatomy-row" data-reveal><span>{no}</span><small>{label}</small><strong>{value}</strong><p>{text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell detail-split">
+      <div class="section-heading" data-reveal><p class="eyebrow">隐私边界</p><h2>格式正确，不代表真实存在</h2></div>
+      <div class="detail-copy" data-reveal><p>生成结果只用于开发测试、演示和无需真实资料的占位场景。请勿用于金融、政府、身份认证或任何依法必须提交本人真实信息的流程。</p></div>
+    </div>
+  </section>
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>选择一个国家开始生成</h2><p>八个国家和地区分别使用自己的地址、邮编与电话格式。</p><div class="cta-actions"><a class="btn btn-primary" href="/address-generator/">打开地址生成器</a></div></div></section>
+</Layout>

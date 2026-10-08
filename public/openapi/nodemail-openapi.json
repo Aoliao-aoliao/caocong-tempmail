@@ -1,0 +1,1258 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "NodeMail OpenAPI",
+    "version": "1.0.0",
+    "description": "NodeMail 邮箱、邮件、域名、地址与账户接口。所有响应均使用 code、msg 和 data 结构；接口仅对已开通有效会员的 API Key 开放。"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "当前 NodeMail 应用站点"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "NodeMailApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "apiKey",
+        "description": "当前 NodeMail 账户的 API Key"
+      }
+    },
+    "parameters": {
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": false,
+        "description": "创建操作的 UUID v4 幂等标识。请求体中的 requestId 优先；使用相同标识安全重试时不会重复创建或扣分。",
+        "schema": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "请求参数不合法",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "API Key 缺失或无效",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "code": -1210,
+              "msg": "API Key无效",
+              "data": null
+            }
+          }
+        }
+      },
+      "MembershipRequired": {
+        "description": "当前账户没有有效会员",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "code": -1300,
+              "msg": "请先开通有效会员后再使用此功能",
+              "data": null
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "指定资源不存在或无权访问",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "资源冲突或活动邮箱数量已达上限",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "PayloadTooLarge": {
+        "description": "JSON 请求体超过 16 KiB",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            }
+          }
+        }
+      },
+      "UnsupportedMediaType": {
+        "description": "POST 请求必须使用 application/json",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "code": -1102,
+              "msg": "请求类型必须为application/json",
+              "data": null
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "请求超过频率限制",
+        "headers": {
+          "Retry-After": {
+            "description": "建议等待秒数",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "code": -1006,
+              "msg": "操作频繁，请稍后再试",
+              "data": null
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "服务暂时不可用",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "code": -1001,
+              "msg": "系统繁忙，请稍后重试",
+              "data": null
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "code",
+          "msg",
+          "data"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "maximum": -1
+          },
+          "msg": {
+            "type": "string"
+          },
+          "data": {
+            "nullable": true
+          }
+        }
+      },
+      "MailboxCreateRequest": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 32,
+            "pattern": "^[a-z0-9][a-z0-9._-]{4,31}$",
+            "description": "邮箱前缀；留空时随机生成"
+          },
+          "domainId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "可用域名 ID；留空时从公共域名或登录域名随机选择"
+          },
+          "durationHours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8760,
+            "default": 1,
+            "description": "有效小时数，必须匹配后台启用的时长套餐"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "description": "UUID v4 幂等标识"
+          }
+        }
+      },
+      "MailboxCreated": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "receivedCount",
+          "expiresAt",
+          "guest"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "receivedCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "guest": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          }
+        }
+      },
+      "Domain": {
+        "type": "object",
+        "required": [
+          "id",
+          "domain",
+          "type",
+          "ownerId",
+          "mailboxOccupy",
+          "mailboxCount",
+          "mailCount",
+          "state",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "description": "0 公共、1 登录、2 会员、3 私有"
+          },
+          "ownerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mailboxOccupy": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "mailboxCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "mailCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "state": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UsAddressRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MailboxCreateRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "stateCode": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 2,
+                "pattern": "^[A-Za-z]{2}$",
+                "description": "美国州或华盛顿特区 USPS 两位代码；留空时随机"
+              }
+            }
+          }
+        ]
+      },
+      "UsAddress": {
+        "type": "object",
+        "required": [
+          "mailboxId",
+          "email",
+          "mailboxDomainId",
+          "firstName",
+          "lastName",
+          "gender",
+          "phone",
+          "streetAddress",
+          "city",
+          "stateName",
+          "stateCode",
+          "zipCode",
+          "latitude",
+          "longitude",
+          "fullAddress"
+        ],
+        "properties": {
+          "mailboxId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "mailboxDomainId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "streetAddress": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "stateName": {
+            "type": "string"
+          },
+          "stateCode": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "fullAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "ListRequest": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000,
+            "default": 1
+          },
+          "keyword": {
+            "type": "string",
+            "maxLength": 100
+          }
+        }
+      },
+      "MailListRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "mailboxId": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 1
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^MB-[0-9a-fA-F-]{36}$"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "MailSummary": {
+        "type": "object",
+        "required": [
+          "id",
+          "to",
+          "messageId",
+          "from",
+          "subject",
+          "receivedAt",
+          "read",
+          "keyword",
+          "keywordDisplay"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "to": {
+            "type": "string",
+            "format": "email"
+          },
+          "messageId": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "receivedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "keyword": {
+            "type": "string",
+            "nullable": true
+          },
+          "keywordDisplay": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PagedMails": {
+        "type": "object",
+        "required": [
+          "count",
+          "size",
+          "page",
+          "total",
+          "data"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "enum": [
+              10
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailSummary"
+            }
+          }
+        }
+      },
+      "MailDetailRequest": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1
+              },
+              {
+                "type": "string",
+                "pattern": "^MSG-[0-9a-fA-F-]{36}$"
+              }
+            ]
+          }
+        }
+      },
+      "Attachment": {
+        "type": "object",
+        "required": [
+          "fileName",
+          "contentType",
+          "size"
+        ],
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
+      "MailDetail": {
+        "type": "object",
+        "required": [
+          "id",
+          "to",
+          "messageId",
+          "from",
+          "subject",
+          "receivedAt",
+          "textContent",
+          "attachments"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "to": {
+            "type": "string",
+            "format": "email"
+          },
+          "messageId": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "receivedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "textContent": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Attachment"
+            }
+          }
+        }
+      },
+      "MailboxListItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "domainId",
+          "email",
+          "userId",
+          "receivedCount",
+          "expiresAt",
+          "createdAt",
+          "updatedAt",
+          "expired",
+          "expiryText",
+          "expiryTone"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "domainId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "receivedCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expired": {
+            "type": "boolean"
+          },
+          "expiryText": {
+            "type": "string"
+          },
+          "expiryTone": {
+            "type": "string",
+            "enum": [
+              "permanent",
+              "warning",
+              "healthy",
+              "expired"
+            ]
+          }
+        }
+      },
+      "PagedMailboxes": {
+        "type": "object",
+        "required": [
+          "count",
+          "size",
+          "page",
+          "total",
+          "data"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "enum": [
+              10
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MailboxListItem"
+            }
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "score",
+          "vipExpire",
+          "state",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "score": {
+            "type": "integer"
+          },
+          "vipExpire": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "state": {
+            "type": "integer",
+            "enum": [
+              0
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "NodeMailApiKey": []
+    }
+  ],
+  "paths": {
+    "/openapi/v1/mailbox/create.cgi": {
+      "post": {
+        "summary": "创建邮箱",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailboxCreateRequest"
+              },
+              "example": {
+                "durationHours": 24,
+                "requestId": "01990abc-1234-4def-8abc-1234567890ab"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "邮箱创建成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "msg",
+                        "data"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "integer",
+                          "enum": [
+                            0
+                          ]
+                        },
+                        "msg": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "$ref": "#/components/schemas/MailboxCreated"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/domain/list.cgi": {
+      "get": {
+        "summary": "可用域名列表",
+        "responses": {
+          "200": {
+            "description": "查询成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Domain"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/tools/us_address/generate.cgi": {
+      "post": {
+        "summary": "随机美国地址",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsAddressRequest"
+              },
+              "example": {
+                "durationHours": 24,
+                "stateCode": "CA",
+                "requestId": "01990abc-1234-4def-8abc-1234567890ab"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "生成成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UsAddress"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/mail/list.cgi": {
+      "post": {
+        "summary": "邮件列表",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailListRequest"
+              },
+              "example": {
+                "page": 1,
+                "keyword": "verification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "查询成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/PagedMails"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/mail/detail.cgi": {
+      "post": {
+        "summary": "邮件详情",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailDetailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "查询成功并将邮件标记为已读",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/MailDetail"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/user/info.cgi": {
+      "get": {
+        "summary": "用户信息",
+        "responses": {
+          "200": {
+            "description": "查询成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/UserInfo"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi/v1/mailbox/list.cgi": {
+      "post": {
+        "summary": "邮箱列表",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListRequest"
+              },
+              "example": {
+                "page": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "查询成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "msg",
+                    "data"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "enum": [
+                        0
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/PagedMailboxes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/MembershipRequired"
+          },
+          "413": {
+            "$ref": "#/components/responses/PayloadTooLarge"
+          },
+          "415": {
+            "$ref": "#/components/responses/UnsupportedMediaType"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+  }
+}

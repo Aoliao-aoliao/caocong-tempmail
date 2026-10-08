@@ -1,0 +1,15 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+  compact?: boolean;
+  inverse?: boolean;
+}
+
+const { compact = false, inverse = false } = Astro.props;
+---
+
+<span class:list={['brand-lockup', { 'brand-lockup--compact': compact, 'brand-lockup--inverse': inverse }]}> 
+  <img class="brand-symbol" src="/assets/brand/nodemail-mark.jpg" alt="" width="640" height="640" />
+  {!compact && <span class="brand-word">{site.name}</span>}
+</span>

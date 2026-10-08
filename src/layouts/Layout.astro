@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  hideFooter?: boolean;
+  locale?: 'zh' | 'en';
+}
+
+const {
+  title,
+  description,
+  hideFooter = false,
+  locale = 'zh',
+} = Astro.props;
+
+const pageTitle = title ?? (locale === 'en' ? `${site.name} · Anonymous email and identity privacy` : `${site.name} · 匿名邮箱与身份保护`);
+const pageDescription = description ?? (locale === 'en' ? 'Anonymous aliases, disposable inboxes and realistic test identities.' : '匿名邮箱、临时收件箱和随机身份工具。保护真实邮箱，减少垃圾邮件与身份关联。');
+---
+
+<!doctype html>
+<html lang={locale === 'en' ? 'en' : 'zh-CN'} dir="ltr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7f9" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/brand/nodemail-mark.jpg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('maskmail_theme');
+          document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+        document.documentElement.classList.add('motion-on');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{locale === 'en' ? 'Skip to content' : '跳到正文'}</a>
+    <Header locale={locale} />
+    <main id="main-content">
+      <slot />
+    </main>
+    {!hideFooter && <Footer locale={locale} />}
+    <script is:inline>
+      (function () {
+        var items = document.querySelectorAll('[data-reveal]');
+        if (!('IntersectionObserver' in window)) {
+          items.forEach(function (item) { item.classList.add('is-in'); });
+          return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -7% 0px', threshold: 0.08 });
+        items.forEach(function (item) { observer.observe(item); });
+      })();
+    </script>
+  </body>
+</html>

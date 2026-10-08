@@ -1,0 +1,55 @@
+---
+import { site } from '../config/site';
+interface Props {
+  variant: 'temp' | 'alias' | 'forward' | 'domain';
+  locale?: 'zh' | 'en';
+}
+const { variant, locale = 'zh' } = Astro.props;
+const en = locale === 'en';
+---
+
+{variant === 'temp' && (
+  <div class="product-visual-card visual-temp" aria-label={en ? 'Disposable inbox example' : '临时邮箱示意'}>
+    <div class="visual-head"><span>{en ? 'TEMP INBOXES' : '临时收件箱'}</span><span>{en ? 'BURNS IN 7 DAYS' : '7 天后自毁'}</span></div>
+    <div class="visual-mail"><code>frost.cedar.2214@{site.emailDomain}</code><span>{en ? '6d 23h' : '6 天 23 小时'}</span><i style="--progress: 95%"></i></div>
+    <div class="visual-mail"><code>onyx.fjord.0913@{site.emailDomain}</code><span>{en ? '3d 04h' : '3 天 04 小时'}</span><i style="--progress: 46%"></i></div>
+    <div class="visual-mail"><code>slate.ember.4471@{site.emailDomain}</code><span>{en ? '11h' : '11 小时'}</span><i style="--progress: 7%"></i></div>
+    <div class="visual-foot"><span>{en ? 'Batch generation for members' : '会员可批量生成'}</span><span class="mini-pill">＋ {en ? 'BATCH' : '一批'}</span></div>
+  </div>
+)}
+
+{variant === 'alias' && (
+  <div class="product-visual-card visual-alias" aria-label={en ? 'Anonymous aliases example' : '匿名别名示意'}>
+    <div class="visual-head"><span>{en ? 'MY ALIASES' : '我的别名'}</span><span>{en ? 'ONE PER SITE' : '一站一个'}</span></div>
+    <div class="alias-list">
+      <p><i></i><span>{en ? 'Shopping' : '网购'}</span><code>shop.quartz.3312@{site.emailDomain}</code><b>{en ? 'Live' : '生效'}</b></p>
+      <p><i></i><span>{en ? 'Reading' : '订阅'}</span><code>read.birch.7740@{site.emailDomain}</code><b>{en ? 'Live' : '生效'}</b></p>
+      <p><i></i><span>{en ? 'Forum' : '论坛'}</span><code>talk.aspen.1185@{site.emailDomain}</code><b>{en ? 'Live' : '生效'}</b></p>
+      <p class="is-off"><i></i><span>{en ? 'Leaked' : '已泄露'}</span><code>deal.raven.9024@{site.emailDomain}</code><b>{en ? 'Off' : '已停用'}</b></p>
+    </div>
+    <div class="visual-foot"><span>{en ? 'Disable one, the rest stay live' : '停用一个，其余不受影响'}</span></div>
+  </div>
+)}
+
+{variant === 'forward' && (
+  <div class="forward-visual" aria-label={en ? 'Email forwarding example' : '邮件转发示意'}>
+    <div class="forward-box"><small>{en ? 'PUBLIC ALIAS' : '对外别名'}</small><code>cedar.fjord.3883@{site.emailDomain}</code></div>
+    <div class="forward-arrow"><i></i><span>{en ? 'UNTOUCHED · SECONDS' : '原样转发 · 秒级'}</span><i></i></div>
+    <div class="forward-box is-target"><small>{en ? 'YOUR EVERYDAY INBOX' : '你的常用邮箱'}</small><code>you@gmail.com</code></div>
+  </div>
+)}
+
+{variant === 'domain' && (
+  <div class="product-visual-card visual-domain" aria-label={en ? 'Custom domain example' : '自定义域名示意'}>
+    <div class="visual-head"><span>{en ? 'YOUR DOMAIN' : '你的域名'}</span><span class="domain-live">MX {en ? 'VERIFIED' : '已生效'}</span></div>
+    <div class="domain-name">yourdomain.com</div>
+    <ul>
+      <li>shop@yourdomain.com</li>
+      <li>news@yourdomain.com</li>
+      <li>hello@yourdomain.com</li>
+      <li>billing@yourdomain.com</li>
+      <li><strong>*@yourdomain.com</strong><span class="mini-pill">CATCH-ALL</span></li>
+    </ul>
+    <div class="visual-foot"><span>{en ? 'Any prefix, none pre-registered' : '任意前缀，无需预先创建'}</span></div>
+  </div>
+)}

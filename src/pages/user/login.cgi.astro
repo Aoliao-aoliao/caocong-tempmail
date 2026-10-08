@@ -1,0 +1,89 @@
+---
+import {requestLocale,translator} from '../../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import AuthLayout from '../../layouts/AuthLayout.astro';
+import NodelocLogin from '../../components/NodelocLogin';
+import {nodelocOAuth} from '../../../server/auth/nodeloc-oauth.mjs';
+import { site } from '../../config/site';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+
+if (await getSessionUser(Astro.cookies.get(sessionCookieName)?.value)) {
+  return Astro.redirect('/user/center.cgi');
+}
+const nodeloc=await nodelocOAuth.config();
+const nodelocError=new Map(Object.entries({conflict:'该邮箱已有本站账户，请先用原方式登录，再到用户中心绑定 NodeLoc。',unavailable:'NodeLoc 暂不可用，请确认应用审核和后台配置。',failed:'NodeLoc 授权未完成，请重新尝试。'})).get(Astro.url.searchParams.get('nodeloc')||'');
+---
+<AuthLayout title={`登录 | ${site.name}`}>
+  <a slot="top-action" class="auth-top-action" href="/user/register.cgi">{t("注册")}</a>
+  <section class="auth-story" aria-labelledby="login-story-title">
+    <p class="auth-story-label">{t("安全工作区")}</p>
+    <h1 id="login-story-title">{t("重新连接您的邮件工作空间")}</h1>
+    <p class="auth-story-copy">{t("一个账户，统一掌握长效邮箱、邮件收取与中转服务，让每一次登录都延续熟悉的工作节奏。")}</p>
+    <ul class="auth-trust-list">
+      <li><strong>{t("即时收信")}</strong><small>{t("邮件抵达后及时清晰呈现")}</small></li>
+      <li><strong>{t("长期持有")}</strong><small>{t("邮箱地址与账户持续绑定")}</small></li>
+      <li><strong>{t("隐私隔离")}</strong><small>{t("减少私人邮箱直接暴露")}</small></li>
+    </ul>
+  </section>
+  <section class="auth-card" aria-labelledby="login-title">
+    <h2 id="login-title">{t("欢迎回来")}</h2>
+    <p class="auth-card-copy">{t("使用账户邮箱和密码继续访问")}{site.name}。</p>
+    {nodelocError&&<p class="auth-form-message is-error" role="alert">{t(nodelocError)}</p>}
+    <form class="auth-form" data-auth-form="login" novalidate>
+      <label for="login-email">{t("账户邮箱")}</label>
+      <input id="login-email" name="email" type="email" autocomplete="username" maxlength="254" placeholder="name@example.com" required />
+      <label for="login-password">{t("密码")}</label>
+      <div class="auth-password-field">
+        <input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="255" placeholder={t("请输入密码")} required />
+        <button type="button" class="auth-password-toggle" data-password-toggle aria-label={t("显示密码")} aria-pressed="false"><span>{t("显示")}</span></button>
+      </div>
+      <div class="auth-form-row"><span>{t("保持登录 7 天")}</span><a href="/user/password/recover.cgi">{t("忘记密码？")}</a></div>
+      <p class="auth-form-message" data-form-message role="status" hidden></p>
+      <button class="auth-submit" type="submit">{t("登录")}{site.name}</button>
+    </form>
+    {nodeloc.enabled&&nodeloc.secretConfigured&&nodeloc.origin===Astro.url.origin&&<NodelocLogin client:load />}
+    <p class="auth-card-footnote">{t("第一次使用？")}<a href="/user/register.cgi">{t("创建账户")}</a></p>
+  </section>
+</AuthLayout>
+<script is:inline>
+  (function () {
+    var form = document.querySelector('[data-auth-form="login"]');
+    var toggle = document.querySelector('[data-password-toggle]');
+    var password = document.querySelector('#login-password');
+    toggle?.addEventListener('click', function () {
+      var show = password?.getAttribute('type') === 'password';
+      password?.setAttribute('type', show ? 'text' : 'password');
+      var toggleLabel = toggle.querySelector('span');
+      if (toggleLabel) toggleLabel.textContent = show ? window.NodeMailI18n.t("隐藏") : window.NodeMailI18n.t("显示");
+      toggle.setAttribute('aria-pressed', String(show));
+      toggle.setAttribute('aria-label', show ? window.NodeMailI18n.t("隐藏密码") : window.NodeMailI18n.t("显示密码"));
+    });
+    form?.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      var message = form.querySelector('[data-form-message]');
+      var submit = form.querySelector('button[type="submit"]');
+      var data = new FormData(form);
+      if (message) { message.hidden = true; message.classList.remove('is-error', 'is-success'); }
+      if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+      try {
+        var response = await fetch('/api/auth/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: data.get('email'), password: data.get('password') }) });
+        var result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.message || window.NodeMailI18n.t("登录失败，请稍后重试。"));
+        if (message) { message.textContent = result.message; message.classList.add('is-success'); message.hidden = false; }
+        var requested = new URLSearchParams(window.location.search).get('next');
+        var destination = result.redirect || '/user/center.cgi';
+        if (requested && requested.startsWith('/') && !requested.startsWith('//') && !requested.includes('\\')) {
+          try {
+            var resolved = new URL(requested, window.location.origin);
+            if (resolved.origin === window.location.origin) destination = resolved.pathname + resolved.search + resolved.hash;
+          } catch (_error) {}
+        }
+        window.location.assign(destination);
+      } catch (error) {
+        if (message) { message.textContent = error instanceof Error ? error.message : window.NodeMailI18n.t("登录失败，请稍后重试。"); message.classList.add('is-error'); message.hidden = false; }
+      } finally {
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+      }
+    });
+  })();
+</script>

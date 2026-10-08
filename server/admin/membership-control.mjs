@@ -1,0 +1,10 @@
+import { randomUUID } from 'node:crypto';
+import { openDatabase } from '../db/database.mjs';
+export async function setUserMembership({publicId,planCode,mode,actorUserId,ipAddress}){if(!['GRANT','CANCEL'].includes(mode))throw new Error('会员操作不合法。');const c=await openDatabase();try{await c.beginTransaction();const [[user]]=await c.execute('SELECT id FROM users WHERE public_id=? FOR UPDATE',[publicId]);if(!user)throw new Error('用户不存在。');let expiresAt=null;if(mode==='GRANT'){const [[plan]]=await c.execute('SELECT id,duration_days FROM membership_plans WHERE code=?',[planCode]);if(!plan)throw new Error('会员套餐不存在。');
+    // Like a user purchase, a grant extends remaining paid time instead of discarding it.
+    const [[current]]=await c.execute("SELECT expires_at FROM memberships WHERE user_id=? AND status='ACTIVE' AND expires_at>UTC_TIMESTAMP(3) ORDER BY expires_at DESC LIMIT 1 FOR UPDATE",[user.id]);
+    const startsAt=current?.expires_at&&new Date(current.expires_at)>new Date()?new Date(current.expires_at):new Date();
+    expiresAt=new Date(startsAt.getTime()+Number(plan.duration_days)*86400000);
+    await c.execute("UPDATE memberships SET status='EXPIRED' WHERE user_id=? AND status='ACTIVE'",[user.id]);
+    await c.execute("INSERT INTO memberships(user_id,plan_id,status,starts_at,expires_at) VALUES (?,?,'ACTIVE',UTC_TIMESTAMP(3),?)",[user.id,plan.id,expiresAt])}
+    else await c.execute("UPDATE memberships SET status='CANCELLED' WHERE user_id=? AND status='ACTIVE'",[user.id]);await c.execute('INSERT INTO audit_logs(public_id,actor_user_id,action,entity_type,entity_id,detail_json,ip_address) VALUES (?,?,?,?,?,?,?)',[`AL-${randomUUID()}`,actorUserId,mode==='GRANT'?'管理员开通会员':'管理员取消会员','USER',publicId,JSON.stringify({planCode:mode==='GRANT'?planCode:null,expiresAt}),String(ipAddress||'').slice(0,45)||null]);await c.commit();return{publicId,is_member:mode==='GRANT',membership_expires_at:expiresAt?.toISOString()||null}}catch(error){await c.rollback();throw error}finally{c.release()}}

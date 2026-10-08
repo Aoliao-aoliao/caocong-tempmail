@@ -1,0 +1,56 @@
+name: Verify private source preview
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-disposable-only
+          MYSQL_DATABASE: nodemail_ci
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pci-disposable-only"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      NODEMAIL_ISOLATED_TESTS: '1'
+      NODEMAIL_DISTRIBUTION_FRESH_TEST: '1'
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_PORT: '3306'
+      MYSQL_DATABASE: nodemail_ci
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ci-disposable-only
+      GUEST_SESSION_SECRET: ci-disposable-session-secret-at-least-32-characters
+      NODEMAIL_SITE_ORIGIN: https://mail.installer.example
+      NODEMAIL_PUBLIC_ORIGIN: https://mail.installer.example
+      NODEMAIL_GMPAY_ORIGIN: ''
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run test:installer
+      - run: node --test tests/release-boundary.test.mjs
+      - run: npm run build
+      - run: npm audit
+      - name: Fresh installation in disposable local MySQL
+        run: node --test tests/installation.test.mjs
+      - name: Build complete-source image
+        run: docker build -t "nodemail-distribution-ci:${GITHUB_SHA}" .
+      - name: Login, authorization and data-preserving image replacement
+        run: python3 tests/container.py "nodemail-distribution-ci:${GITHUB_SHA}"

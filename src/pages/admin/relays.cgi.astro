@@ -1,0 +1,10 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { microsoftOAuth } from '../../../server/relay/microsoft-oauth.mjs';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+import RelayAdmin from '../../components/RelayAdmin';
+import { listRelayAccounts } from '../../../server/relay/service.mjs';
+import { getRelayCleanupStatus } from '../../../server/relay/cleanup.mjs';
+const [accounts,cleanup,microsoftConfig,user]=await Promise.all([listRelayAccounts(),getRelayCleanupStatus(),microsoftOAuth.config(Astro.url.origin),getSessionUser(Astro.cookies.get(sessionCookieName)?.value)]);
+---
+<AdminLayout title="中继邮箱 | NodeMail 管理后台" active="relays"><RelayAdmin initialAccounts={accounts} initialCleanup={cleanup} initialMicrosoftConfig={microsoftConfig} canConfigureMicrosoft={user?.role==='SUPER_ADMIN'} client:load /></AdminLayout>

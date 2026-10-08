@@ -1,0 +1,162 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NodeMail OpenAPI 接口说明、数据结构与调用示例。">
+    <meta name="theme-color" content="#f8f8fc">
+    <title>OpenAPI 文档｜NodeMail</title>
+    <link rel="icon" type="image/jpeg" href="/assets/brand/nodemail-mark.jpg">
+    <link rel="stylesheet" href="./assets/css/user_center.css?v=20260908.6">
+    <link rel="stylesheet" href="./assets/css/openapi_docs.css?v=20260908.1">
+    <link rel="stylesheet" href="./assets/css/language_selector.css?v=20260904.2">
+</head>
+<body data-msg-copy="复制" data-msg-copied="已复制" data-msg-logout-processing="正在处理" data-msg-logout-failed="系统繁忙，请稍后重试">
+<div class="workspace docs-workspace">
+    <aside class="sidebar">
+        <a class="brand" href="__NODEMAIL_PUBLIC_ORIGIN__" aria-label="NodeMail 首页"><span class="brand-mark" style="width:32px;height:32px" aria-hidden="true"><img src="/assets/brand/nodemail-mark.jpg" alt=""></span><span>NodeMail</span></a>
+        <nav class="side-nav" aria-label="用户中心菜单">
+            <a class="nav-item" href="/user/center.cgi"><span class="nav-icon home-icon" aria-hidden="true"></span><span>个人空间</span></a>
+            <a class="nav-item" href="/tools/mail.cgi"><span class="nav-icon apply-icon" aria-hidden="true"></span><span>邮箱申请</span></a>
+            <a class="nav-item" href="/tools/us_address.cgi"><span class="nav-icon address-icon" aria-hidden="true"></span><span>地址生成</span></a>
+            <a class="nav-item" href="/user/mailboxes.cgi"><span class="nav-icon mailbox-icon" aria-hidden="true"></span><span>邮箱列表</span></a>
+            <a class="nav-item" href="/user/mails.cgi"><span class="nav-icon mail-icon" aria-hidden="true"></span><span>邮件列表</span></a>
+            <a class="nav-item" href="/user/domains.cgi"><span class="nav-icon mailbox-icon" aria-hidden="true"></span><span>域名列表</span></a>
+            <a class="nav-item" href="/user/transactions.cgi"><span class="nav-icon score-icon" aria-hidden="true"></span><span>资金流水</span></a>
+        </nav>
+        <a class="back-home" href="__NODEMAIL_PUBLIC_ORIGIN__">返回 NodeMail 首页</a>
+    </aside>
+
+    <main class="content docs-content">
+        <nav class="workspace-topbar" aria-label="账户工具栏">
+            <h1 class="workspace-topbar-title">OpenAPI 文档｜NodeMail</h1>
+            <div class="top-account-bar">
+                <a class="openapi-entry active" href="/openapi/docs.cgi">OpenAPI</a>
+                <a class="member-badge member-entry membership-identity __NODEMAIL_MEMBERSHIP_CLASS__" href="/user/membership.cgi">__NODEMAIL_MEMBERSHIP_LABEL__</a>
+                <div class="top-user-chip" data-account-card>
+                    <span class="avatar" aria-hidden="true">__NODEMAIL_ACCOUNT_INITIAL__</span>
+                    <span class="top-user-copy"><small>当前账户</small><strong>__NODEMAIL_ACCOUNT_MASKED_EMAIL__</strong></span>
+                    <button class="account-copy" type="button" data-account-copy data-email="__NODEMAIL_ACCOUNT_EMAIL__" aria-label="复制完整邮箱地址"><img src="./assets/images/icons/copy.svg" alt=""></button>
+                    <details class="account-actions" data-account-actions><summary aria-label="展开账户菜单" title="展开账户菜单"><img src="./assets/images/icons/chevron-down.svg" alt=""></summary><div class="account-actions-menu"><button type="button" data-login-out data-url="/api/auth/logout" data-login-url="/user/login.cgi"><img src="./assets/images/icons/logout.svg" alt=""><span>退出登录</span></button><small data-account-status role="status" aria-live="polite"></small></div></details>
+                </div>
+            </div>
+        </nav>
+
+        <header class="docs-hero">
+            <div><p class="docs-eyebrow">开发者平台</p><h2>NodeMail OpenAPI</h2><p>通过稳定的 API 管理邮箱、读取邮件并查询账户信息。</p></div>
+            <a class="spec-download" href="/openapi/nodemail-openapi.json" download>下载 NodeMail OpenAPI JSON</a>
+        </header>
+
+        <section class="api-key-card" aria-labelledby="api-key-title">
+            <div><small>接口密钥</small><h2 id="api-key-title">API Key</h2><p>请通过 <code>apiKey</code> 请求头传递当前账户的 API Key，并妥善保管。OpenAPI 仅对有效会员开放；未开通或会员已过期时将拒绝调用。</p></div>
+            <div class="api-key-value"><code>__NODEMAIL_API_KEY__</code><button type="button" data-copy-text="__NODEMAIL_API_KEY__" __NODEMAIL_API_KEY_COPY_DISABLED__>复制</button></div>
+        </section>
+
+        <div class="docs-layout">
+            <nav class="docs-index" aria-label="API 目录">
+                <strong>API 目录</strong>
+                <a href="#mailbox-create"><span>POST</span>创建邮箱</a>
+                <a href="#domain-list"><span>GET</span>可用域名列表</a>
+                <a href="#us-address"><span>POST</span>随机美国地址</a>
+                <a href="#mail-list"><span>POST</span>邮件列表</a>
+                <a href="#mail-detail"><span>POST</span>邮件详情</a>
+                <a href="#user-info"><span>GET</span>用户信息</a>
+                <a href="#mailbox-list"><span>POST</span>邮箱列表</a>
+                <a href="#common-response">通用响应与错误</a>
+            </nav>
+
+            <div class="docs-main">
+                <section class="api-section" id="mailbox-create">
+                    <header><div><span class="method">POST</span><code>/openapi/v1/mailbox/create.cgi</code></div><h2>创建邮箱</h2><p>创建一个新的收信邮箱；domainId 留空时，从公共域名和登录域名中随机选择。</p></header>
+                    <h3>请求字段</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>prefix</code><span>string</span><span>否</span><span>5–32 位邮箱前缀，仅支持小写字母、数字、点、下划线和横线；留空时随机生成</span></div><div><code>domainId</code><span>long</span><span>否</span><span>可选的收信域名 ID；留空时从公共域名和登录域名中随机选择</span></div><div><code>durationHours</code><span>integer</span><span>否</span><span>有效时长；留空时默认为 1 小时，必须匹配可用套餐</span></div><div><code>requestId</code><span>uuid</span><span>否</span><span>UUID v4 幂等标识；也可通过 Idempotency-Key 请求头传递，安全重试时不会重复创建或扣分</span></div></div>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>邮箱 ID</span></div><div><code>email</code><span>string</span><span>是</span><span>完整邮箱地址</span></div><div><code>receivedCount</code><span>long</span><span>是</span><span>累计收信数</span></div><div><code>expiresAt</code><span>datetime</span><span>是</span><span>到期时间</span></div><div><code>guest</code><span>boolean</span><span>是</span><span>是否为游客邮箱；OpenAPI 创建时固定为 false</span></div></div>
+                    <div class="code-sample" data-code-sample data-path="/openapi/v1/mailbox/create.cgi" data-body='{"durationHours":24}'></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;id&quot;:128,&quot;email&quot;:&quot;demo@example.invalid&quot;,&quot;receivedCount&quot;:0,&quot;expiresAt&quot;:&quot;2026-09-03T12:00:00.000Z&quot;,&quot;guest&quot;:false}}</code></pre>
+                </section>
+
+                <section class="api-section" id="domain-list">
+                    <header><div><span class="method">GET</span><code>/openapi/v1/domain/list.cgi</code></div><h2>可用域名列表</h2><p>查询当前 API 用户可使用的全部域名：公共域名、登录域名、会员域名和当前用户自己的私有域名。权限条件直接在数据库查询中生效。</p></header>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>可在创建邮箱时作为 domainId 提交的域名 ID</span></div><div><code>domain</code><span>string</span><span>是</span><span>收信域名</span></div><div><code>type</code><span>integer</span><span>是</span><span>域名类型：0 公共、1 登录、2 会员、3 私有</span></div><div><code>ownerId</code><span>long</span><span>是</span><span>域名所属用户 ID；系统域名为 0</span></div><div><code>mailboxCount</code><span>long</span><span>是</span><span>该域名下未删除的邮箱总数</span></div><div><code>mailboxOccupy</code><span>long</span><span>是</span><span>该域名下当前有效的邮箱数</span></div><div><code>mailCount</code><span>long</span><span>是</span><span>该域名累计收信数</span></div><div><code>state</code><span>integer</span><span>是</span><span>域名状态；列表仅返回状态为 0 的可用域名</span></div><div><code>createdAt</code><span>datetime</span><span>是</span><span>创建时间（UTC、ISO 8601）</span></div><div><code>updatedAt</code><span>datetime</span><span>是</span><span>更新时间（UTC、ISO 8601）</span></div></div>
+                    <div class="code-sample" data-code-sample data-method="GET" data-path="/openapi/v1/domain/list.cgi"></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:[{&quot;id&quot;:1,&quot;domain&quot;:&quot;example.invalid&quot;,&quot;type&quot;:0,&quot;ownerId&quot;:0,&quot;mailboxOccupy&quot;:3,&quot;mailboxCount&quot;:8,&quot;mailCount&quot;:12,&quot;state&quot;:0,&quot;createdAt&quot;:&quot;2026-09-01T10:00:00.000Z&quot;,&quot;updatedAt&quot;:&quot;2026-09-04T10:00:00.000Z&quot;}]}</code></pre>
+                </section>
+
+                <section class="api-section" id="us-address">
+                    <header><div><span class="method">POST</span><code>/openapi/v1/tools/us_address/generate.cgi</code></div><h2>随机美国地址</h2><p>按现有 OpenAPI 邮箱创建规则创建临时邮箱，并返回指定州或随机州的公开数据地址与随机身份资料。</p></header>
+                    <h3>请求字段</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>prefix</code><span>string</span><span>否</span><span>5–32 位邮箱前缀，仅支持小写字母、数字、点、下划线和横线；留空时随机生成</span></div><div><code>domainId</code><span>long</span><span>否</span><span>可选的收信域名 ID；留空时从公共域名和登录域名中随机选择</span></div><div><code>durationHours</code><span>integer</span><span>否</span><span>有效时长；留空时默认为 1 小时，必须匹配可用套餐</span></div><div><code>stateCode</code><span>string</span><span>否</span><span>美国州的 USPS 两位代码，例如 CA；留空时从 50 州和华盛顿特区中随机选择</span></div><div><code>requestId</code><span>uuid</span><span>否</span><span>UUID v4 幂等标识；也可通过 Idempotency-Key 请求头传递</span></div></div>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>mailboxId</code><span>long</span><span>是</span><span>本次真实创建的邮箱记录 ID</span></div><div><code>email</code><span>string</span><span>是</span><span>本次真实创建的临时邮箱地址</span></div><div><code>mailboxDomainId</code><span>long</span><span>是</span><span>已创建邮箱所属的收信域名 ID</span></div><div><code>firstName</code><span>string</span><span>是</span><span>随机生成的名</span></div><div><code>lastName</code><span>string</span><span>是</span><span>随机生成的姓</span></div><div><code>gender</code><span>string</span><span>是</span><span>按当前接口语言返回的随机性别</span></div><div><code>phone</code><span>string</span><span>是</span><span>按地址所属州随机选择区号，并随机生成交换码与尾号</span></div><div><code>streetAddress</code><span>string</span><span>是</span><span>公开数据样本中的完整街道地址</span></div><div><code>city</code><span>string</span><span>是</span><span>城市</span></div><div><code>stateName</code><span>string</span><span>是</span><span>州的完整名称</span></div><div><code>stateCode</code><span>string</span><span>是</span><span>USPS 两位州代码</span></div><div><code>zipCode</code><span>string</span><span>是</span><span>ZIP 邮政编码</span></div><div><code>latitude</code><span>decimal</span><span>是</span><span>地址纬度</span></div><div><code>longitude</code><span>decimal</span><span>是</span><span>地址经度</span></div><div><code>fullAddress</code><span>string</span><span>是</span><span>由街道、城市、州和邮编组成的完整地址</span></div></div>
+                    <div class="code-sample" data-code-sample data-path="/openapi/v1/tools/us_address/generate.cgi" data-body='{"durationHours":24,"stateCode":"CA"}'></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;mailboxId&quot;:128,&quot;email&quot;:&quot;demo@example.invalid&quot;,&quot;mailboxDomainId&quot;:1,&quot;firstName&quot;:&quot;Emily&quot;,&quot;lastName&quot;:&quot;Carter&quot;,&quot;gender&quot;:&quot;女&quot;,&quot;phone&quot;:&quot;+1 (202) 483-7612&quot;,&quot;streetAddress&quot;:&quot;4600 Silver Hill Rd&quot;,&quot;city&quot;:&quot;Washington&quot;,&quot;stateName&quot;:&quot;District of Columbia&quot;,&quot;stateCode&quot;:&quot;DC&quot;,&quot;zipCode&quot;:&quot;20233&quot;,&quot;latitude&quot;:38.8459,&quot;longitude&quot;:-76.9274,&quot;fullAddress&quot;:&quot;4600 Silver Hill Rd, Washington, DC 20233, United States&quot;}}</code></pre>
+                </section>
+
+                <section class="api-section" id="mail-list">
+                    <header><div><span class="method">POST</span><code>/openapi/v1/mail/list.cgi</code></div><h2>邮件列表</h2><p>分页查询当前 API 用户的邮件；可通过 mailboxId 筛选单个邮箱，邮件按时间倒序排列，每页 10 条。</p></header>
+                    <h3>请求字段</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>mailboxId</code><span>long/string</span><span>否</span><span>当前用户拥有的数字邮箱 ID 或 MB-UUID；不传时查询账户下的全部邮件</span></div><div><code>page</code><span>integer</span><span>否</span><span>页码，从 1 开始，默认为 1</span></div><div><code>keyword</code><span>string</span><span>否</span><span>发件人或标题关键词，最长 100 个字符</span></div></div>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>count</code><span>integer</span><span>是</span><span>符合条件的总记录数</span></div><div><code>size</code><span>integer</span><span>是</span><span>每页固定为 10 条</span></div><div><code>page</code><span>integer</span><span>是</span><span>当前页码</span></div><div><code>total</code><span>integer</span><span>是</span><span>总页数</span></div><div><code>data</code><span>array</span><span>是</span><span>邮件摘要数组</span></div></div>
+                    <h3>data 邮件项</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>邮件 ID</span></div><div><code>to</code><span>string</span><span>是</span><span>收件邮箱地址</span></div><div><code>messageId</code><span>string/null</span><span>否</span><span>邮件 Message-ID；邮件未提供时为 null</span></div><div><code>from</code><span>string</span><span>是</span><span>发件人地址</span></div><div><code>subject</code><span>string/null</span><span>否</span><span>邮件主题；无主题时为 null</span></div><div><code>receivedAt</code><span>datetime</span><span>是</span><span>收信时间</span></div><div><code>read</code><span>boolean</span><span>是</span><span>是否已读</span></div><div><code>keyword</code><span>string/null</span><span>否</span><span>从邮件中提取的关键词；未提取到时为 null</span></div><div><code>keywordDisplay</code><span>string/null</span><span>否</span><span>用于展示的关键词文本；无内容时为 null</span></div></div>
+                    <div class="code-sample" data-code-sample data-path="/openapi/v1/mail/list.cgi" data-body='{"mailboxId":128,"page":1,"keyword":"verification"}'></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;count&quot;:1,&quot;size&quot;:10,&quot;page&quot;:1,&quot;total&quot;:1,&quot;data&quot;:[{&quot;id&quot;:901,&quot;to&quot;:&quot;demo@example.invalid&quot;,&quot;messageId&quot;:&quot;example-message-id&quot;,&quot;from&quot;:&quot;NodeMail &lt;notice@example.invalid&gt;&quot;,&quot;subject&quot;:&quot;您的验证码&quot;,&quot;receivedAt&quot;:&quot;2026-09-02T12:30:00.000Z&quot;,&quot;read&quot;:false,&quot;keyword&quot;:&quot;897456&quot;,&quot;keywordDisplay&quot;:&quot;897456&quot;}]}}</code></pre>
+                </section>
+
+                <section class="api-section" id="mail-detail">
+                    <header><div><span class="method">POST</span><code>/openapi/v1/mail/detail.cgi</code></div><h2>邮件详情</h2><p>读取指定邮件的完整内容。</p></header>
+                    <h3>请求字段</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long/string</span><span>是</span><span>数字邮件 ID 或 MSG-UUID</span></div></div>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>邮件 ID</span></div><div><code>to</code><span>string</span><span>是</span><span>收件邮箱地址</span></div><div><code>messageId</code><span>string/null</span><span>否</span><span>邮件 Message-ID；邮件未提供时为 null</span></div><div><code>from</code><span>string</span><span>是</span><span>发件人地址</span></div><div><code>subject</code><span>string/null</span><span>否</span><span>邮件主题；无主题时为 null</span></div><div><code>receivedAt</code><span>datetime</span><span>是</span><span>收信时间</span></div><div><code>textContent</code><span>string/null</span><span>否</span><span>邮件纯文本正文；无正文时为 null</span></div><div><code>attachments</code><span>array</span><span>是</span><span>附件数组；无附件时为空数组</span></div></div>
+                    <h3>attachments 附件项</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>fileName</code><span>string</span><span>是</span><span>附件文件名</span></div><div><code>contentType</code><span>string/null</span><span>否</span><span>附件媒体类型；未知时为 null</span></div><div><code>size</code><span>long</span><span>是</span><span>附件大小，单位为字节</span></div></div>
+                    <div class="code-sample" data-code-sample data-path="/openapi/v1/mail/detail.cgi" data-body='{"id":901}'></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;id&quot;:901,&quot;to&quot;:&quot;demo@example.invalid&quot;,&quot;messageId&quot;:&quot;example-message-id&quot;,&quot;from&quot;:&quot;NodeMail &lt;notice@example.invalid&gt;&quot;,&quot;subject&quot;:&quot;您的验证码&quot;,&quot;receivedAt&quot;:&quot;2026-09-02T12:30:00.000Z&quot;,&quot;textContent&quot;:&quot;您的验证码是 897456。&quot;,&quot;attachments&quot;:[]}}</code></pre>
+                </section>
+
+                <section class="api-section" id="user-info">
+                    <header><div><span class="method">GET</span><code>/openapi/v1/user/info.cgi</code></div><h2>用户信息</h2><p>查询当前 API Key 对应的账户信息。</p></header>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>用户 ID</span></div><div><code>email</code><span>string</span><span>是</span><span>登录邮箱</span></div><div><code>score</code><span>integer</span><span>是</span><span>当前积分</span></div><div><code>vipExpire</code><span>datetime</span><span>是</span><span>当前有效会员的到期时间；无有效会员时接口会返回 -1300</span></div><div><code>state</code><span>integer</span><span>是</span><span>账户状态；成功响应固定为 0（有效）</span></div><div><code>createdAt</code><span>datetime</span><span>是</span><span>创建时间（UTC、ISO 8601）</span></div><div><code>updatedAt</code><span>datetime</span><span>是</span><span>更新时间（UTC、ISO 8601）</span></div></div>
+                    <div class="code-sample" data-code-sample data-method="GET" data-path="/openapi/v1/user/info.cgi"></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;id&quot;:1,&quot;email&quot;:&quot;user@example.com&quot;,&quot;score&quot;:50000,&quot;vipExpire&quot;:&quot;2026-10-01T00:00:00.000Z&quot;,&quot;state&quot;:0,&quot;createdAt&quot;:&quot;2026-08-01T00:00:00.000Z&quot;,&quot;updatedAt&quot;:&quot;2026-09-02T00:00:00.000Z&quot;}}</code></pre>
+                </section>
+
+                <section class="api-section" id="mailbox-list">
+                    <header><div><span class="method">POST</span><code>/openapi/v1/mailbox/list.cgi</code></div><h2>邮箱列表</h2><p>分页查询当前账户的邮箱。</p></header>
+                    <h3>请求字段</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>page</code><span>integer</span><span>否</span><span>页码，从 1 开始，默认为 1</span></div><div><code>keyword</code><span>string</span><span>否</span><span>邮箱地址关键词，最长 100 个字符</span></div></div>
+                    <h3>成功响应数据</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>count</code><span>integer</span><span>是</span><span>符合条件的总记录数</span></div><div><code>size</code><span>integer</span><span>是</span><span>每页固定为 10 条</span></div><div><code>page</code><span>integer</span><span>是</span><span>当前页码</span></div><div><code>total</code><span>integer</span><span>是</span><span>总页数</span></div><div><code>data</code><span>array</span><span>是</span><span>邮箱数组</span></div></div>
+                    <h3>data 邮箱项</h3>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>id</code><span>long</span><span>是</span><span>邮箱 ID</span></div><div><code>domainId</code><span>long</span><span>是</span><span>收信域名 ID</span></div><div><code>email</code><span>string</span><span>是</span><span>完整邮箱地址</span></div><div><code>userId</code><span>long</span><span>是</span><span>所属用户 ID</span></div><div><code>receivedCount</code><span>long</span><span>是</span><span>累计收信数</span></div><div><code>expiresAt</code><span>datetime/null</span><span>否</span><span>到期时间；null 表示长期有效</span></div><div><code>createdAt</code><span>datetime</span><span>是</span><span>创建时间</span></div><div><code>updatedAt</code><span>datetime</span><span>是</span><span>更新时间</span></div><div><code>expired</code><span>boolean</span><span>是</span><span>邮箱是否已过期</span></div><div><code>expiryText</code><span>string</span><span>是</span><span>用于页面展示的到期状态文案</span></div><div><code>expiryTone</code><span>string</span><span>是</span><span>状态样式：permanent、warning、healthy 或 expired</span></div></div>
+                    <div class="code-sample" data-code-sample data-path="/openapi/v1/mailbox/list.cgi" data-body='{"page":1,"keyword":"example.invalid"}'></div>
+                    <h3>响应示例</h3><pre class="response-code"><code data-json>{&quot;code&quot;:0,&quot;msg&quot;:&quot;操作成功&quot;,&quot;data&quot;:{&quot;count&quot;:1,&quot;size&quot;:10,&quot;page&quot;:1,&quot;total&quot;:1,&quot;data&quot;:[{&quot;id&quot;:128,&quot;domainId&quot;:1,&quot;email&quot;:&quot;demo@example.invalid&quot;,&quot;userId&quot;:1,&quot;receivedCount&quot;:1,&quot;expiresAt&quot;:&quot;2026-09-03T12:00:00.000Z&quot;,&quot;createdAt&quot;:&quot;2026-09-02T12:00:00.000Z&quot;,&quot;updatedAt&quot;:&quot;2026-09-02T12:30:00.000Z&quot;,&quot;expired&quot;:false,&quot;expiryText&quot;:&quot;24 小时后到期&quot;,&quot;expiryTone&quot;:&quot;warning&quot;}]}}</code></pre>
+                </section>
+
+                <section class="api-section common-response" id="common-response">
+                    <header><h2>通用响应与错误</h2><p>所有接口均使用统一的 code、msg 和 data 响应结构。</p></header>
+                    <div class="field-table"><div class="field-head"><span>字段</span><span>类型</span><span>是否必填</span><span>说明</span></div><div><code>code</code><span>integer</span><span>是</span><span>0 表示成功，负数表示可识别的业务错误</span></div><div><code>msg</code><span>string</span><span>是</span><span>面向调用方的结果说明</span></div><div><code>data</code><span>object/null</span><span>否</span><span>成功时返回的业务数据</span></div></div>
+                    <h3>响应码</h3>
+                    <div class="field-table response-code-table"><div class="field-head"><span>业务码</span><span>常见 HTTP 状态</span><span>默认说明</span></div><div><code>0</code><span>200</span><span>操作成功</span></div><div><code>-1001</code><span>500</span><span>系统繁忙，请稍后重试</span></div><div><code>-1006</code><span>429</span><span>操作频繁，请稍后再试</span></div><div><code>-1100</code><span>400 / 413</span><span>请求参数不合法或请求内容过大</span></div><div><code>-1102</code><span>415</span><span>请求类型必须为 application/json</span></div><div><code>-1208</code><span>400</span><span>积分不足，请先充值</span></div><div><code>-1210</code><span>401</span><span>API Key无效</span></div><div><code>-1300</code><span>403</span><span>请先开通有效会员后再使用此功能</span></div><div><code>-1400</code><span>400</span><span>请选择收信域名</span></div><div><code>-1401</code><span>400 / 404</span><span>该收信域名当前不可用</span></div><div><code>-1403</code><span>403</span><span>该收信域名仅限会员使用</span></div><div><code>-1404</code><span>403</span><span>该私有域名不可用</span></div><div><code>-1405</code><span>400</span><span>请选择有效时长</span></div><div><code>-1407</code><span>503</span><span>邮箱地址正在补充，请稍后重试</span></div><div><code>-1408</code><span>400</span><span>邮箱名称格式不正确，长度不得低于 5 位</span></div><div><code>-1409</code><span>400</span><span>该邮箱地址已被使用</span></div><div><code>-1410</code><span>409 / 500</span><span>邮箱数量已达上限或邮箱创建失败</span></div><div><code>-1411</code><span>400</span><span>该邮箱当前不可用</span></div><div><code>-1412</code><span>400 / 404</span><span>该邮件当前不可查阅</span></div><div><code>-1700</code><span>503</span><span>暂时没有可用的美国地址，请稍后重试</span></div></div>
+                    <pre class="response-code"><code data-json>{&quot;code&quot;:-1210,&quot;msg&quot;:&quot;API Key无效&quot;,&quot;data&quot;:null}</code></pre>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+<button class="back-to-top" type="button" data-back-to-top aria-label="返回顶部" title="返回顶部">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 10.5 12 5l5.5 5.5M12 5v14"/></svg>
+</button>
+<script src="./assets/js/copy_feedback.js?v=20260901.1" defer></script>
+<script src="./assets/js/sidebar.js?v=20260901.1" defer></script>
+<script src="./assets/js/openapi_docs.js?v=20260907.2" defer></script>
+<script src="./assets/js/language_selector.js?v=20260902.2" defer></script>
+</body>
+</html>
+
+

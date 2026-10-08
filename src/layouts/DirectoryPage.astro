@@ -1,0 +1,14 @@
+---
+import { site } from '../config/site';
+import Layout from './Layout.astro';
+import type { LibraryEntry } from '../content/library';
+interface Props { title: string; eyebrow: string; intro: string; entries: LibraryEntry[]; base: string; locale?: 'zh' | 'en'; }
+const { title, eyebrow, intro, entries, base, locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
+const prefix = isEn ? '/en' : '';
+---
+<Layout title={`${title} · NodeMail`} locale={locale}>
+  <section class="directory-hero"><div class="shell" data-reveal><p class="eyebrow">{eyebrow}</p><h1>{title}</h1><p>{intro}</p></div></section>
+  <section class="section directory-section"><div class="shell"><div class="section-heading" data-reveal><p class="eyebrow">{isEn ? 'All pages' : '全部页面'}</p><h2>{isEn ? 'Browse by topic' : '按主题浏览'}</h2></div><div class="library-grid">{entries.map((entry, index) => <a class="library-card plate" href={`/${base}/${entry.slug}/`} data-reveal><span>{String(index + 1).padStart(2, '0')}</span><h2>{entry.title}</h2><p>{entry.summary}</p><i>{isEn ? 'Read more' : '阅读更多'} →</i></a>)}</div></div></section>
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>{isEn ? 'Start with one address' : '先从一个地址试试'}</h2><p>{isEn ? 'Disposable inboxes need no account. Long-lived aliases are for accounts you plan to keep.' : '临时邮箱无需注册，长期别名则适合还需要继续收信的账户。'}</p><div class="cta-actions"><a class="btn btn-primary" href={site.appPath}>{isEn ? 'Open app' : '打开应用'}</a><a class="btn btn-secondary" href={`${prefix}/use/`}>{isEn ? 'Explore use cases' : '查看使用场景'}</a></div></div></section>
+</Layout>

@@ -1,0 +1,9 @@
+import {setRelayAlias} from '../../../../server/relay/alias-settings.mjs';
+import type { APIRoute } from 'astro';
+import { consumeAuthRateLimit } from '../../../../server/auth/request-security.mjs';
+import { apiError, json, readJsonBody, requireApiUser } from '../../../../server/http/api.mjs';
+import { listRelayAccounts, saveRelayAccount, setRelayAccountStatus, testAllRelayAccounts, testRelayAccount } from '../../../../server/relay/service.mjs';
+import { getRelayCleanupStatus, setRelayCleanupEnabled } from '../../../../server/relay/cleanup.mjs';
+
+export const GET:APIRoute=async context=>{try{await requireApiUser(context,{admin:true,jsonBody:false});const [accounts,cleanup]=await Promise.all([listRelayAccounts(),getRelayCleanupStatus()]);return json({ok:true,accounts,cleanup});}catch(error){return apiError(error,'中继账号读取失败。');}};
+export const POST:APIRoute=async context=>{try{const {user,ipAddress}=await requireApiUser(context,{admin:true});const rate=await consumeAuthRateLimit({action:'ADMIN_RELAY_CONTROL',identifier:`${user.id}:${ipAddress}`,limit:20,windowSeconds:300});if(!rate.allowed)throw Object.assign(new Error(`操作过于频繁，请 ${rate.retryAfter} 秒后再试。`),{status:429});const body=await readJsonBody(context.request,16384);const common={actorUserId:user.id,ipAddress};let result;if(body.action==='save')result=await saveRelayAccount(body,{...common});else if(body.action==='test')result=await testRelayAccount({...body,...common});else if(body.action==='test-all')result=await testAllRelayAccounts(common);else if(body.action==='status')result=await setRelayAccountStatus({...body,...common});else if(body.action==='alias-setting')result=await setRelayAlias(body,common);else if(body.action==='cleanup-setting')result=await setRelayCleanupEnabled({enabled:body.enabled===true,...common});else throw Object.assign(new Error('未知中继管理操作。'),{status:400});return json({ok:true,result});}catch(error){return apiError(error,'中继账号操作失败。');}};

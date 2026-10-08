@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const countries = [
+  ['US', '美国', 'us', '5 位 ZIP Code，州使用两字母缩写。'],
+  ['UK', '英国', 'uk', '字母数字混排邮编，分为 outward 与 inward 两段。'],
+  ['CA', '加拿大', 'ca', '字母数字交替的六位邮编格式。'],
+  ['AU', '澳大利亚', 'au', '4 位邮编，州与城市格式清晰。'],
+  ['DE', '德国', 'de', '5 位 PLZ，地址顺序符合德语地区习惯。'],
+  ['JP', '日本', 'jp', '3 位加 4 位邮编，并带本地地址结构。'],
+  ['SG', '新加坡', 'sg', '使用 6 位邮编和本地电话号码格式。'],
+  ['HK', '香港', 'hk', '不使用邮政编码，保留地区与街道结构。'],
+];
+---
+<Layout title="地址生成器 · NodeMail">
+  <section class="directory-hero">
+    <div class="shell" data-reveal><p class="eyebrow">地址生成器</p><h1>地址生成器</h1><p>选择一个国家，生成格式正确的地址、姓名、电话和匿名邮箱。所有内容均在浏览器本地生成。</p></div>
+  </section>
+  <section class="section directory-section">
+    <div class="shell">
+      <div class="section-heading" data-reveal><p class="eyebrow">覆盖范围</p><h2>选择国家</h2></div>
+      <div class="country-grid">
+        {countries.map(([code, name, slug, description]) => <a href={`/address-generator/${slug}/`} class="country-card" data-reveal><span>{code}</span><h2>{name}</h2><p>{description}</p><i aria-hidden="true">→</i></a>)}
+      </div>
+    </div>
+  </section>
+  <section class="section section-soft"><div class="shell detail-split"><div class="section-heading" data-reveal><h2>为什么要按国家分别生成</h2></div><div class="detail-copy" data-reveal><p>邮编长度、行政区层级、门牌与街道顺序、电话号码分组方式在不同国家差异很大。每个生成器使用独立规则，避免一套模板硬套所有地区。</p></div></div></section>
+</Layout>
+

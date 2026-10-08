@@ -1,0 +1,11 @@
+---
+import InfoPage from '../../layouts/InfoPage.astro';
+const sections = [
+  {title:'Account and security data',paragraphs:['Accounts store an email address and a salted password hash. Login sessions store IP addresses, browser User-Agent and expiry. Guest sessions store hashes of IP and User-Agent for session checks and abuse prevention. Hashing does not mean no data is recorded.']},
+  {title:'Verification and infrastructure',paragraphs:['Cloudflare Turnstile provides human verification. Verification providers and hosting infrastructure may process connection information. We do not promise zero logs or no processing by third parties.']},
+  {title:'Messages and expiry',paragraphs:['Messages and attachments support web inbox access during the mailbox lifetime. Cleanup tasks remove website messages and attachments after expiry. Associated relay originals may be moved to upstream trash when reference protections allow; this does not guarantee immediate permanent deletion upstream. Recall restores the address, not deleted messages.']},
+  {title:'Password recovery',paragraphs:['When enabled, the configured SMTP service sends a short-lived code to the account email. Codes are not stored as plaintext. Successful resets revoke existing login sessions. The mail provider processes delivery addresses and message content.']},
+  {title:'Scope and contact',paragraphs:['This policy does not promise simultaneous deletion of all copies held by infrastructure, upstream mail services or existing backups. Contact support about account data or deletion requests; identity and applicable retention must be verified.']},
+];
+---
+<InfoPage locale="en" title="Privacy policy" eyebrow="DATA USE" intro="How account, session, inbox and verification data support the service." updated="October 2026" sections={sections}/>

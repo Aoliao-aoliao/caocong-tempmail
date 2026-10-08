@@ -1,0 +1,27 @@
+-- Additive GMPay state only. Production application requires a separately reviewed migration.
+CREATE TABLE IF NOT EXISTS gmpay_payment_orders (
+ id VARCHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL PRIMARY KEY,
+ user_id BIGINT UNSIGNED NOT NULL,
+ request_id CHAR(36) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ plan_code VARCHAR(64) NOT NULL,
+ merchant_pid VARCHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+ points BIGINT UNSIGNED NOT NULL,
+ amount_usd_cents BIGINT UNSIGNED NOT NULL,
+ trade_id VARCHAR(128) CHARACTER SET ascii COLLATE ascii_bin NULL,
+ actual_amount DECIMAL(20,6) NULL,
+ receive_address VARCHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+ payment_url VARCHAR(512) NULL,
+ block_transaction_id CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NULL,
+ create_state ENUM('NEW','REQUESTED','BOUND','UNKNOWN') NOT NULL DEFAULT 'NEW',
+ status ENUM('PENDING','PAID') NOT NULL DEFAULT 'PENDING',
+ created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+ expires_at DATETIME(3) NOT NULL,
+ paid_at DATETIME(3) NULL,
+ UNIQUE KEY uq_gmpay_request (user_id,request_id),
+ UNIQUE KEY uq_gmpay_trade (trade_id),
+ UNIQUE KEY uq_gmpay_chain_transaction (block_transaction_id),
+ KEY idx_gmpay_user (user_id,created_at),
+ CONSTRAINT fk_gmpay_user FOREIGN KEY (user_id) REFERENCES users(id),
+ CONSTRAINT chk_gmpay_points CHECK (points > 0),
+ CONSTRAINT chk_gmpay_amount CHECK (amount_usd_cents > 1)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -1,0 +1,28 @@
+---
+import Brand from './Brand.astro';
+import { site } from '../config/site';
+
+interface Props { locale?: 'zh' | 'en'; }
+const { locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
+const prefix = isEn ? '/en' : '';
+const columns = isEn ? [
+  { title: 'Features', links: [['Disposable temp mail', `${prefix}/temp-mail/`], ['Anonymous alias', `${prefix}/anonymous-email/`], ['Email forwarding', `${prefix}/email-forwarding/`], ['Custom domain', `${prefix}/custom-domain/`]] },
+  { title: 'Learn', links: [['Address generator', `${prefix}/address-generator/`], ['Use cases', `${prefix}/use/`], ['Alternatives', `${prefix}/alternatives/`], ['Guides', `${prefix}/guides/`]] },
+  { title: 'Site', links: [['Identity generator', `${prefix}/identity/`], ['How it works', `${prefix}/#how`], ['Privacy promise', `${prefix}/#privacy`], ['Partners', `${prefix}/partners/`]] },
+  { title: 'Legal', links: [['Privacy policy', `${prefix}/privacy/`], ['Terms of service', `${prefix}/terms/`], ['Contact', `mailto:${site.contactEmail}`]] },
+] : [
+  { title: '产品功能', links: [['临时匿名邮箱', '/temp-mail/'], ['长效匿名邮箱', '/anonymous-email/'], ['邮件转发', '/email-forwarding/'], ['自定义域名', '/custom-domain/']] },
+  { title: '指南', links: [['地址生成器', '/address-generator/'], ['使用场景', '/use/'], ['替代方案', '/alternatives/'], ['问题解决', '/guides/']] },
+  { title: '本站', links: [['真实地址身份生成', '/identity/'], ['工作原理', '/#how'], ['隐私承诺', '/#privacy'], ['常见问题', '/#faq'], ['合作伙伴', '/partners/']] },
+  { title: '条款', links: [['隐私政策', '/privacy/'], ['服务条款', '/terms/'], ['联系我们', `mailto:${site.contactEmail}`]] },
+];
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand"><a href={isEn ? '/en/' : '/'} aria-label={`${site.name} ${isEn ? 'home' : '首页'}`}><Brand /></a><p>{isEn ? 'Keep your real identity behind the mask.' : site.tagline}</p></div>
+    {columns.map((column) => <div class="footer-column"><h2>{column.title}</h2><ul>{column.links.map(([label, href]) => <li><a href={href}>{label}</a></li>)}</ul></div>)}
+  </div>
+  <div class="shell footer-bottom"><span>© {new Date().getFullYear()} {site.name}. {isEn ? 'All rights reserved.' : '版权所有。'}</span><span class="footer-seal">{isEn ? 'MASK · FORWARD · DESTROY' : 'Sealed · Forwarded · Burned'}</span></div>
+</footer>

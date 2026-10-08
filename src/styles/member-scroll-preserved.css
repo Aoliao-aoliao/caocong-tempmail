@@ -1,0 +1,26 @@
+/* Preserve the verified 2026-10-07 live member scroll adjustments. */
+/* Signed-in user pages follow the reference site's single document scroll. */
+html:has(body>.workspace:not(.admin-workspace)>.sidebar){height:auto;min-height:100%;overflow-x:clip;overflow-y:auto;scrollbar-gutter:stable}
+body:has(>.workspace:not(.admin-workspace)>.sidebar):not(.nm-dialog-open):not(.modal-open):not(.vip-dialog-open){height:auto;min-height:100dvh;overflow:visible}
+.workspace:has(>.sidebar):not(.admin-workspace){height:auto;min-height:100dvh;overflow:clip}
+.workspace:has(>.sidebar):not(.admin-workspace)>.content{height:auto;min-height:100dvh;overflow:visible;scrollbar-gutter:auto}
+
+html:has(body>.workspace:not(.admin-workspace)>.sidebar):has(body:is(.vip-dialog-open,.nm-dialog-open,.modal-open)){overflow:hidden}
+
+/* Address page follows the reference document flow. */
+html:has(body>.workspace:not(.admin-workspace)>.sidebar):has(.us-address-content){height:auto;min-height:100%;overflow:visible;scrollbar-gutter:auto}
+body:has(>.workspace:not(.admin-workspace)>.sidebar):has(.us-address-content):not(.nm-dialog-open):not(.modal-open):not(.vip-dialog-open){height:auto;min-height:100dvh;overflow:visible}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content){height:auto;min-height:100dvh;overflow:visible}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content)>.content{height:auto;min-height:0;overflow:visible}
+html:has(body>.workspace:not(.admin-workspace)>.sidebar):has(.us-address-content):has(body:is(.vip-dialog-open,.nm-dialog-open,.modal-open)){overflow:hidden}
+
+html:has(body>.workspace:not(.admin-workspace)>.sidebar):has(.us-address-content){height:100%;overflow:hidden}
+body:has(>.workspace:not(.admin-workspace)>.sidebar):has(.us-address-content){height:100%;min-height:0;overflow:hidden}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content){height:100dvh;min-height:0;overflow:hidden}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content)>.content{height:100dvh;min-height:0;overflow-x:hidden;overflow-y:scroll;scrollbar-gutter:stable}
+body:is(.vip-dialog-open,.nm-dialog-open,.modal-open)>.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content)>.content{overflow:hidden}
+@media(max-width:980px){
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content){display:flex!important;flex-direction:column!important}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content)>.sidebar{flex:0 0 auto}
+.workspace:has(>.sidebar):not(.admin-workspace):has(.us-address-content)>.content{flex:1 1 auto;height:auto;min-height:0;width:100%;margin:0}
+}

@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+import '../styles/reference-ui.css';
+import '../styles/workspace-layout.css';
+import Brand from '../components/Brand.astro';
+import { site } from '../config/site';
+
+type AppLocale = 'zh-CN' | 'zh-TW' | 'en-US';
+interface Props { title?: string; description?: string; locale?: AppLocale; }
+const supportedLocales: AppLocale[] = ['zh-CN','zh-TW','en-US'];
+const requestedLocale = Astro.url.searchParams.get('lang') as AppLocale | null;
+const cookieLocale = Astro.cookies.get('nodemail_locale')?.value as AppLocale | undefined;
+const locale: AppLocale = Astro.props.locale || (requestedLocale && supportedLocales.includes(requestedLocale) ? requestedLocale : cookieLocale && supportedLocales.includes(cookieLocale) ? cookieLocale : 'zh-CN');
+if (requestedLocale && supportedLocales.includes(requestedLocale)) Astro.cookies.set('nodemail_locale', requestedLocale, { path:'/', maxAge:31536000, sameSite:'lax', secure:import.meta.env.PROD });
+const ui = {
+  'zh-CN': { title:'临时邮箱', description:'打开即用的临时邮箱。', home:'官网', toolbar:'账户工具栏', choose:'选择语言', address:'美国地址生成', mailReceive:'临时邮箱收信', login:'登录', register:'注册', products:'产品入口', mail:'临时邮箱', relay:'中继邮箱', addressTool:'地址工具', anonymous:'匿名邮箱', contact:'联系我们', contactAction:'联系' },
+  'zh-TW': { title:'臨時郵箱', description:'打開即用的臨時郵箱。', home:'官網', toolbar:'帳戶工具列', choose:'選擇語言', address:'美國地址生成', mailReceive:'臨時郵箱收信', login:'登入', register:'註冊', products:'產品入口', mail:'臨時郵箱', relay:'中繼郵箱', addressTool:'地址工具', anonymous:'匿名郵箱', contact:'聯絡我們', contactAction:'聯絡' },
+  'en-US': { title:'Temporary mailbox', description:'An instant temporary inbox.', home:'homepage', toolbar:'Account toolbar', choose:'Choose language', address:'US Address Generator', mailReceive:'Temporary Inbox', login:'Login', register:'Register', products:'Product links', mail:'Temporary Inbox', relay:'Relay Inbox', addressTool:'Address Tool', anonymous:'Anonymous Email', contact:'Contact us', contactAction:'Contact' },
+}[locale];
+const { title = `${ui.title} | ${site.name}`, description = ui.description } = Astro.props;
+const isAddressTool = Astro.url.pathname === '/tools/us_address.cgi';
+---
+<!doctype html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f8fc" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/brand/nodemail-mark.jpg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body class:list={['app-body', { 'app-address-guest-body': isAddressTool }]}>
+    <header class="app-topbar">
+      <div class="app-shell app-topbar-inner">
+        <a href={site.publicOrigin} aria-label={`${site.name} ${ui.home}`}><Brand /></a>
+        <nav aria-label={ui.toolbar}>
+          <div class="app-language-switcher" data-app-language>
+            <button class="app-language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span data-app-language-label>{locale === 'zh-CN' ? '简体中文' : locale === 'zh-TW' ? '繁體中文' : 'English'}</span><i aria-hidden="true"></i>
+            </button>
+            <div class="app-language-menu" role="listbox" aria-label={ui.choose} hidden>
+              <button type="button" role="option" aria-selected={locale === 'zh-CN'} data-language="zh-CN"><b>简</b><span><strong>简体中文</strong><small>ZH-CN</small></span><i>✓</i></button>
+              <button type="button" role="option" aria-selected={locale === 'zh-TW'} data-language="zh-TW"><b>繁</b><span><strong>繁體中文</strong><small>ZH-TW</small></span><i>✓</i></button>
+              <button type="button" role="option" aria-selected={locale === 'en-US'} data-language="en-US"><b>EN</b><span><strong>English</strong><small>EN-US</small></span><i>✓</i></button>
+            </div>
+          </div>
+          <a class="app-nav-emphasis" href={isAddressTool ? '/tools/mail.cgi' : '/tools/us_address.cgi'}>{isAddressTool ? ui.mailReceive : ui.address}</a>
+          <a href="/user/login.cgi">{ui.login}</a>
+          <a class="app-nav-emphasis" href="/user/register.cgi">{ui.register}</a>
+        </nav>
+      </div>
+    </header>
+    <main class="app-main"><slot /></main>
+    <footer class="app-footer">
+      <div class="app-shell app-footer-inner">
+        <section class="app-footer-section"><h2>{ui.products}</h2><nav class="app-footer-links" aria-label={ui.products}><a href="/tools/mail.cgi" target="_blank" rel="noopener noreferrer">{ui.mail}</a><a href="/tools/real_mail.cgi" target="_blank" rel="noopener noreferrer">{ui.relay}</a><a href="/tools/us_address.cgi" target="_blank" rel="noopener noreferrer">{ui.addressTool}</a><a href={`${site.publicOrigin}/anonymous-email/`} target="_blank" rel="noopener noreferrer">{ui.anonymous}</a></nav></section>
+        <section class="app-footer-section app-footer-contact"><h2>{ui.contact}</h2><a class="app-footer-contact-link" href={`mailto:${site.contactEmail}`} target="_blank" rel="noopener noreferrer">{ui.contactAction} {site.name}</a></section>
+      </div>
+    </footer>
+    <script is:inline define:vars={{ locale }}>
+      (() => {
+        const root = document.querySelector('[data-app-language]');
+        if (!root) return;
+        const trigger = root.querySelector('.app-language-trigger');
+        const menu = root.querySelector('.app-language-menu');
+        const label = root.querySelector('[data-app-language-label]');
+        const names = { 'zh-CN': '简体中文', 'zh-TW': '繁體中文', 'en-US': 'English' };
+        const close = () => { menu.hidden = true; root.classList.remove('is-open'); trigger.setAttribute('aria-expanded', 'false'); };
+        const apply = (language) => {
+          localStorage.setItem('nodemail.language', language);
+          document.documentElement.lang = language;
+          label.textContent = names[language] || names['zh-CN'];
+          root.querySelectorAll('[data-language]').forEach((option) => option.setAttribute('aria-selected', String(option.dataset.language === language)));
+          close();
+        };
+        apply(locale);
+        trigger.addEventListener('click', (event) => {
+          event.stopPropagation();
+          const opening = menu.hidden;
+          if (opening) { menu.hidden = false; root.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true'); }
+          else close();
+        });
+        menu.querySelectorAll('[data-language]').forEach((option) => option.addEventListener('click', () => {
+          const language = option.dataset.language;
+          apply(language);
+          const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+          document.cookie = `nodemail_locale=${encodeURIComponent(language)}; Path=/; Max-Age=31536000; SameSite=Lax${secure}`;
+          const next = new URL(window.location.href);
+          next.searchParams.delete('lang');
+          window.location.assign(`${next.pathname}${next.search}${next.hash}`);
+        }));
+        document.addEventListener('click', (event) => { if (!root.contains(event.target)) close(); });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+      })();
+    </script>
+  </body>
+</html>

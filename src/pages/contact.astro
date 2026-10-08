@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../config/site';
+---
+
+<Layout title={`联系我们 · ${site.name}`} description="产品支持、合作与隐私问题的联系入口。">
+  <header class="directory-hero"><div class="shell" data-reveal><p class="eyebrow">联系我们</p><h1>把问题交给正确的人</h1><p>产品使用、技术接入、隐私请求或合作建议，都可以从这里开始。</p></div></header>
+  <section class="section"><div class="shell contact-grid">
+    <div class="contact-details" data-reveal><p class="eyebrow">直接联系</p><h2>我们通常会在两个工作日内回复</h2><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a><dl><div><dt>产品支持</dt><dd>账户、别名、收信与域名配置</dd></div><div><dt>安全与隐私</dt><dd>数据请求、漏洞报告与滥用反馈</dd></div><div><dt>合作</dt><dd>产品集成、渠道与商务建议</dd></div></dl></div>
+    <form class="contact-form plate" data-contact-form data-reveal>
+      <label>你的邮箱<input name="email" type="email" autocomplete="email" required placeholder="you@example.com" /></label>
+      <label>问题类型<select name="topic"><option>产品支持</option><option>隐私与安全</option><option>合作咨询</option><option>其他</option></select></label>
+      <label>具体内容<textarea name="message" required rows="6" placeholder="请描述你遇到的问题"></textarea></label>
+      <button class="btn btn-primary" type="submit">准备邮件</button>
+      <output hidden>已打开你的邮件客户端，发送前仍可检查内容。</output>
+    </form>
+  </div></section>
+</Layout>
+
+<script is:inline define:vars={{ contactEmail: site.contactEmail }}>
+  document.querySelector('[data-contact-form]')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const data = new FormData(this);
+    const subject = String(data.get('topic') || '网站咨询');
+    const body = `${String(data.get('message') || '')}\n\n回复邮箱：${String(data.get('email') || '')}`;
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const output = this.querySelector('output');
+    if (output) output.hidden = false;
+  });
+</script>

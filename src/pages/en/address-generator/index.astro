@@ -1,0 +1,9 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const countries = [['US', 'United States', 'us', 'Five-digit ZIP codes and two-letter state abbreviations.'], ['UK', 'United Kingdom', 'uk', 'Alphanumeric postcodes split into outward and inward parts.'], ['CA', 'Canada', 'ca', 'Six-character postal codes alternating letters and digits.'], ['AU', 'Australia', 'au', 'Four-digit postcodes with state abbreviations.'], ['DE', 'Germany', 'de', 'Five-digit postcodes and local street ordering.'], ['JP', 'Japan', 'jp', 'Three plus four digit postcodes with local address structure.'], ['SG', 'Singapore', 'sg', 'Six-digit postal codes and local phone grouping.'], ['HK', 'Hong Kong', 'hk', 'District and street structure without postal codes.']];
+---
+<Layout locale="en" title="Address generator · NodeMail">
+  <section class="directory-hero"><div class="shell" data-reveal><p class="eyebrow">ADDRESS GENERATOR</p><h1>Realistic test addresses</h1><p>Choose a country and generate a coherent address, name, phone number and anonymous email locally in your browser.</p></div></section>
+  <section class="section directory-section"><div class="shell"><div class="section-heading" data-reveal><p class="eyebrow">COVERAGE</p><h2>Choose a country</h2></div><div class="country-grid">{countries.map(([code, name, slug, description]) => <a href={`/en/address-generator/${slug}/`} class="country-card" data-reveal><span>{code}</span><h2>{name}</h2><p>{description}</p><i aria-hidden="true">→</i></a>)}</div></div></section>
+  <section class="section section-soft"><div class="shell detail-split"><div class="section-heading" data-reveal><h2>Why each country needs its own generator</h2></div><div class="detail-copy" data-reveal><p>Postal length, administrative levels, street order and phone grouping vary widely. Independent format rules prevent one generic template from being forced onto every region.</p></div></div></section>
+</Layout>

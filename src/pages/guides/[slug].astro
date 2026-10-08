@@ -1,0 +1,7 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+import { guideEntries } from '../../content/library';
+const entry = guideEntries.find((item) => item.slug === Astro.params.slug);
+if (!entry) return new Response('页面不存在。', { status: 404 });
+---
+<ArticlePage entry={entry} sectionLabel="你遇到的情况" />

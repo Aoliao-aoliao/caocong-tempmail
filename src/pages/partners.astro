@@ -1,0 +1,16 @@
+---
+import { site } from '../config/site';
+import Layout from '../layouts/Layout.astro';
+
+const groups = [
+  { no: '01', title: '身份与隐私', intro: '处理邮箱、测试身份、网络环境与验证入口。', services: [['NodeMail', '匿名邮箱与测试身份', 'CURRENT'], ['Network Layer', '网络出口与区域配置', 'PLANNED'], ['Number Layer', '验证号码与通知接收', 'PLANNED']] },
+  { no: '02', title: '触达与运营', intro: '把公开联系、团队协作和客户通知整理成可维护流程。', services: [['Contact Check', '联系信息有效性检查', 'PLANNED'], ['Team Inbox', '多人共享通知与分流', 'PLANNED']] },
+  { no: '03', title: '工具与基础设施', intro: '面向开发、测试和自动化工作流的通用能力。', services: [['Developer API', '地址、别名与收件接口', 'PLANNED'], ['Compute', '可按需扩展的任务执行能力', 'PLANNED']] },
+];
+---
+
+<Layout title="合作伙伴 · NodeMail" description="围绕身份隐私、通知与开发工具构建的合作能力。">
+  <header class="partners-hero"><div class="shell" data-reveal><p class="eyebrow">产品生态</p><h1>每一层独立工作，<br /><span>也能组合使用。</span></h1><p>围绕临时邮箱、地址工具与隐私服务构建清晰、可扩展的产品能力。</p><div class="hero-actions"><a class="btn btn-primary" href={site.appPath}>打开 NodeMail</a><a class="btn btn-secondary" href="/contact/">洽谈合作</a></div></div></header>
+  {groups.map((group) => <section class="section partner-group"><div class="shell"><div class="partner-intro" data-reveal><span>{group.no}</span><div><h2>{group.title}</h2><p>{group.intro}</p></div></div><div class="partner-list">{group.services.map(([name, description, status]) => <article data-reveal><div><h3>{name}</h3><p>{description}</p></div><span class:list={{ current: status === 'CURRENT' }}>{status}</span></article>)}</div></div></section>)}
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>先从邮箱这一层开始</h2><p>每项能力保持独立，后续接入时不会把账户和数据强行绑在一起。</p><div class="cta-actions"><a class="btn btn-primary" href={site.appPath}>免费体验</a></div></div></section>
+</Layout>

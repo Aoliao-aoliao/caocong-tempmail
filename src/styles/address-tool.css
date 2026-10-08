@@ -1,0 +1,63 @@
+/* Address tool: preserve the reference cards, adapt to the available content width. */
+.us-address-content {
+  container-type: inline-size;
+}
+.us-address-content .generator-hero > *,
+.us-address-content .results-header > *,
+.us-address-content .result-actions {
+  min-width: 0;
+}
+.us-address-content .results {
+  scroll-margin-top: 96px;
+}
+.us-address-content .field-row dd,
+.us-address-content .mail-value strong {
+  overflow-wrap: anywhere;
+}
+.us-address-content .mail-value strong {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+.us-address-content .secondary-button {
+  white-space: nowrap;
+}
+@container (max-width: 850px) {
+  .address-workspace .us-address-content .generator-hero,
+  .us-address-content .results-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .address-workspace .us-address-content .generator-hero {
+    padding: 22px 18px;
+  }
+  .address-workspace .us-address-content .hero-intro h1 {
+    font-size: 28px;
+  }
+  .us-address-content .generator-control {
+    padding: 16px;
+  }
+  .us-address-content .results-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 15px;
+  }
+  .us-address-content .results-grid {
+    padding: 15px;
+  }
+  .us-address-content .field-row {
+    grid-template-columns: 92px minmax(0, 1fr) 32px;
+    gap: 8px;
+  }
+  .us-address-content .disclaimer {
+    margin: 0 15px 15px;
+  }
+  .us-address-content .result-actions {
+    width: 100%;
+  }
+  .us-address-content .result-actions > .secondary-button {
+    flex: 1;
+  }
+}

@@ -1,0 +1,19 @@
+---
+import {requestLocale,translator} from '../../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import '../../styles/recharge.css';
+import '../../styles/nodeloc-payment.css';
+import {publicConfig as gmpayConfig} from '../../../server/payment/gmpay-config.mjs';
+import RechargeConsole from '../../components/RechargeConsole';
+import {paymentView} from '../../../server/payment/nodeloc-service.mjs';
+import MemberLayout from '../../layouts/MemberLayout.astro';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+import { getMemberData } from '../../../server/member/read-model.mjs';
+const sessionUser=await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+if(!sessionUser)return Astro.redirect('/user/login.cgi');
+const data=await getMemberData(sessionUser.id);
+const payment=await paymentView(sessionUser.id);
+---
+<MemberLayout title={t("积分充值 | NodeMail")} active="recharge">
+  <RechargeConsole initialGmpay={await gmpayConfig()} plans={data.rechargePlans} channels={data.paymentChannels} initialView={{enabled:payment.enabled,plans:payment.plans}} orders={data.orders} pagination={data.orderPagination} client:load />
+</MemberLayout>

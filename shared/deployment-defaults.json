@@ -1,0 +1,8 @@
+{
+  "siteOrigin": "https://mail.example.invalid",
+  "publicOrigin": "https://mail.example.invalid",
+  "contactEmail": "admin@example.invalid",
+  "emailDomain": "example.invalid",
+  "smtpName": "mx.example.invalid",
+  "gmpayOrigin": ""
+}

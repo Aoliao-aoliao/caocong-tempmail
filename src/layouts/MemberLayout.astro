@@ -1,0 +1,127 @@
+---
+import {requestLocale,translator} from '../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import '../styles/global.css';
+import '../styles/telegram.css';
+import '../styles/reference-ui.css';
+import '../styles/workspace-layout.css';
+import '../styles/member-scroll-preserved.css';
+import LanguageMenu from '../components/LanguageMenu.astro';
+import Brand from '../components/Brand.astro';
+import { site } from '../config/site';
+import { getSessionUser, sessionCookieName } from '../../server/auth/service.mjs';
+import { getMemberLayoutData } from '../../server/member/layout-data.mjs';
+
+interface Props { title: string; description?: string; active: string; }
+const { title, description = '管理 NodeMail 邮箱、邮件与账户设置。', active } = Astro.props;
+const pageTitles: Record<string, string> = { overview: '个人空间', apply: '临时邮箱', relay:'主流邮箱', address: '地址生成', mailboxes: '邮箱列表', messages: '邮件列表', domains: '域名列表', points: '资金流水', recharge: '积分充值', membership: '会员服务', api: 'API 接口', account: '账户设置' };
+const pageTitle = pageTitles[active] || title.replace(` | ${site.name}`, '');
+const sessionUser = await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+const accountEmail = String(sessionUser?.email || '');
+const emailParts = accountEmail.split('@');
+const maskedEmail = accountEmail ? `${emailParts[0].slice(0, 2)}****@${emailParts[1]}` : '未登录';
+const accountInitial = accountEmail.slice(0, 1).toUpperCase() || 'N';
+const accountPoints = Number(sessionUser?.points_balance || 0);
+const { membershipPlans, activeMembership }: { membershipPlans: { code:string; duration_days:number; price_points:number }[]; activeMembership:any } = await getMemberLayoutData(sessionUser?.id);
+const items = [
+  ['overview', '/user/center.cgi', '个人空间', 'home-icon'],
+  ['apply', '/tools/mail.cgi', '临时邮箱', 'apply-icon'],
+  ['relay', '/tools/real_mail.cgi', '主流邮箱', 'mail-icon'],
+  ['address', '/tools/us_address.cgi', '地址生成', 'address-icon'],
+  ['mailboxes', '/user/mailboxes.cgi', '邮箱列表', 'mailbox-icon'],
+  ['messages', '/user/mails.cgi', '邮件列表', 'mail-icon'],
+  ['domains', '/user/domains.cgi', '域名列表', 'mailbox-icon'],
+  ['points', '/user/transactions.cgi', '资金流水', 'score-icon'],
+];
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="/openapi/assets/css/user_center.css?v=20260916.1" />
+    <link rel="stylesheet" href="/openapi/assets/css/language_selector.css?v=20260904.2" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body data-account-email={accountEmail} data-account-points={accountPoints} data-msg-copy={t("复制")} data-msg-copied={t("已复制")} data-msg-logout-processing={t("正在处理")} data-msg-logout-failed={t("系统繁忙，请稍后重试")}>
+    <div class="workspace">
+      <aside class="sidebar">
+        <a class="brand" href={site.publicOrigin} aria-label={`${site.name} 首页`}><Brand /></a>
+        <nav class="side-nav" aria-label={t("用户中心菜单")}>
+          {items.map(([key, href, label, icon]) => (
+            <a class:list={['nav-item', { active: active === key }]} href={href}>
+              <span class:list={['nav-icon', icon]} aria-hidden="true"></span><span>{t(label)}</span>
+            </a>
+          ))}
+        </nav>
+        <a class="back-home" href={site.publicOrigin}>{t("返回")}{site.name}{t("首页")}</a>
+      </aside>
+
+      <main class:list={['content', { 'mailer-content': active === 'apply' || active === 'relay', 'recharge-content': active === 'recharge' }]}>
+        <nav class="workspace-topbar" aria-label={t("账户工具栏")}>
+          <h1 class="workspace-topbar-title">{t(pageTitle)}</h1>
+          <div class="top-account-bar"><LanguageMenu/>
+            <a class="openapi-entry" href="/openapi/docs.cgi">OpenAPI</a>
+            <button class:list={['member-badge member-entry membership-identity',{regular:!activeMembership}]} type="button" data-vip-open>{t(activeMembership?'VIP 会员':'开通会员')}</button>
+            <div class="top-user-chip" data-account-card>
+              <span class="avatar" aria-hidden="true">{accountInitial}</span>
+              <span class="top-user-copy"><small>{t("当前账户")}</small><strong>{maskedEmail}</strong></span>
+              <button class="account-copy" type="button" data-account-copy data-email={accountEmail} aria-label={t("复制完整邮箱地址")}><img src="/openapi/assets/images/icons/copy.svg" alt="" /></button>
+              <details class="account-actions" data-account-actions>
+                <summary aria-label={t("展开账户菜单")} title={t("展开账户菜单")}><img src="/openapi/assets/images/icons/chevron-down.svg" alt="" /></summary>
+                <div class="account-actions-menu"><button type="button" data-login-out data-url="/api/auth/logout" data-login-url="/user/login.cgi" aria-label={t("退出登录")}><img src="/openapi/assets/images/icons/logout.svg" alt="" /><span>{t("退出登录")}</span></button><small data-account-status role="status" aria-live="polite"></small></div>
+              </details>
+            </div>
+          </div>
+        </nav>
+        <slot />
+      </main>
+    </div>
+    <div class="vip-dialog" data-vip-dialog hidden>
+      <button class="vip-dialog-backdrop" type="button" data-vip-close aria-label={t("关闭")}></button>
+      <section class="vip-dialog-card" role="dialog" aria-modal="true" aria-labelledby="vipDialogTitle">
+        <button class="vip-dialog-close" type="button" data-vip-close aria-label={t("关闭")}>×</button>
+        <header class="vip-dialog-header"><div class="vip-crown">VIP</div><div><small>{t("NODEMAIL 会员服务")}</small><h2 id="vipDialogTitle">{t("开通 NodeMail 会员")}</h2><p>{t("解锁更低价格与更多邮箱能力")}</p></div></header>
+        <section class="vip-benefits"><h3>{t("会员权益")}</h3><ul><li><i>✓</i>{t("邮箱创建、召回和续期享套餐折扣")}</li><li><i>✓</i>{t("可使用 OpenAPI 接口")}</li><li><i>✓</i>{t("召回对所有用户开放；会员可召回会员专属域名邮箱")}</li><li><i>✓</i>{t("可绑定个人域名邮箱")}</li></ul></section>
+        <form class="vip-purchase-form" data-vip-form><fieldset><legend>{t("选择会员时长")}</legend><div class="vip-plan-grid">
+          {membershipPlans.map((plan, index) => <label><input type="radio" name="vip-duration" value={plan.code} data-price={plan.price_points} checked={index === 0} /><span><strong>{plan.duration_days}{t("天")}</strong><small>{plan.price_points}{t("积分")}</small></span></label>)}
+        </div></fieldset><div class="vip-order-summary"><div class="vip-current-balance"><span>{t("当前积分")}<b>{accountPoints}</b></span><a class="recharge-mini" href="/user/recharge.cgi">{t("积分充值")}</a></div><span>{t("本次支付")}<strong data-vip-price>{membershipPlans[0]?.price_points||0}{t("积分")}</strong></span></div><button class="vip-submit" type="submit" disabled={!membershipPlans.length}>{t("确认开通")}</button><p class="vip-form-status" data-vip-status></p></form>
+      </section>
+    </div>
+    <script src="/openapi/assets/js/app_dialog.js?v=20260918.1" defer></script>
+    <script src="/openapi/assets/js/copy_feedback.js?v=20260901.1" defer></script>
+    <script src="/openapi/assets/js/sidebar.js?v=20260901.1" defer></script>
+
+    <script>
+      import {purchaseIntent,completePurchaseIntent} from '../lib/purchase-intent';
+      const dialog=document.querySelector<HTMLElement>('[data-vip-dialog]')!;
+      const form=document.querySelector<HTMLFormElement>('[data-vip-form]')!;
+      const price=document.querySelector<HTMLElement>('[data-vip-price]')!;
+      const status=document.querySelector<HTMLElement>('[data-vip-status]')!;
+      const owner=document.body.dataset.accountEmail||'';
+      const t=(text:string)=>(window as any).NodeMailI18n.t(text);
+      let purchasing=false;
+      const open=()=>{dialog.hidden=false;document.body.classList.add('vip-dialog-open');};
+      const close=()=>{if(purchasing)return;dialog.hidden=true;document.body.classList.remove('vip-dialog-open');};
+      document.querySelectorAll('[data-vip-open]').forEach(button=>button.addEventListener('click',open));
+      document.querySelectorAll('[data-vip-close]').forEach(button=>button.addEventListener('click',close));
+      form.addEventListener('change',()=>{const selected=form.querySelector<HTMLInputElement>('input:checked');if(selected)price.textContent=`${selected.dataset.price}${t('积分')}`;status.textContent='';});
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();if(purchasing)return;
+        const selected=form.querySelector<HTMLInputElement>('input:checked');if(!selected)return;
+        const parameters={code:selected.value,expectedPrice:Number(selected.dataset.price)};
+        const button=form.querySelector<HTMLButtonElement>('.vip-submit')!;
+        purchasing=true;button.disabled=true;status.textContent=t('正在处理…');
+        try{
+          const response=await fetch('/api/user/membership/purchase',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({...parameters,requestId:purchaseIntent(owner,'membership',parameters)})});
+          const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||t('开通失败'));
+          completePurchaseIntent(owner,'membership',parameters);location.reload();
+        }catch(error){status.textContent=error instanceof Error?error.message:t('开通失败');button.disabled=false;purchasing=false;}
+      });
+      document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.hidden)close();});
+    </script>
+  </body>
+</html>

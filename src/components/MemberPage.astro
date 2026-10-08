@@ -1,0 +1,27 @@
+---
+import MemberCenter, { type MemberView } from './MemberCenter';
+import { getSessionUser, sessionCookieName } from '../../server/auth/service.mjs';
+import { getMemberMessagePage, getMemberData } from '../../server/member/read-model.mjs';
+import { getResolvedTurnstilePublicConfig } from '../../server/security/turnstile.mjs';
+interface Props { view:MemberView }
+const { view } = Astro.props;
+const sessionUser = await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+if (!sessionUser) return Astro.redirect('/user/login.cgi');
+const data = await getMemberData(sessionUser.id, { includeApiKeySecret:view === 'overview' || view === 'api' });
+if(view==='messages' && Astro.url.searchParams.has('mailboxId')) {
+  const mailboxId=Astro.url.searchParams.get('mailboxId')||'';
+  try {
+    if(!mailboxId)throw Object.assign(new Error('missing mailbox'),{status:400});
+    const result=await getMemberMessagePage({userId:sessionUser.id,mailboxId});
+    Object.assign(data,{messages:result.messages,messagePagination:result.pagination,selectedMailbox:result.mailbox});
+  } catch(error) {
+    const unavailable=[400,404].includes(Number((error as {status?:number})?.status));
+    Astro.response.status=unavailable?404:503;
+    Object.assign(data,{messages:[],messagePagination:{page:1,pages:1,total:0,pageSize:10},mailboxError:unavailable?'邮箱不存在、已过期或无权访问。':'收件箱读取失败，请稍后重试。',selectedMailbox:{id:mailboxId}});
+  }
+}
+const turnstile = view === 'mailboxes'
+  ? await getResolvedTurnstilePublicConfig()
+  : { siteKey:'', configured:false };
+---
+<MemberCenter view={view} data={data} turnstileSiteKey={turnstile.siteKey} turnstileConfigured={turnstile.configured} client:load />

@@ -1,0 +1,2311 @@
+{
+  "0 积分": {
+    "en": "0 points",
+    "tw": "0 積分"
+  },
+  "8 位验证码（10 分钟有效）": {
+    "en": "8-digit code (valid for 10 minutes)",
+    "tw": "8 位驗證碼（10 分鐘有效）"
+  },
+  "API Key 已在另一个页面重置并同步": {
+    "en": "API key updated from another tab",
+    "tw": "API Key 已在另一個頁面重置並同步"
+  },
+  "API Key 已复制": {
+    "en": "API key copied",
+    "tw": "API Key 已複製"
+  },
+  "API Key 已被管理员停用": {
+    "en": "API key disabled by an administrator",
+    "tw": "API Key 已被管理員停用"
+  },
+  "API Key 已被管理员停用，如需恢复请联系管理员。": {
+    "en": "Your API key is disabled. Contact an administrator to restore access.",
+    "tw": "API Key 已被管理員停用，如需恢復請聯絡管理員。"
+  },
+  "API Key 已重置": {
+    "en": "API key reset",
+    "tw": "API Key 已重置"
+  },
+  "API Key 重置失败。": {
+    "en": "Could not reset the API key.",
+    "tw": "API Key 重置失敗。"
+  },
+  "API 使用文档": {
+    "en": "API documentation",
+    "tw": "API 使用文件"
+  },
+  "API 接口": {
+    "en": "API access",
+    "tw": "API 介面"
+  },
+  "MX 状态": {
+    "en": "MX status",
+    "tw": "MX 狀態"
+  },
+  "NODEMAIL 会员服务": {
+    "en": "NODEMAIL MEMBERSHIP",
+    "tw": "NODEMAIL 會員服務"
+  },
+  "NODEMAIL 地址工具": {
+    "en": "NODEMAIL ADDRESS TOOL",
+    "tw": "NODEMAIL 地址工具"
+  },
+  "Telegram 未绑定": {
+    "en": "Telegram not linked",
+    "tw": "Telegram 未繫結"
+  },
+  "{0} 分钟": {
+    "en": "{0} minutes",
+    "tw": "{0} 分鐘"
+  },
+  "{0} 天": {
+    "en": "{0} days",
+    "tw": "{0} 天"
+  },
+  "{0} 已成功召回，正在恢复收信。": {
+    "en": "{0} has been recalled. Receiving is being restored.",
+    "tw": "{0} 已成功召回，正在恢復收信。"
+  },
+  "{0} 积分": {
+    "en": "{0} points",
+    "tw": "{0} 積分"
+  },
+  "· 余额": {
+    "en": " · Balance ",
+    "tw": "· 餘額"
+  },
+  "↻ 刷新": {
+    "en": "↻ Refresh",
+    "tw": "↻ 重新整理"
+  },
+  "一个账户，统一掌握长效邮箱、邮件收取与中转服务，让每一次登录都延续熟悉的工作节奏。": {
+    "en": "Manage lasting mailboxes, incoming mail and relay services in one familiar workspace.",
+    "tw": "一個賬戶，統一掌握長效郵箱、郵件收取與中轉服務，讓每一次登入都延續熟悉的工作節奏。"
+  },
+  "一次使用": {
+    "en": "Single use",
+    "tw": "一次使用"
+  },
+  "一键复制全部": {
+    "en": "Copy all",
+    "tw": "一鍵複製全部"
+  },
+  "上一页": {
+    "en": "Previous",
+    "tw": "上一頁"
+  },
+  "下一页": {
+    "en": "Next",
+    "tw": "下一頁"
+  },
+  "两次输入的密码不一致。": {
+    "en": "The passwords do not match.",
+    "tw": "兩次輸入的密碼不一致。"
+  },
+  "个真实邮箱记录": {
+    "en": " mailbox records",
+    "tw": "個真實郵箱記錄"
+  },
+  "中继邮箱创建失败。": {
+    "en": "Could not create the relay mailbox.",
+    "tw": "中繼郵箱建立失敗。"
+  },
+  "中继邮箱已启用，可以开始收信。": {
+    "en": "Your relay mailbox is ready to receive mail.",
+    "tw": "中繼郵箱已啟用，可以開始收信。"
+  },
+  "临时邮箱 / Email": {
+    "en": "Email",
+    "tw": "臨時郵箱 / Email"
+  },
+  "临时邮箱凭证无效，请重新生成资料。": {
+    "en": "The mailbox claim is invalid. Generate a new profile.",
+    "tw": "臨時郵箱憑證無效，請重新生成資料。"
+  },
+  "临时邮箱启用失败。": {
+    "en": "Could not activate the temporary mailbox.",
+    "tw": "臨時郵箱啟用失敗。"
+  },
+  "临时邮箱启用结果不一致，请重新生成资料。": {
+    "en": "The activation result did not match. Generate a new profile.",
+    "tw": "臨時郵箱啟用結果不一致，請重新生成資料。"
+  },
+  "主流邮箱": {
+    "en": "Mainstream mailbox",
+    "tw": "主流郵箱"
+  },
+  "主题": {
+    "en": "Subject",
+    "tw": "主題"
+  },
+  "人机验证": {
+    "en": "Human verification",
+    "tw": "人機驗證"
+  },
+  "人机验证尚未启用，请联系账户支持。": {
+    "en": "Human verification is not enabled. Contact support.",
+    "tw": "人機驗證尚未啟用，請聯絡賬戶支援。"
+  },
+  "人机验证尚未配置，暂时无法召回，请联系管理员。": {
+    "en": "Recall is unavailable until verification is configured. Contact an administrator.",
+    "tw": "人機驗證尚未配置，暫時無法召回，請聯絡管理員。"
+  },
+  "人机验证尚未配置，请联系管理员。": {
+    "en": "Human verification is not configured. Contact an administrator.",
+    "tw": "人機驗證尚未配置，請聯絡管理員。"
+  },
+  "人机验证暂时不可用。": {
+    "en": "Human verification is temporarily unavailable.",
+    "tw": "人機驗證暫時不可用。"
+  },
+  "人机验证暂时不可用，请稍后重试。": {
+    "en": "Human verification is temporarily unavailable. Try again later.",
+    "tw": "人機驗證暫時不可用，請稍後重試。"
+  },
+  "仅免税州": {
+    "en": "No state sales tax only",
+    "tw": "僅免稅州"
+  },
+  "从一个账户开始建立邮件边界": {
+    "en": "Build your email boundaries with one account",
+    "tw": "從一個賬戶開始建立郵件邊界"
+  },
+  "从未使用": {
+    "en": "Never used",
+    "tw": "從未使用"
+  },
+  "会员专用": {
+    "en": "Members only",
+    "tw": "會員專用"
+  },
+  "会员价": {
+    "en": "Member price ",
+    "tw": "會員價"
+  },
+  "会员价格": {
+    "en": "Member pricing",
+    "tw": "會員價格"
+  },
+  "会员服务": {
+    "en": "Membership",
+    "tw": "會員服務"
+  },
+  "会员未开通": {
+    "en": "No active membership",
+    "tw": "會員未開通"
+  },
+  "会员权益": {
+    "en": "Member benefits",
+    "tw": "會員權益"
+  },
+  "会员状态": {
+    "en": "Membership status",
+    "tw": "會員狀態"
+  },
+  "使用账户邮箱和密码继续访问": {
+    "en": "Continue with your account email and password on ",
+    "tw": "使用賬戶郵箱和密碼繼續訪問"
+  },
+  "保持登录 7 天": {
+    "en": "Stay signed in for 7 days",
+    "tw": "保持登入 7 天"
+  },
+  "修改": {
+    "en": "Change",
+    "tw": "修改"
+  },
+  "充值订单记录": {
+    "en": "Recharge order history",
+    "tw": "儲值訂單記錄"
+  },
+  "免费": {
+    "en": "Free",
+    "tw": "免費"
+  },
+  "免费邮箱": {
+    "en": "Free mailbox",
+    "tw": "免費郵箱"
+  },
+  "共": {
+    "en": "Total ",
+    "tw": "共"
+  },
+  "关键信息": {
+    "en": "Key information",
+    "tw": "關鍵資訊"
+  },
+  "关闭": {
+    "en": "Close",
+    "tw": "關閉"
+  },
+  "关闭召回窗口": {
+    "en": "Close recall dialog",
+    "tw": "關閉召回視窗"
+  },
+  "减少私人邮箱直接暴露": {
+    "en": "Keep your personal email private",
+    "tw": "減少私人郵箱直接暴露"
+  },
+  "列表每 10 秒自动检查新邮件。": {
+    "en": "This list checks for new mail every 10 seconds.",
+    "tw": "列表每 10 秒自動檢查新郵件。"
+  },
+  "创建": {
+    "en": "Create ",
+    "tw": "建立"
+  },
+  "创建 API Key": {
+    "en": "Create API key",
+    "tw": "建立 API Key"
+  },
+  "创建失败": {
+    "en": "Creation failed",
+    "tw": "建立失敗"
+  },
+  "创建失败。": {
+    "en": "Creation failed.",
+    "tw": "建立失敗。"
+  },
+  "创建密钥": {
+    "en": "Create key",
+    "tw": "建立金鑰"
+  },
+  "创建您的访问空间": {
+    "en": "CREATE YOUR WORKSPACE",
+    "tw": "建立您的訪問空間"
+  },
+  "创建时间": {
+    "en": "Created",
+    "tw": "建立時間"
+  },
+  "创建账户": {
+    "en": "Create account",
+    "tw": "建立賬戶"
+  },
+  "创建邮箱": {
+    "en": "Create mailbox",
+    "tw": "建立郵箱"
+  },
+  "创建邮箱享会员积分价": {
+    "en": "Member pricing for mailbox creation",
+    "tw": "建立郵箱享會員積分價"
+  },
+  "创建邮箱后，收到的邮件会自动显示在这里。": {
+    "en": "Incoming messages will appear here after you create a mailbox.",
+    "tw": "建立郵箱後，收到的郵件會自動顯示在這裡。"
+  },
+  "到期时间": {
+    "en": "Expires",
+    "tw": "到期時間"
+  },
+  "刷新": {
+    "en": "Refresh",
+    "tw": "重新整理"
+  },
+  "刷新失败。": {
+    "en": "Refresh failed.",
+    "tw": "重新整理失敗。"
+  },
+  "加密支付": {
+    "en": "Crypto payment",
+    "tw": "加密支付"
+  },
+  "十分钟有效": {
+    "en": "Valid for ten minutes",
+    "tw": "十分鐘有效"
+  },
+  "升级后解锁更多权益": {
+    "en": "Upgrade to unlock more benefits",
+    "tw": "升級後解鎖更多權益"
+  },
+  "即时收信": {
+    "en": "Incoming mail",
+    "tw": "即時收信"
+  },
+  "历史 API Key 仍然有效，但无法再次显示；需要查看完整 Key 时请点击重置。": {
+    "en": "Your existing API key still works but cannot be displayed again. Reset it if you need a new visible key.",
+    "tw": "歷史 API Key 仍然有效，但無法再次顯示；需要檢視完整 Key 時請點選重置。"
+  },
+  "历史记录分页": {
+    "en": "History pagination",
+    "tw": "歷史記錄分頁"
+  },
+  "历史记录读取失败。": {
+    "en": "Could not load history.",
+    "tw": "歷史記錄讀取失敗。"
+  },
+  "发件人": {
+    "en": "Sender",
+    "tw": "發件人"
+  },
+  "发送失败。": {
+    "en": "Sending failed.",
+    "tw": "傳送失敗。"
+  },
+  "发送失败，请稍后重试。": {
+    "en": "Could not send. Try again later.",
+    "tw": "傳送失敗，請稍後重試。"
+  },
+  "发送验证码": {
+    "en": "Send code",
+    "tw": "傳送驗證碼"
+  },
+  "取消": {
+    "en": "Cancel",
+    "tw": "取消"
+  },
+  "只显示数据库中的真实账户资料。": {
+    "en": "Your current account details.",
+    "tw": "只顯示資料庫中的真實賬戶資料。"
+  },
+  "只显示管理员已启用的支付渠道。": {
+    "en": "Only enabled payment channels are shown.",
+    "tw": "只顯示管理員已啟用的支付渠道。"
+  },
+  "只需账户邮箱与登录密码，即可开启专属邮箱服务，建立清晰、可持续的邮件边界。": {
+    "en": "Start your personal email workspace with an account email and password.",
+    "tw": "只需賬戶郵箱與登入密碼，即可開啟專屬郵箱服務，建立清晰、可持續的郵件邊界。"
+  },
+  "只需账户邮箱和登录密码，即可开始使用。": {
+    "en": "Get started with your account email and password.",
+    "tw": "只需賬戶郵箱和登入密碼，即可開始使用。"
+  },
+  "召回": {
+    "en": "Recall",
+    "tw": "召回"
+  },
+  "可使用 OpenAPI 接口": {
+    "en": "Access the OpenAPI",
+    "tw": "可使用 OpenAPI 介面"
+  },
+  "可按规则召回过期邮箱": {
+    "en": "Recall expired mailboxes under the recall rules",
+    "tw": "可按規則召回過期郵箱"
+  },
+  "可用域名": {
+    "en": "Available domain",
+    "tw": "可用域名"
+  },
+  "可绑定个人域名邮箱": {
+    "en": "Use your own email domain",
+    "tw": "可繫結個人域名郵箱"
+  },
+  "名 / First Name": {
+    "en": "First name",
+    "tw": "名 / First Name"
+  },
+  "地址信息": {
+    "en": "Address information",
+    "tw": "地址資訊"
+  },
+  "地址资料生成失败。": {
+    "en": "Could not generate an address profile.",
+    "tw": "地址資料生成失敗。"
+  },
+  "地址资料生成结果不完整，请稍后重试。": {
+    "en": "The generated profile is incomplete. Try again later.",
+    "tw": "地址資料生成結果不完整，請稍後重試。"
+  },
+  "坐标 / Coordinates": {
+    "en": "Coordinates",
+    "tw": "座標 / Coordinates"
+  },
+  "城市 / City": {
+    "en": "City",
+    "tw": "城市 / City"
+  },
+  "域名": {
+    "en": "Domain",
+    "tw": "域名"
+  },
+  "域名已提交，等待管理员审核和 MX 检测。": {
+    "en": "Domain submitted for administrator review and MX checks.",
+    "tw": "域名已提交，等待管理員稽核和 MX 檢測。"
+  },
+  "域名状态由管理员后台审核并同步显示": {
+    "en": "Domain status reflects administrator review",
+    "tw": "域名狀態由管理員後臺稽核並同步顯示"
+  },
+  "基本信息": {
+    "en": "Basic information",
+    "tw": "基本資訊"
+  },
+  "处理中…": {
+    "en": "Processing…",
+    "tw": "處理中…"
+  },
+  "备注：": {
+    "en": "Note: ",
+    "tw": "備註："
+  },
+  "复制": {
+    "en": "Copy",
+    "tw": "複製"
+  },
+  "复制 API Key": {
+    "en": "Copy API key",
+    "tw": "複製 API Key"
+  },
+  "复制 {0}": {
+    "en": "Copy {0}",
+    "tw": "複製 {0}"
+  },
+  "复制发件人": {
+    "en": "Copy sender",
+    "tw": "複製發件人"
+  },
+  "复制失败，请手动选择并复制。": {
+    "en": "Copy failed. Select the text and copy it manually.",
+    "tw": "複製失敗，請手動選擇並複製。"
+  },
+  "复制完整邮箱地址": {
+    "en": "Copy full email address",
+    "tw": "複製完整郵箱地址"
+  },
+  "复制收件邮箱": {
+    "en": "Copy recipient",
+    "tw": "複製收件郵箱"
+  },
+  "复制邮箱地址": {
+    "en": "Copy email address",
+    "tw": "複製郵箱地址"
+  },
+  "多重保护降低异常使用风险": {
+    "en": "Multiple safeguards against misuse",
+    "tw": "多重保護降低異常使用風險"
+  },
+  "天": {
+    "en": "days",
+    "tw": "天"
+  },
+  "套餐价格和权益均由管理员后台实时配置。": {
+    "en": "Plan prices and benefits follow the current administrator configuration.",
+    "tw": "套餐價格和權益均由管理員後臺實時配置。"
+  },
+  "姓 / Last Name": {
+    "en": "Last name",
+    "tw": "姓 / Last Name"
+  },
+  "安全守护": {
+    "en": "Account protection",
+    "tw": "安全守護"
+  },
+  "安全工作区": {
+    "en": "SECURE WORKSPACE",
+    "tw": "安全工作區"
+  },
+  "完成人机验证后将启用当前临时邮箱，并进入收信页面。": {
+    "en": "Complete verification to activate this mailbox and open its inbox.",
+    "tw": "完成人機驗證後將啟用當前臨時郵箱，並進入收信頁面。"
+  },
+  "完成验证后注册": {
+    "en": "Verify to register",
+    "tw": "完成驗證後註冊"
+  },
+  "完整地址 / Full Address": {
+    "en": "Full address",
+    "tw": "完整地址 / Full Address"
+  },
+  "密码": {
+    "en": "Password",
+    "tw": "密碼"
+  },
+  "密码找回": {
+    "en": "Recover password",
+    "tw": "密碼找回"
+  },
+  "密码找回邮件服务尚未启用，请联系账户支持。": {
+    "en": "Password recovery email is not enabled. Contact account support.",
+    "tw": "密碼找回郵件服務尚未啟用，請聯絡賬戶支援。"
+  },
+  "密码经过安全哈希保存": {
+    "en": "Passwords are stored as secure hashes",
+    "tw": "密碼經過安全雜湊儲存"
+  },
+  "密钥已停用": {
+    "en": "Key disabled",
+    "tw": "金鑰已停用"
+  },
+  "密钥已复制。": {
+    "en": "Key copied.",
+    "tw": "金鑰已複製。"
+  },
+  "密钥状态和请求限额与账户实时同步。": {
+    "en": "Key status and request limits reflect your account.",
+    "tw": "金鑰狀態和請求限額與賬戶實時同步。"
+  },
+  "尚未创建密钥": {
+    "en": "No key created",
+    "tw": "尚未建立金鑰"
+  },
+  "展开账户菜单": {
+    "en": "Open account menu",
+    "tw": "展開賬戶選單"
+  },
+  "州 / State": {
+    "en": "State",
+    "tw": "州 / State"
+  },
+  "已停用": {
+    "en": "Disabled",
+    "tw": "已停用"
+  },
+  "已启用": {
+    "en": "Enabled",
+    "tw": "已啟用"
+  },
+  "已复制": {
+    "en": "Copied",
+    "tw": "已複製"
+  },
+  "已有账户？": {
+    "en": "Already have an account? ",
+    "tw": "已有賬戶？"
+  },
+  "已被管理员限制": {
+    "en": "Restricted by an administrator",
+    "tw": "已被管理員限制"
+  },
+  "已读": {
+    "en": "Read",
+    "tw": "已讀"
+  },
+  "已过期": {
+    "en": "Expired",
+    "tw": "已過期"
+  },
+  "币种": {
+    "en": "Currency",
+    "tw": "幣種"
+  },
+  "应付": {
+    "en": "Amount due ",
+    "tw": "應付"
+  },
+  "开通 NodeMail 会员": {
+    "en": "Join NodeMail membership",
+    "tw": "開通 NodeMail 會員"
+  },
+  "开通会员": {
+    "en": "Join membership",
+    "tw": "開通會員"
+  },
+  "开通失败。": {
+    "en": "Could not activate membership.",
+    "tw": "開通失敗。"
+  },
+  "开通成功后才可收信": {
+    "en": "Mail can be received only after activation",
+    "tw": "開通成功後才可收信"
+  },
+  "当前可用积分": {
+    "en": "Available points ",
+    "tw": "當前可用積分"
+  },
+  "当前收信地址": {
+    "en": "Current inbox address",
+    "tw": "當前收信地址"
+  },
+  "当前方案": {
+    "en": "Current plan",
+    "tw": "當前方案"
+  },
+  "当前没有可显示的真实记录。": {
+    "en": "No records to display.",
+    "tw": "當前沒有可顯示的真實記錄。"
+  },
+  "当前积分": {
+    "en": "Current points ",
+    "tw": "當前積分"
+  },
+  "当前积分不足，请先充值后再召回。": {
+    "en": "Insufficient points. Recharge before recalling this mailbox.",
+    "tw": "當前積分不足，請先充值後再召回。"
+  },
+  "当前账户": {
+    "en": "Current account",
+    "tw": "當前賬戶"
+  },
+  "当前邮箱": {
+    "en": "Current mailbox",
+    "tw": "當前郵箱"
+  },
+  "当前邮箱尚未收到邮件": {
+    "en": "This mailbox has not received any messages",
+    "tw": "當前郵箱尚未收到郵件"
+  },
+  "当前邮箱已失效，请重新生成。": {
+    "en": "This mailbox is no longer available. Generate a new one.",
+    "tw": "當前郵箱已失效，請重新生成。"
+  },
+  "待支付订单": {
+    "en": "Pending orders",
+    "tw": "待支付訂單"
+  },
+  "待申请邮箱地址": {
+    "en": "Mailbox address preview",
+    "tw": "待申請郵箱地址"
+  },
+  "微信支付": {
+    "en": "WeChat Pay",
+    "tw": "微信支付"
+  },
+  "忘记密码？": {
+    "en": "Forgot password?",
+    "tw": "忘記密碼？"
+  },
+  "快速开始": {
+    "en": "Quick start",
+    "tw": "快速開始"
+  },
+  "性别 / Gender": {
+    "en": "Gender",
+    "tw": "性別 / Gender"
+  },
+  "我的私有域名": {
+    "en": "My private domains",
+    "tw": "我的私有域名"
+  },
+  "我的邮箱": {
+    "en": "My mailboxes",
+    "tw": "我的郵箱"
+  },
+  "所有服务消费享套餐折扣": {
+    "en": "Plan discounts on services",
+    "tw": "所有服務消費享套餐折扣"
+  },
+  "所有服务消费享折扣": {
+    "en": "Discounts on services",
+    "tw": "所有服務消費享折扣"
+  },
+  "所有邮箱累计邮件数": {
+    "en": "Messages received across all mailboxes",
+    "tw": "所有郵箱累計郵件數"
+  },
+  "所需积分": {
+    "en": "Points required",
+    "tw": "所需積分"
+  },
+  "找回您的账户访问权限": {
+    "en": "Recover access to your account",
+    "tw": "找回您的賬戶訪問許可權"
+  },
+  "折扣比例由后台套餐设置决定。": {
+    "en": "Discounts follow the configured membership plan.",
+    "tw": "折扣比例由後臺套餐設定決定。"
+  },
+  "提交中…": {
+    "en": "Submitting…",
+    "tw": "提交中…"
+  },
+  "搜索": {
+    "en": "Search",
+    "tw": "搜尋"
+  },
+  "搜索历史记录": {
+    "en": "Search history",
+    "tw": "搜尋歷史記錄"
+  },
+  "搜索发件人或主题": {
+    "en": "Search sender or subject",
+    "tw": "搜尋發件人或主題"
+  },
+  "搜索流水类型、备注或积分": {
+    "en": "Search transaction type, note or points",
+    "tw": "搜尋流水型別、備註或積分"
+  },
+  "搜索私有域名或服务状态": {
+    "en": "Search private domain or service status",
+    "tw": "搜尋私有域名或服務狀態"
+  },
+  "搜索订单编号、渠道、状态或积分": {
+    "en": "Search order ID, channel, status or points",
+    "tw": "搜尋訂單編號、渠道、狀態或積分"
+  },
+  "操作": {
+    "en": "Actions",
+    "tw": "操作"
+  },
+  "操作失败。": {
+    "en": "Operation failed.",
+    "tw": "操作失敗。"
+  },
+  "操作频繁，请稍后再试": {
+    "en": "Too many requests. Try again later.",
+    "tw": "操作頻繁，請稍後再試"
+  },
+  "支付二维码将在支付渠道配置完成后显示": {
+    "en": "The payment QR code will appear after the payment channel is configured",
+    "tw": "支付二維碼將在支付渠道配置完成後顯示"
+  },
+  "支付宝": {
+    "en": "Alipay",
+    "tw": "支付寶"
+  },
+  "支付通道": {
+    "en": "Payment channel",
+    "tw": "支付通道"
+  },
+  "收件箱": {
+    "en": "Inbox",
+    "tw": "收件箱"
+  },
+  "收件箱已刷新。": {
+    "en": "Inbox refreshed.",
+    "tw": "收件箱已重新整理。"
+  },
+  "收件箱读取失败。": {
+    "en": "Could not load the inbox.",
+    "tw": "收件箱讀取失敗。"
+  },
+  "收件邮箱": {
+    "en": "Recipient",
+    "tw": "收件郵箱"
+  },
+  "收件邮箱：": {
+    "en": "Recipient: ",
+    "tw": "收件郵箱："
+  },
+  "收信中": {
+    "en": "Receiving",
+    "tw": "收信中"
+  },
+  "收信域名": {
+    "en": "Receiving domain",
+    "tw": "收信域名"
+  },
+  "收信时间": {
+    "en": "Received",
+    "tw": "收信時間"
+  },
+  "收信状态": {
+    "en": "Receiving status",
+    "tw": "收信狀態"
+  },
+  "收信邮箱": {
+    "en": "Receiving mailbox",
+    "tw": "收信郵箱"
+  },
+  "收到新邮件后会显示在这里": {
+    "en": "New messages will appear here",
+    "tw": "收到新郵件後會顯示在這裡"
+  },
+  "数据库中的邮箱记录": {
+    "en": "Saved mailbox records",
+    "tw": "資料庫中的郵箱記錄"
+  },
+  "新密码": {
+    "en": "New password",
+    "tw": "新密碼"
+  },
+  "新密钥只显示这一次，请立即复制并妥善保存。": {
+    "en": "This new key is shown only once. Copy it and store it securely.",
+    "tw": "新金鑰只顯示這一次，請立即複製並妥善儲存。"
+  },
+  "无州销售税；部分地区仍可能收取地方税。": {
+    "en": "No state sales tax; local taxes may still apply.",
+    "tw": "無州銷售稅；部分地區仍可能收取地方稅。"
+  },
+  "无需注册": {
+    "en": "No registration required",
+    "tw": "無需註冊"
+  },
+  "显示": {
+    "en": "Show",
+    "tw": "顯示"
+  },
+  "显示密码": {
+    "en": "Show password",
+    "tw": "顯示密碼"
+  },
+  "暂无匹配的私有域名": {
+    "en": "No matching private domains",
+    "tw": "暫無匹配的私有域名"
+  },
+  "暂无匹配的积分流水": {
+    "en": "No matching point transactions",
+    "tw": "暫無匹配的積分流水"
+  },
+  "暂无匹配的订单": {
+    "en": "No matching orders",
+    "tw": "暫無匹配的訂單"
+  },
+  "暂无可用支付渠道": {
+    "en": "No payment channels available",
+    "tw": "暫無可用支付渠道"
+  },
+  "暂无可用邮箱，请稍后再试。": {
+    "en": "No mailbox is available. Try again later.",
+    "tw": "暫無可用郵箱，請稍後再試。"
+  },
+  "暂无待支付订单": {
+    "en": "No pending orders",
+    "tw": "暫無待支付訂單"
+  },
+  "暂无数据": {
+    "en": "No data",
+    "tw": "暫無資料"
+  },
+  "暂无邮件": {
+    "en": "No messages",
+    "tw": "暫無郵件"
+  },
+  "暂无邮箱": {
+    "en": "No mailboxes",
+    "tw": "暫無郵箱"
+  },
+  "更换邮箱": {
+    "en": "Change mailbox",
+    "tw": "更換郵箱"
+  },
+  "更高 API 请求额度": {
+    "en": "Higher API request limits",
+    "tw": "更高 API 請求額度"
+  },
+  "最多保留": {
+    "en": "Maximum ",
+    "tw": "最多保留"
+  },
+  "最近使用": {
+    "en": "Last used",
+    "tw": "最近使用"
+  },
+  "最近邮件": {
+    "en": "Recent messages",
+    "tw": "最近郵件"
+  },
+  "有效会员可以添加自己的收信域名": {
+    "en": "Active members can add their own receiving domains",
+    "tw": "有效會員可以新增自己的收信域名"
+  },
+  "有效时长": {
+    "en": "Validity",
+    "tw": "有效時長"
+  },
+  "有效期至 {0}": {
+    "en": "Valid until {0}",
+    "tw": "有效期至 {0}"
+  },
+  "有效至": {
+    "en": "Valid until ",
+    "tw": "有效至"
+  },
+  "服务状态": {
+    "en": "Service status",
+    "tw": "服務狀態"
+  },
+  "未创建": {
+    "en": "Not created",
+    "tw": "未建立"
+  },
+  "未读": {
+    "en": "Unread",
+    "tw": "未讀"
+  },
+  "未配置": {
+    "en": "Not configured",
+    "tw": "未配置"
+  },
+  "本次充值": {
+    "en": "This recharge",
+    "tw": "本次充值"
+  },
+  "本次支付": {
+    "en": "Total payment ",
+    "tw": "本次支付"
+  },
+  "条": {
+    "en": " records",
+    "tw": "條"
+  },
+  "条，每页": {
+    "en": " records, per page ",
+    "tw": "條，每頁"
+  },
+  "条，每页 10 条": {
+    "en": " records, 10 per page",
+    "tw": "條，每頁 10 條"
+  },
+  "极简注册": {
+    "en": "Simple registration",
+    "tw": "極簡註冊"
+  },
+  "查看全部邮件": {
+    "en": "View all messages",
+    "tw": "檢視全部郵件"
+  },
+  "查看各邮箱最近收到的邮件": {
+    "en": "View recent messages across your mailboxes",
+    "tw": "檢視各郵箱最近收到的郵件"
+  },
+  "查看地图": {
+    "en": "View map",
+    "tw": "檢視地圖"
+  },
+  "查看开通方案": {
+    "en": "View membership plans",
+    "tw": "檢視開通方案"
+  },
+  "查询全部历史订单及支付状态。": {
+    "en": "Search all past orders and payment statuses.",
+    "tw": "查詢全部歷史訂單及支付狀態。"
+  },
+  "查阅邮件": {
+    "en": "Read message",
+    "tw": "查閱郵件"
+  },
+  "标准账户": {
+    "en": "Standard account",
+    "tw": "標準賬戶"
+  },
+  "格式样本": {
+    "en": "Format sample",
+    "tw": "格式樣本"
+  },
+  "档位由管理员后台配置。": {
+    "en": "Recharge plans are configured by the administrator.",
+    "tw": "檔位由管理員後臺配置。"
+  },
+  "欢迎回来": {
+    "en": "Welcome back",
+    "tw": "歡迎回來"
+  },
+  "正在刷新…": {
+    "en": "Refreshing…",
+    "tw": "正在重新整理…"
+  },
+  "正在召回…": {
+    "en": "Recalling…",
+    "tw": "正在召回…"
+  },
+  "正在召回邮箱…": {
+    "en": "Recalling mailbox…",
+    "tw": "正在召回郵箱…"
+  },
+  "正在启用临时邮箱…": {
+    "en": "Activating mailbox…",
+    "tw": "正在啟用臨時郵箱…"
+  },
+  "正在处理": {
+    "en": "Processing",
+    "tw": "正在處理"
+  },
+  "正在生成…": {
+    "en": "Generating…",
+    "tw": "正在生成…"
+  },
+  "正在申请…": {
+    "en": "Applying…",
+    "tw": "正在申請…"
+  },
+  "正在读取历史记录…": {
+    "en": "Loading history…",
+    "tw": "正在讀取歷史記錄…"
+  },
+  "正在读取邮件…": {
+    "en": "Loading message…",
+    "tw": "正在讀取郵件…"
+  },
+  "正常": {
+    "en": "Active",
+    "tw": "正常"
+  },
+  "每分钟请求上限": {
+    "en": "Requests per minute ",
+    "tw": "每分鐘請求上限"
+  },
+  "每次生成都会随机组合地址和身份信息": {
+    "en": "Each generation combines random address and identity details",
+    "tw": "每次生成都會隨機組合地址和身份資訊"
+  },
+  "没有找到匹配的私有域名": {
+    "en": "No matching private domains found",
+    "tw": "沒有找到匹配的私有域名"
+  },
+  "没有找到匹配的邮件": {
+    "en": "No matching messages found",
+    "tw": "沒有找到匹配的郵件"
+  },
+  "没有找到匹配的邮箱": {
+    "en": "No matching mailboxes found",
+    "tw": "沒有找到匹配的郵箱"
+  },
+  "注册": {
+    "en": "Register",
+    "tw": "註冊"
+  },
+  "注册即表示你同意合理使用服务并保护账户安全。": {
+    "en": "By registering, you agree to use the service responsibly and protect your account.",
+    "tw": "註冊即表示你同意合理使用服務並保護賬戶安全。"
+  },
+  "注册时间": {
+    "en": "Registered",
+    "tw": "註冊時間"
+  },
+  "添加域名": {
+    "en": "Add domain",
+    "tw": "新增域名"
+  },
+  "添加失败。": {
+    "en": "Could not add the domain.",
+    "tw": "新增失敗。"
+  },
+  "添加时间": {
+    "en": "Added",
+    "tw": "新增時間"
+  },
+  "添加私有域名": {
+    "en": "Add private domain",
+    "tw": "新增私有域名"
+  },
+  "渠道": {
+    "en": "Channel",
+    "tw": "渠道"
+  },
+  "点击绑定": {
+    "en": "Link account",
+    "tw": "點選繫結"
+  },
+  "状态": {
+    "en": "Status",
+    "tw": "狀態"
+  },
+  "现有邮箱与积分均正常可用。": {
+    "en": "Your existing mailboxes and points remain available.",
+    "tw": "現有郵箱與積分均正常可用。"
+  },
+  "生成专属收信地址，在此查阅收到的邮件。": {
+    "en": "Generate your receiving address and read incoming mail here.",
+    "tw": "生成專屬收信地址，在此查閱收到的郵件。"
+  },
+  "生成中...": {
+    "en": "Generating…",
+    "tw": "生成中..."
+  },
+  "生成主流邮箱": {
+    "en": "Generate mainstream mailbox",
+    "tw": "生成主流郵箱"
+  },
+  "生成支付订单": {
+    "en": "Create payment order",
+    "tw": "生成支付訂單"
+  },
+  "生成结果": {
+    "en": "Generated profile",
+    "tw": "生成結果"
+  },
+  "生成资料": {
+    "en": "Generate profile",
+    "tw": "生成資料"
+  },
+  "用户中心菜单": {
+    "en": "Workspace navigation",
+    "tw": "使用者中心選單"
+  },
+  "申请信息": {
+    "en": "Application details",
+    "tw": "申請資訊"
+  },
+  "申请后启用": {
+    "en": "Available after activation",
+    "tw": "申請後啟用"
+  },
+  "申请私有域名（需审核归属）": {
+    "en": "Request a private domain (ownership review required)",
+    "tw": "申請私有域名（需稽核歸屬）"
+  },
+  "申请预览": {
+    "en": "Application preview",
+    "tw": "申請預覽"
+  },
+  "电话 / Phone": {
+    "en": "Phone",
+    "tw": "電話 / Phone"
+  },
+  "界面语言": {
+    "en": "Interface language",
+    "tw": "介面語言"
+  },
+  "登录": {
+    "en": "Log in ",
+    "tw": "登入"
+  },
+  "登录与密码": {
+    "en": "Login and password",
+    "tw": "登入與密碼"
+  },
+  "登录后继续": {
+    "en": "Log in to continue",
+    "tw": "登入後繼續"
+  },
+  "登录密码": {
+    "en": "Login password",
+    "tw": "登入密碼"
+  },
+  "直接登录": {
+    "en": "Log in",
+    "tw": "直接登入"
+  },
+  "确定创建 API 密钥吗？": {
+    "en": "Create an API key?",
+    "tw": "確定建立 API 金鑰嗎？"
+  },
+  "确认创建": {
+    "en": "Confirm creation",
+    "tw": "確認建立"
+  },
+  "确认开通": {
+    "en": "Confirm membership",
+    "tw": "確認開通"
+  },
+  "确认开通此邮箱": {
+    "en": "Confirm mailbox activation",
+    "tw": "確認開通此郵箱"
+  },
+  "确认新密码": {
+    "en": "Confirm new password",
+    "tw": "確認新密碼"
+  },
+  "确认生成": {
+    "en": "Confirm generation",
+    "tw": "確認生成"
+  },
+  "确认生成中继邮箱": {
+    "en": "Confirm relay mailbox creation",
+    "tw": "確認生成中繼郵箱"
+  },
+  "确认生成主流邮箱": {
+    "en": "Confirm mailbox creation",
+    "tw": "確認生成主流郵箱"
+  },
+  "确认申请": {
+    "en": "Confirm application",
+    "tw": "確認申請"
+  },
+  "确认重置": {
+    "en": "Confirm reset",
+    "tw": "確認重置"
+  },
+  "私有域名": {
+    "en": "Private domains",
+    "tw": "私有域名"
+  },
+  "积分": {
+    "en": " points",
+    "tw": "積分"
+  },
+  "积分 ·": {
+    "en": " points · ",
+    "tw": "積分 ·"
+  },
+  "积分充值": {
+    "en": "Recharge points",
+    "tw": "積分充值"
+  },
+  "积分充值 | NodeMail": {
+    "en": "Recharge points | NodeMail",
+    "tw": "積分充值 | NodeMail"
+  },
+  "积分流水": {
+    "en": "Point transactions",
+    "tw": "積分流水"
+  },
+  "积分资产": {
+    "en": "Points balance",
+    "tw": "積分資產"
+  },
+  "笔。": {
+    "en": " orders.",
+    "tw": "筆。"
+  },
+  "第": {
+    "en": "Page ",
+    "tw": "第"
+  },
+  "第一次使用？": {
+    "en": "New here? ",
+    "tw": "第一次使用？"
+  },
+  "等待新邮件": {
+    "en": "Waiting for mail",
+    "tw": "等待新郵件"
+  },
+  "等待生成": {
+    "en": "Waiting to generate",
+    "tw": "等待生成"
+  },
+  "简体中文": {
+    "en": "Simplified Chinese",
+    "tw": "簡體中文"
+  },
+  "简化步骤，快速开启专属服务": {
+    "en": "Get started with a simple registration",
+    "tw": "簡化步驟，快速開啟專屬服務"
+  },
+  "管理员尚未启用可收信域名": {
+    "en": "No receiving domain has been enabled",
+    "tw": "管理員尚未啟用可收信域名"
+  },
+  "管理员尚未配置 Telegram 机器人": {
+    "en": "The Telegram bot is not configured",
+    "tw": "管理員尚未配置 Telegram 機器人"
+  },
+  "管理员尚未配置可用中继账号": {
+    "en": "No relay account is configured",
+    "tw": "管理員尚未配置可用中繼賬號"
+  },
+  "管理员尚未配置可用的召回时长。": {
+    "en": "No recall duration is configured.",
+    "tw": "管理員尚未配置可用的召回時長。"
+  },
+  "管理员已停用当前 API Key，接口调用和密钥重置均已关闭。": {
+    "en": "Your API key is disabled. API calls and key resets are unavailable.",
+    "tw": "管理員已停用當前 API Key，介面呼叫和金鑰重置均已關閉。"
+  },
+  "管理您的邮箱、邮件与账户权益。": {
+    "en": "Manage your mailboxes, messages and account benefits.",
+    "tw": "管理您的郵箱、郵件與賬戶權益。"
+  },
+  "系统繁忙，请稍后重试": {
+    "en": "The service is busy. Try again later.",
+    "tw": "系統繁忙，請稍後重試"
+  },
+  "系统记录": {
+    "en": "System record",
+    "tw": "系統記錄"
+  },
+  "累计收信": {
+    "en": "Total received",
+    "tw": "累計收信"
+  },
+  "纯文本邮件": {
+    "en": "Plain text message",
+    "tw": "純文字郵件"
+  },
+  "统一管理": {
+    "en": "One workspace",
+    "tw": "統一管理"
+  },
+  "继续注册": {
+    "en": "Continue registration",
+    "tw": "繼續註冊"
+  },
+  "网络": {
+    "en": "Network",
+    "tw": "網路"
+  },
+  "美国地址资料": {
+    "en": "US address profile",
+    "tw": "美國地址資料"
+  },
+  "美国格式样本": {
+    "en": "US format samples",
+    "tw": "美國格式樣本"
+  },
+  "联系账户支持": {
+    "en": "Contact account support",
+    "tw": "聯絡賬戶支援"
+  },
+  "至少 8 个字符": {
+    "en": "At least 8 characters",
+    "tw": "至少 8 個字元"
+  },
+  "街道 / Street": {
+    "en": "Street",
+    "tw": "街道 / Street"
+  },
+  "覆盖 50 州与华盛顿特区": {
+    "en": "All 50 states and Washington, DC",
+    "tw": "覆蓋 50 州與華盛頓特區"
+  },
+  "解锁更低价格与更多邮箱能力": {
+    "en": "Unlock better pricing and more mailbox features",
+    "tw": "解鎖更低價格與更多郵箱能力"
+  },
+  "订单编号": {
+    "en": "Order ID",
+    "tw": "訂單編號"
+  },
+  "访问密钥": {
+    "en": "Access key",
+    "tw": "訪問金鑰"
+  },
+  "该邮箱后缀当前不可用，请联系管理员。": {
+    "en": "This mailbox suffix is unavailable. Contact an administrator.",
+    "tw": "該郵箱字尾當前不可用，請聯絡管理員。"
+  },
+  "该邮箱当前不可用": {
+    "en": "This mailbox is currently unavailable",
+    "tw": "該郵箱當前不可用"
+  },
+  "说明：地址来自格式样本；姓名和手机号均为随机生成，与地址及真实住户无关联。生成结果不承诺可收件，也不应用于居住或身份验证。": {
+    "en": "Addresses are format samples. Names and phone numbers are randomly generated and are unrelated to real residents. Results are not guaranteed deliverable and must not be used to verify residence or identity.",
+    "tw": "說明：地址來自格式樣本；姓名和手機號均為隨機生成，與地址及真實住戶無關聯。生成結果不承諾可收件，也不應用於居住或身份驗證。"
+  },
+  "请先在“邮箱申请”创建邮箱": {
+    "en": "Create a mailbox from the mailbox application page first",
+    "tw": "請先在“郵箱申請”建立郵箱"
+  },
+  "请先完成人机验证。": {
+    "en": "Complete human verification first.",
+    "tw": "請先完成人機驗證。"
+  },
+  "请先选择充值档位。": {
+    "en": "Choose a recharge plan first.",
+    "tw": "請先選擇充值檔位。"
+  },
+  "请点击随机生成邮箱": {
+    "en": "Click to generate a random mailbox",
+    "tw": "請點選隨機生成郵箱"
+  },
+  "请确认本次注册由你本人操作。": {
+    "en": "Confirm that you are registering this account yourself.",
+    "tw": "請確認本次註冊由你本人操作。"
+  },
+  "请输入密码": {
+    "en": "Enter your password",
+    "tw": "請輸入密碼"
+  },
+  "请输入根域名，不包含协议和路径。": {
+    "en": "Enter a root domain without a protocol or path.",
+    "tw": "請輸入根域名，不包含協議和路徑。"
+  },
+  "请选择后缀并生成邮箱": {
+    "en": "Choose a suffix and generate a mailbox",
+    "tw": "請選擇字尾並生成郵箱"
+  },
+  "账户": {
+    "en": " account",
+    "tw": "賬戶"
+  },
+  "账户会自动分配 API Key，接口调用仅对有效会员开放。": {
+    "en": "An API key is assigned automatically. API access requires an active membership.",
+    "tw": "賬戶會自動分配 API Key，介面呼叫僅對有效會員開放。"
+  },
+  "账户安全": {
+    "en": "Account security",
+    "tw": "賬戶安全"
+  },
+  "账户工具栏": {
+    "en": "Account toolbar",
+    "tw": "賬戶工具欄"
+  },
+  "账户状态": {
+    "en": "Account status",
+    "tw": "賬戶狀態"
+  },
+  "账户设置": {
+    "en": "Account settings",
+    "tw": "賬戶設定"
+  },
+  "账户资料": {
+    "en": "Account details",
+    "tw": "賬戶資料"
+  },
+  "账户邮箱": {
+    "en": "Account email",
+    "tw": "賬戶郵箱"
+  },
+  "身份资料": {
+    "en": "Identity details",
+    "tw": "身份資料"
+  },
+  "身份资料与地址信息分区展示，便于核对和复制。": {
+    "en": "Identity and address details are grouped for easy review and copying.",
+    "tw": "身份資料與地址資訊分割槽展示，便於核對和複製。"
+  },
+  "返回": {
+    "en": "Back to ",
+    "tw": "返回"
+  },
+  "返回登录": {
+    "en": "Back to login",
+    "tw": "返回登入"
+  },
+  "进入邮件收信": {
+    "en": "Open inbox",
+    "tw": "進入郵件收信"
+  },
+  "进行人机身份验证": {
+    "en": "Complete human verification",
+    "tw": "進行人機身份驗證"
+  },
+  "连续错误将提前使验证码失效": {
+    "en": "Repeated errors invalidate the code",
+    "tw": "連續錯誤將提前使驗證碼失效"
+  },
+  "退出失败，请稍后重试。": {
+    "en": "Could not log out. Try again later.",
+    "tw": "退出失敗，請稍後重試。"
+  },
+  "退出当前账户": {
+    "en": "Log out of this account",
+    "tw": "退出當前賬戶"
+  },
+  "退出登录": {
+    "en": "Log out",
+    "tw": "退出登入"
+  },
+  "选择会员时长": {
+    "en": "Choose membership duration",
+    "tw": "選擇會員時長"
+  },
+  "选择充值档位": {
+    "en": "Choose a recharge plan",
+    "tw": "選擇充值檔位"
+  },
+  "选择州": {
+    "en": "Choose a state",
+    "tw": "選擇州"
+  },
+  "选择支付方式": {
+    "en": "Choose payment method",
+    "tw": "選擇支付方式"
+  },
+  "选择时长并完成人机验证。续期将在当前有效期后顺延。": {
+    "en": "Choose a duration and verify. Renewal extends the current expiry time.",
+    "tw": "選擇時長並完成人機驗證。續期將在當前有效期後順延。"
+  },
+  "选择邮箱后缀，生成您的收信地址。": {
+    "en": "Choose a suffix to generate your receiving address.",
+    "tw": "選擇郵箱字尾，生成您的收信地址。"
+  },
+  "通过账户邮箱验证身份。验证码十分钟内有效、仅可使用一次；重置成功后，原有登录会话会退出。": {
+    "en": "Verify your account email. Codes are single-use and valid for ten minutes. Resetting your password signs out existing sessions.",
+    "tw": "透過賬戶郵箱驗證身份。驗證碼十分鐘內有效、僅可使用一次；重置成功後，原有登入會話會退出。"
+  },
+  "邮": {
+    "en": "M",
+    "tw": "郵"
+  },
+  "邮件内容已隔离展示": {
+    "en": "Message content is isolated",
+    "tw": "郵件內容已隔離展示"
+  },
+  "邮件抵达后及时清晰呈现": {
+    "en": "See incoming messages clearly",
+    "tw": "郵件抵達後及時清晰呈現"
+  },
+  "邮件摘要": {
+    "en": "Message summary",
+    "tw": "郵件摘要"
+  },
+  "邮件读取失败。": {
+    "en": "Could not read the message.",
+    "tw": "郵件讀取失敗。"
+  },
+  "邮件随各自邮箱有效期保留": {
+    "en": "Messages follow their mailbox expiry time",
+    "tw": "郵件隨各自郵箱有效期保留"
+  },
+  "邮箱列表读取失败，请稍后重试。": {
+    "en": "Could not load mailboxes. Try again later.",
+    "tw": "郵箱列表讀取失敗，請稍後重試。"
+  },
+  "邮箱召回失败，请稍后重试。": {
+    "en": "Could not recall the mailbox. Try again later.",
+    "tw": "郵箱召回失敗，請稍後重試。"
+  },
+  "邮箱名称": {
+    "en": "Mailbox name",
+    "tw": "郵箱名稱"
+  },
+  "邮箱后缀": {
+    "en": "Mailbox suffix",
+    "tw": "郵箱字尾"
+  },
+  "邮箱地址": {
+    "en": "Email address",
+    "tw": "郵箱地址"
+  },
+  "邮箱地址与账户持续绑定": {
+    "en": "Keep mailbox addresses linked to your account",
+    "tw": "郵箱地址與賬戶持續繫結"
+  },
+  "邮箱已启用，可以开始收信": {
+    "en": "Mailbox activated and ready to receive mail",
+    "tw": "郵箱已啟用，可以開始收信"
+  },
+  "邮箱已经过期，请重新生成。": {
+    "en": "This mailbox has expired. Generate a new one.",
+    "tw": "郵箱已經過期，請重新生成。"
+  },
+  "邮箱数": {
+    "en": "Mailbox count",
+    "tw": "郵箱數"
+  },
+  "邮箱数量": {
+    "en": "Mailbox count",
+    "tw": "郵箱數量"
+  },
+  "邮箱正在接收邮件": {
+    "en": "Mailbox is receiving mail",
+    "tw": "郵箱正在接收郵件"
+  },
+  "邮编 / ZIP Code": {
+    "en": "ZIP code",
+    "tw": "郵編 / ZIP Code"
+  },
+  "重新连接您的邮件工作空间": {
+    "en": "Reconnect to your email workspace",
+    "tw": "重新連線您的郵件工作空間"
+  },
+  "重置 API Key": {
+    "en": "Reset API key",
+    "tw": "重置 API Key"
+  },
+  "重置后旧密钥会立即失效，确定继续吗？": {
+    "en": "Resetting immediately invalidates the old key. Continue?",
+    "tw": "重置後舊金鑰會立即失效，確定繼續嗎？"
+  },
+  "重置后旧密钥会立即失效；接口调用仅对有效会员开放。": {
+    "en": "Resetting invalidates the old key immediately. API access requires an active membership.",
+    "tw": "重置後舊金鑰會立即失效；介面呼叫僅對有效會員開放。"
+  },
+  "重置失败。": {
+    "en": "Reset failed.",
+    "tw": "重置失敗。"
+  },
+  "重置密码": {
+    "en": "Reset password",
+    "tw": "重置密碼"
+  },
+  "重置密钥": {
+    "en": "Reset key",
+    "tw": "重置金鑰"
+  },
+  "重试": {
+    "en": "Retry",
+    "tw": "重試"
+  },
+  "金额": {
+    "en": "Amount",
+    "tw": "金額"
+  },
+  "错误限制": {
+    "en": "Attempt limit",
+    "tw": "錯誤限制"
+  },
+  "长期持有": {
+    "en": "Long-term access",
+    "tw": "長期持有"
+  },
+  "长期管理": {
+    "en": "Long-term management",
+    "tw": "長期管理"
+  },
+  "阅读接口文档 ↗": {
+    "en": "Read API documentation ↗",
+    "tw": "閱讀介面文件 ↗"
+  },
+  "随机 / Random": {
+    "en": "Random",
+    "tw": "隨機 / Random"
+  },
+  "随机信息": {
+    "en": "Random details",
+    "tw": "隨機資訊"
+  },
+  "随机别名@{0}": {
+    "en": "random-alias@{0}",
+    "tw": "隨機別名@{0}"
+  },
+  "随机生成": {
+    "en": "Generate randomly",
+    "tw": "隨機生成"
+  },
+  "随机生成邮箱": {
+    "en": "Generate random mailbox",
+    "tw": "隨機生成郵箱"
+  },
+  "随机组合美国格式的测试地址，并配套随机姓名、手机号与临时邮箱，适用于表单、地址格式和国际化流程。": {
+    "en": "Generate a US-format test address with a random name, phone number and temporary email for forms and localization testing.",
+    "tw": "隨機組合美國格式的測試地址，並配套隨機姓名、手機號與臨時郵箱，適用於表單、地址格式和國際化流程。"
+  },
+  "隐私隔离": {
+    "en": "Privacy separation",
+    "tw": "隱私隔離"
+  },
+  "集中查看更多邮箱、状态和历史收件记录。": {
+    "en": "View all your mailboxes, statuses and message history.",
+    "tw": "集中檢視更多郵箱、狀態和歷史收件記錄。"
+  },
+  "集中管理邮箱和邮件记录": {
+    "en": "Manage mailboxes and messages together",
+    "tw": "集中管理郵箱和郵件記錄"
+  },
+  "页": {
+    "en": " ",
+    "tw": "頁"
+  },
+  "预览": {
+    "en": "Preview",
+    "tw": "預覽"
+  },
+  "首页": {
+    "en": " home",
+    "tw": "首頁"
+  },
+  "验证后启用收信": {
+    "en": "Verify to activate receiving",
+    "tw": "驗證後啟用收信"
+  },
+  "验证已过期，请重新完成人机验证。": {
+    "en": "Verification expired. Verify again.",
+    "tw": "驗證已過期，請重新完成人機驗證。"
+  },
+  "验证已过期，请重新完成验证。": {
+    "en": "Verification expired. Verify again.",
+    "tw": "驗證已過期，請重新完成驗證。"
+  },
+  "验证成功后立即失效": {
+    "en": "Invalidated immediately after successful use",
+    "tw": "驗證成功後立即失效"
+  },
+  "验证码超时后自动失效": {
+    "en": "Codes expire automatically",
+    "tw": "驗證碼超時後自動失效"
+  },
+  "验证自己的域名后创建专属后缀邮箱。": {
+    "en": "Verify your domain to use your own email suffix.",
+    "tw": "驗證自己的域名後建立專屬字尾郵箱。"
+  },
+  "（无主题）": {
+    "en": "(No subject)",
+    "tw": "（無主題）"
+  },
+  "（邮件正文为空）": {
+    "en": "(The message body is empty)",
+    "tw": "（郵件正文為空）"
+  },
+  "个人空间": {
+    "en": "Personal workspace",
+    "tw": "個人空間"
+  },
+  "临时邮箱": {
+    "en": "Temporary mailbox",
+    "tw": "臨時郵箱"
+  },
+  "中继邮箱": {
+    "en": "Relay mailbox",
+    "tw": "中繼郵箱"
+  },
+  "邮箱列表": {
+    "en": "Mailboxes",
+    "tw": "郵箱列表"
+  },
+  "邮件列表": {
+    "en": "Messages",
+    "tw": "郵件列表"
+  },
+  "域名列表": {
+    "en": "Domains",
+    "tw": "域名列表"
+  },
+  "资金流水": {
+    "en": "Transactions",
+    "tw": "資金流水"
+  },
+  "地址生成": {
+    "en": "Address generator",
+    "tw": "地址生成"
+  },
+  "VIP 会员": {
+    "en": "VIP member",
+    "tw": "VIP 會員"
+  },
+  "免费域名": {
+    "en": "Free domain",
+    "tw": "免費域名"
+  },
+  "检测中": {
+    "en": "Checking",
+    "tw": "檢測中"
+  },
+  "解析异常": {
+    "en": "DNS issue",
+    "tw": "解析異常"
+  },
+  "未检测": {
+    "en": "Not checked",
+    "tw": "未檢測"
+  },
+  "暂停": {
+    "en": "Paused",
+    "tw": "暫停"
+  },
+  "隐藏": {
+    "en": "Hidden",
+    "tw": "隱藏"
+  },
+  "已隐藏": {
+    "en": "Hidden",
+    "tw": "已隱藏"
+  },
+  "正常收信": {
+    "en": "Receiving",
+    "tw": "正常收信"
+  },
+  "未开通": {
+    "en": "Not active",
+    "tw": "未開通"
+  },
+  "已支付": {
+    "en": "Paid",
+    "tw": "已支付"
+  },
+  "待支付": {
+    "en": "Pending payment",
+    "tw": "待支付"
+  },
+  "已取消": {
+    "en": "Cancelled",
+    "tw": "已取消"
+  },
+  "支付失败": {
+    "en": "Payment failed",
+    "tw": "支付失敗"
+  },
+  "用户充值": {
+    "en": "Recharge",
+    "tw": "使用者充值"
+  },
+  "会员开通": {
+    "en": "Membership purchase",
+    "tw": "會員開通"
+  },
+  "邮箱申请": {
+    "en": "Mailbox application",
+    "tw": "郵箱申請"
+  },
+  "邮箱召回": {
+    "en": "Mailbox recall",
+    "tw": "郵箱召回"
+  },
+  "已停用 / 暂停收信": {
+    "en": "Disabled / Receiving paused",
+    "tw": "已停用 / 暫停收信"
+  },
+  "隐藏密码": {
+    "en": "Hide password",
+    "tw": "隱藏密碼"
+  },
+  "1 小时": {
+    "en": "1 hour",
+    "tw": "1 小時"
+  },
+  "1 天": {
+    "en": "1 day",
+    "tw": "1 天"
+  },
+  "7 天": {
+    "en": "7 days",
+    "tw": "7 天"
+  },
+  "30 天": {
+    "en": "30 days",
+    "tw": "30 天"
+  },
+  "120 天": {
+    "en": "120 days",
+    "tw": "120 天"
+  },
+  "复制失败，请手动选择复制。": {
+    "en": "Copy failed. Select and copy the text manually.",
+    "tw": "複製失敗，請手動選擇複製。"
+  },
+  "请选择支付渠道。": {
+    "en": "Choose a payment channel.",
+    "tw": "請選擇支付渠道。"
+  },
+  "确认后创建待支付订单。": {
+    "en": "Confirm to create a pending order.",
+    "tw": "確認後建立待支付訂單。"
+  },
+  "请先选择充值档位": {
+    "en": "Choose a recharge plan first.",
+    "tw": "請先選擇充值檔位"
+  },
+  "正在创建订单…": {
+    "en": "Creating order…",
+    "tw": "正在建立訂單…"
+  },
+  "订单已创建；支付通道回调尚未配置，暂时无法自动到账。": {
+    "en": "Order created. Automatic crediting requires the payment callback to be configured.",
+    "tw": "訂單已建立；支付通道回撥尚未配置，暫時無法自動到賬。"
+  },
+  "正在处理…": {
+    "en": "Processing…",
+    "tw": "正在處理…"
+  },
+  "开通失败": {
+    "en": "Could not activate membership.",
+    "tw": "開通失敗"
+  },
+  "登录失败，请稍后重试。": {
+    "en": "Sign-in failed. Try again later.",
+    "tw": "登入失敗，請稍後重試。"
+  },
+  "人机验证加载失败，请刷新页面后重试。": {
+    "en": "Verification could not load. Refresh the page and try again.",
+    "tw": "人機驗證載入失敗，請重新整理頁面後重試。"
+  },
+  "请输入有效的账户邮箱。": {
+    "en": "Enter a valid account email.",
+    "tw": "請輸入有效的賬戶郵箱。"
+  },
+  "密码长度至少为 8 个字符。": {
+    "en": "Use at least 8 characters for your password.",
+    "tw": "密碼長度至少為 8 個字元。"
+  },
+  "注册失败，请稍后重试。": {
+    "en": "Registration failed. Try again later.",
+    "tw": "註冊失敗，請稍後重試。"
+  },
+  "邮箱已更换，请复制上方新地址。": {
+    "en": "Mailbox changed. Copy the new address above.",
+    "tw": "郵箱已更換，請複製上方新地址。"
+  },
+  "邮箱地址未更换，请重新验证后再试。": {
+    "en": "The mailbox address did not change. Verify again and retry.",
+    "tw": "郵箱地址未更換，請重新驗證後再試。"
+  },
+  "重新验证": {
+    "en": "Retry verification",
+    "tw": "重新驗證"
+  },
+  "请稍候": {
+    "en": "Please wait",
+    "tw": "請稍候"
+  },
+  "复制正文": {
+    "en": "Copy message body",
+    "tw": "複製正文"
+  },
+  "返回邮箱列表": {
+    "en": "Back to mailboxes",
+    "tw": "返回郵箱列表"
+  },
+  "{0} 已续期，已有邮件保持不变。": {
+    "en": "{0} renewed. Existing messages are preserved.",
+    "tw": "{0} 已續期，已有郵件保持不變。"
+  },
+  "召回从现在重新计时，不恢复已清理的旧邮件。": {
+    "en": "Recall starts a new validity period now. Deleted messages are not restored.",
+    "tw": "召回從現在重新計時，不恢復已清理的舊郵件。"
+  },
+  "人机验证尚未配置，暂时无法操作，请联系管理员。": {
+    "en": "Verification is not configured. Please contact the administrator.",
+    "tw": "人機驗證尚未配置，暫時無法操作，請聯繫管理員。"
+  },
+  "邮箱操作失败，请稍后重试。": {
+    "en": "Mailbox operation failed. Please try again later.",
+    "tw": "郵箱操作失敗，請稍後重試。"
+  },
+  "{0} 分钟后到期": {
+    "en": "Expires in {0} minutes",
+    "tw": "{0} 分鐘後到期"
+  },
+  "暂停收信": {
+    "en": "Receiving paused",
+    "tw": "暫停收信"
+  },
+  "暂停收信，请联系管理员": {
+    "en": "Receiving paused. Contact the administrator.",
+    "tw": "暫停收信，請聯絡管理員"
+  },
+  "下次申请积分": {
+    "en": "Points for next application",
+    "tw": "下次申請積分"
+  },
+  "请选择固定充值档位，充值金额不可自定义。": {
+    "en": "Choose a fixed recharge plan. Custom amounts are not supported.",
+    "tw": "請選擇固定儲值檔位，儲值金額不可自訂。"
+  },
+  "请选择本次订单使用的支付方式。": {
+    "en": "Choose a payment method for this order.",
+    "tw": "請選擇本次訂單使用的支付方式。"
+  },
+  "支付接口待接入，暂不能在线付款": {
+    "en": "Online payment is unavailable until a provider is connected.",
+    "tw": "支付介面待接入，暫不能線上付款"
+  },
+  "邮箱创建、召回和续期享套餐折扣": {
+    "en": "Plan discounts on mailbox creation, recall and renewal",
+    "tw": "郵箱建立、召回和續期享套餐折扣"
+  },
+  "召回对所有用户开放；会员可召回会员专属域名邮箱": {
+    "en": "Recall is available to everyone; membership is required for member-only domain mailboxes",
+    "tw": "召回對所有使用者開放；會員可召回會員專屬域名郵箱"
+  },
+  "当前仅完成账号绑定，暂不推送邮件或通知，也不能用于登录。": {
+    "en": "Account linking only. Email and notification delivery and Telegram sign-in are not currently supported.",
+    "tw": "目前僅完成帳號綁定，暫不推送郵件或通知，也不能用於登入。"
+  },
+  "每个 Telegram 账号只能绑定一个本站账户。": {
+    "en": "Each Telegram account can be linked to only one account on this site.",
+    "tw": "每個 Telegram 帳號只能綁定一個本站帳戶。"
+  },
+  "NodeLoc 登录": {
+    "en": "NodeLoc login",
+    "tw": "NodeLoc 登入"
+  },
+  "首次登录自动注册，已有账户可在用户中心绑定。": {
+    "en": "First login creates an account. Existing users can link in the user center.",
+    "tw": "首次登入自動註冊，已有帳戶可在使用者中心綁定。"
+  },
+  "NodeLoc 登录配置": {
+    "en": "NodeLoc login settings",
+    "tw": "NodeLoc 登入設定"
+  },
+  "NodeLoc 登录配置已保存。": {
+    "en": "NodeLoc login settings saved.",
+    "tw": "NodeLoc 登入設定已儲存。"
+  },
+  "填写应用 Client Secret": {
+    "en": "Enter the application Client Secret",
+    "tw": "填寫應用程式 Client Secret"
+  },
+  "密钥加密保存，不会回显；更换 Client ID 时需填写新密钥。": {
+    "en": "Secrets are encrypted and never displayed. Enter a new secret when changing the Client ID.",
+    "tw": "金鑰加密儲存，不會回顯；更換 Client ID 時需填寫新金鑰。"
+  },
+  "用户端网站地址": {
+    "en": "Public user website URL",
+    "tw": "使用者端網站網址"
+  },
+  "填写公网 HTTPS 根地址，登录入口只在此域名显示。": {
+    "en": "Enter the public HTTPS origin. Login appears only on this domain.",
+    "tw": "填寫公開 HTTPS 根網址，登入入口僅在此網域顯示。"
+  },
+  "启用 NodeLoc 登录": {
+    "en": "Enable NodeLoc login",
+    "tw": "啟用 NodeLoc 登入"
+  },
+  "先完成 NodeLoc 应用审核，再开启登录入口。": {
+    "en": "Complete NodeLoc application approval before enabling login.",
+    "tw": "先完成 NodeLoc 應用程式審核，再開啟登入入口。"
+  },
+  "授权回调地址": {
+    "en": "Authorization callback URL",
+    "tw": "授權回呼網址"
+  },
+  "完整复制到 NodeLoc 应用的 Redirect URI，必须完全一致。": {
+    "en": "Copy this exact URL into the NodeLoc application Redirect URI.",
+    "tw": "完整複製至 NodeLoc 應用程式的 Redirect URI，必須完全一致。"
+  },
+  "保存 NodeLoc 登录配置": {
+    "en": "Save NodeLoc login settings",
+    "tw": "儲存 NodeLoc 登入設定"
+  },
+  "使用 TL2 及以上的 NodeLoc 账号创建 OAuth 应用。": {
+    "en": "Create an OAuth application with a NodeLoc account at TL2 or higher.",
+    "tw": "使用 TL2 及以上的 NodeLoc 帳號建立 OAuth 應用程式。"
+  },
+  "打开应用管理": {
+    "en": "Open application management",
+    "tw": "開啟應用程式管理"
+  },
+  "申请 openid、profile、email 权限；email 权限需要 NodeLoc 管理员审核。": {
+    "en": "Request openid, profile and email scopes. The email scope requires NodeLoc administrator approval.",
+    "tw": "申請 openid、profile、email 權限；email 權限需要 NodeLoc 管理員審核。"
+  },
+  "填写回调地址，将 Client ID 和 Client Secret 保存到这里，审核通过后开启登录。": {
+    "en": "Set the callback URL and save the Client ID and Client Secret here. Enable login after approval.",
+    "tw": "填寫回呼網址，將 Client ID 和 Client Secret 儲存至此處，審核通過後開啟登入。"
+  },
+  "用户可在登录或注册页选择 NodeLoc；已有账户请先用原方式登录，再在用户中心绑定，保留原积分和邮箱。": {
+    "en": "Choose NodeLoc on the login or registration page. Existing users should sign in normally and link in the user center to keep their points and mailboxes.",
+    "tw": "使用者可在登入或註冊頁選擇 NodeLoc；已有帳戶請先用原方式登入，再於使用者中心綁定，保留原積分和信箱。"
+  },
+  "同邮箱不会自动合并账户。解绑需验证本站密码；未设置密码请先通过忘记密码设置。关闭入口不会删除用户或绑定。": {
+    "en": "Matching emails never merge accounts automatically. Unlinking requires a local password; use password recovery to set one first. Disabling login preserves users and links.",
+    "tw": "相同電子郵件不會自動合併帳戶。解除綁定需驗證本站密碼；未設定密碼請先透過忘記密碼設定。關閉入口不會刪除使用者或綁定。"
+  },
+  "NodeLoc 官方接入文档": {
+    "en": "Official NodeLoc integration guide",
+    "tw": "NodeLoc 官方串接文件"
+  },
+  "使用 NodeLoc 登录": {
+    "en": "Sign in with NodeLoc",
+    "tw": "使用 NodeLoc 登入"
+  },
+  "首次登录自动注册，已有账户请先登录后绑定。": {
+    "en": "New users are registered automatically. Existing users should sign in first and link their account.",
+    "tw": "首次登入自動註冊，已有帳戶請先登入後綁定。"
+  },
+  "发起 NodeLoc 授权失败。": {
+    "en": "Could not start NodeLoc authorization.",
+    "tw": "發起 NodeLoc 授權失敗。"
+  },
+  "正在跳转…": {
+    "en": "Redirecting…",
+    "tw": "正在跳轉…"
+  },
+  "NodeLoc 绑定成功。": {
+    "en": "NodeLoc account linked.",
+    "tw": "NodeLoc 綁定成功。"
+  },
+  "NodeLoc 授权未完成，请重新尝试。": {
+    "en": "NodeLoc authorization was not completed. Please try again.",
+    "tw": "NodeLoc 授權未完成，請重新嘗試。"
+  },
+  "绑定 NodeLoc": {
+    "en": "Link NodeLoc",
+    "tw": "綁定 NodeLoc"
+  },
+  "解除 NodeLoc 绑定": {
+    "en": "Unlink NodeLoc",
+    "tw": "解除 NodeLoc 綁定"
+  },
+  "解绑需验证本站密码，并退出所有登录。未设置密码请先通过忘记密码设置。": {
+    "en": "Unlinking requires your local password and signs out all sessions. Use password recovery first if you have not set a password.",
+    "tw": "解除綁定需驗證本站密碼，並登出所有登入。未設定密碼請先透過忘記密碼設定。"
+  },
+  "本站登录密码": {
+    "en": "Local account password",
+    "tw": "本站登入密碼"
+  },
+  "确认解绑": {
+    "en": "Confirm unlink",
+    "tw": "確認解除綁定"
+  },
+  "该邮箱已有本站账户，请先用原方式登录，再到用户中心绑定 NodeLoc。": {
+    "en": "An account already uses this email. Sign in normally, then link NodeLoc in the user center.",
+    "tw": "此電子郵件已有本站帳戶，請先用原方式登入，再到使用者中心綁定 NodeLoc。"
+  },
+  "NodeLoc 暂不可用，请确认应用审核和后台配置。": {
+    "en": "NodeLoc is unavailable. Check application approval and admin settings.",
+    "tw": "NodeLoc 暫時無法使用，請確認應用程式審核及後台設定。"
+  },
+  "已加密保存，留空保留": {
+    "en": "Encrypted and saved; leave blank to keep",
+    "tw": "已加密儲存，留空保留"
+  },
+  "仅超级管理员": {
+    "en": "Super administrators only",
+    "tw": "僅超級管理員"
+  },
+  "读取配置失败。": {
+    "en": "Could not load settings.",
+    "tw": "讀取設定失敗。"
+  },
+  "如何配置": {
+    "en": "Setup instructions",
+    "tw": "如何設定"
+  },
+  "正在读取配置…": {
+    "en": "Loading settings…",
+    "tw": "正在讀取設定…"
+  },
+  "未绑定": {
+    "en": "Not linked",
+    "tw": "未綁定"
+  },
+  "已绑定": {
+    "en": "Linked",
+    "tw": "已綁定"
+  },
+  "解除绑定": {
+    "en": "Unlink",
+    "tw": "解除綁定"
+  },
+  "社区等级": {
+    "en": "Community level",
+    "tw": "社區等級"
+  },
+  "待同步": {
+    "en": "Not synced",
+    "tw": "待同步"
+  },
+  "更新社区资料": {
+    "en": "Update community profile",
+    "tw": "更新社區資料"
+  },
+  "NodeLoc 社区资料已更新。": {
+    "en": "NodeLoc community profile updated.",
+    "tw": "NodeLoc 社區資料已更新。"
+  },
+  "等级来自最近一次 NodeLoc 授权，可更新社区资料同步。": {
+    "en": "Level reflects your latest NodeLoc authorization. Update your community profile to sync.",
+    "tw": "等級來自最近一次 NodeLoc 授權，可更新社區資料同步。"
+  },
+  "请使用当前已绑定的 NodeLoc 账号更新资料。": {
+    "en": "Use your currently linked NodeLoc account to update your profile.",
+    "tw": "請使用目前已綁定的 NodeLoc 帳號更新資料。"
+  },
+  "密码已更新，请使用新密码重新登录。": {
+    "en": "Password updated. Please sign in again with your new password.",
+    "tw": "密碼已更新，請使用新密碼重新登入。"
+  },
+  "密码已更新，NodeLoc 绑定已同时解除；请使用新密码重新登录，需要时可在用户中心重新绑定。": {
+    "en": "Password updated and the NodeLoc link has been removed. Please sign in with your new password; you can link NodeLoc again in the user center if needed.",
+    "tw": "密碼已更新，NodeLoc 綁定已同時解除；請使用新密碼重新登入，需要時可在使用者中心重新綁定。"
+  },
+  "选择时长。续期将在当前有效期后顺延。": {
+    "en": "Choose a duration. Renewal extends the current expiry time.",
+    "tw": "選擇時長。續期將在當前有效期後順延。"
+  },
+  "发布源尚未配置": {
+    "en": "Release source not configured",
+    "tw": "發布源尚未配置"
+  },
+  "发布配置无效": {
+    "en": "Invalid release configuration",
+    "tw": "發布配置無效"
+  },
+  "发现新版本": {
+    "en": "New version available",
+    "tw": "發現新版本"
+  },
+  "已是最新正式版本": {
+    "en": "You are on the latest stable release",
+    "tw": "已是最新正式版本"
+  },
+  "当前版本领先于正式发布版": {
+    "en": "Your version is ahead of the stable release",
+    "tw": "目前版本領先於正式發布版"
+  },
+  "暂时无法检查更新": {
+    "en": "Unable to check for updates",
+    "tw": "暫時無法檢查更新"
+  },
+  "当前版本": {
+    "en": "Installed version",
+    "tw": "目前版本"
+  },
+  "版本信息": {
+    "en": "Version information",
+    "tw": "版本資訊"
+  },
+  "版本检查失败，请稍后重试。": {
+    "en": "Version check failed. Please try again later.",
+    "tw": "版本檢查失敗，請稍後重試。"
+  },
+  "正在检查版本…": {
+    "en": "Checking version…",
+    "tw": "正在檢查版本…"
+  },
+  "版本更新": {
+    "en": "Software updates",
+    "tw": "版本更新"
+  },
+  "接收正式版本通知，由你决定何时升级。": {
+    "en": "Receive stable release notices and choose when to upgrade.",
+    "tw": "接收正式版本通知，由你決定何時升級。"
+  },
+  "仅通知，不自动安装": {
+    "en": "Notifications only; no automatic installation",
+    "tw": "僅通知，不自動安裝"
+  },
+  "最新正式版本": {
+    "en": "Latest stable release",
+    "tw": "最新正式版本"
+  },
+  "检查中…": {
+    "en": "Checking…",
+    "tw": "檢查中…"
+  },
+  "检查更新": {
+    "en": "Check for updates",
+    "tw": "檢查更新"
+  },
+  "当前安装包尚未指定公开发布仓库。发布者配置正式发布源后，即可接收更新通知。": {
+    "en": "This build has no public release repository configured. Update notices become available once the publisher configures it.",
+    "tw": "目前安裝包尚未指定公開發布儲存庫。發布者設定正式發布源後，即可接收更新通知。"
+  },
+  "请联系发布者核对安装包的版本号与发布仓库。": {
+    "en": "Contact the publisher to verify this build’s version and release repository.",
+    "tw": "請聯絡發布者核對安裝包的版本號與發布儲存庫。"
+  },
+  "请稍后重试；网络异常、发布源不可访问或尚无正式版本都可能导致检查失败，不影响邮箱服务。": {
+    "en": "Try again later. Network issues, an inaccessible repository or no stable release can prevent checks; mail service is unaffected.",
+    "tw": "請稍後重試；網路異常、發布源無法存取或尚無正式版本都可能導致檢查失敗，不影響信箱服務。"
+  },
+  "更新说明": {
+    "en": "Release notes",
+    "tw": "更新說明"
+  },
+  "查看发布详情与更新指引": {
+    "en": "View release details and upgrade instructions",
+    "tw": "查看發布詳情與更新指引"
+  },
+  "以下是上次成功检查的版本信息，可能已过时。": {
+    "en": "The following information is from the last successful check and may be outdated.",
+    "tw": "以下是上次成功檢查的版本資訊，可能已過時。"
+  },
+  "此版本未提供更新说明，请查看发布详情。": {
+    "en": "No release notes provided. Please view the release details.",
+    "tw": "此版本未提供更新說明，請查看發布詳情。"
+  },
+  "发布仓库": {
+    "en": "Release repository",
+    "tw": "發布儲存庫"
+  },
+  "最近成功检查": {
+    "en": "Last successful check",
+    "tw": "最近成功檢查"
+  },
+  "最近尝试时间": {
+    "en": "Last attempt",
+    "tw": "最近嘗試時間"
+  },
+  "后台打开期间定期检查，服务端缓存 6 小时；手动检查至少间隔 1 分钟。只读取公开版本信息，不上传账号、邮件或配置。": {
+    "en": "Checks run while the admin page is open, with a 6-hour server cache and a 1-minute manual check cooldown. Only public release information is requested; accounts, mail and settings are not uploaded.",
+    "tw": "後台開啟期間定期檢查，伺服器快取 6 小時；手動檢查至少間隔 1 分鐘。只讀取公開版本資訊，不上傳帳號、郵件或設定。"
+  },
+  "升级前请阅读对应版本的说明并备份配置和数据；此页面不会下载程序、修改数据库或执行更新命令。": {
+    "en": "Read the release instructions and back up settings and data before upgrading. This page does not download software, change the database or run upgrade commands.",
+    "tw": "升級前請閱讀對應版本的說明並備份設定和資料；此頁面不會下載程式、修改資料庫或執行更新命令。"
+  },
+  "版本信息源": {
+    "en": "Version information source",
+    "tw": "版本資訊來源"
+  },
+  "尚未配置版本信息源，请联系发布者接通；再次检查不会自动完成配置。": {
+    "en": "No version source is configured. Contact the publisher; checking again will not configure it.",
+    "tw": "尚未設定版本資訊來源，請聯絡發布者接通；再次檢查不會自動完成設定。"
+  },
+  "请联系发布者核对安装包的版本号与版本信息源。": {
+    "en": "Contact the publisher to verify the package version and version source.",
+    "tw": "請聯絡發布者核對安裝包的版本號與版本資訊來源。"
+  },
+  "已显示最近检查结果；手动联网检查至少间隔 1 分钟。": {
+    "en": "Showing the latest check result. Manual network checks are limited to once per minute.",
+    "tw": "已顯示最近檢查結果；手動連線檢查至少間隔 1 分鐘。"
+  },
+  "仅未转账时重新生成；已转账请继续查询原订单。": {
+    "en": "Generate again only if you have not transferred funds. Otherwise, keep checking the original order.",
+    "tw": "僅未轉帳時重新產生；已轉帳請繼續查詢原訂單。"
+  },
+  "正在核实付款…": {"en":"Checking payment…","tw":"正在核實付款…"},
+  "正在查询…": {"en":"Checking…","tw":"正在查詢…"},
+  "查询到账": {"en":"Check payment","tw":"查詢到帳"},
+  "返回选择": {"en":"Back to selection","tw":"返回選擇"},
+  "等待链上确认，请勿重复转账。": {"en":"Waiting for confirmation. Do not transfer again.","tw":"等待鏈上確認，請勿重複轉帳。"},
+  "付款已核实，积分已到账。": {"en":"Payment confirmed and points credited.","tw":"付款已核實，積分已到帳。"},
+  "请求超时，请查询原订单核实结果；请勿重复支付。": {"en":"The request timed out. Check the original order; do not pay again.","tw":"請求逾時，請查詢原訂單核實結果；請勿重複支付。"},
+  "支付服务暂不可用，请查询原订单；请勿重复转账。": {"en":"Payment service unavailable. Check the original order; do not transfer again.","tw":"支付服務暫不可用，請查詢原訂單；請勿重複轉帳。"},
+  "支付下单结果待核实，请查看原订单；不要重复转账。": {"en":"Order creation is still being verified. Check the original order; do not transfer again.","tw":"支付下單結果待核實，請查看原訂單；不要重複轉帳。"},
+  "未转账，重新生成": {
+    "en": "Not paid — generate again",
+    "tw": "未轉帳，重新產生"
+  },
+  "重新生成时请保留原充值档位。": {
+    "en": "Keep the original recharge plan when generating a replacement.",
+    "tw": "重新產生時請保留原儲值方案。"
+  },
+  "原订单尚未确认过期，请查询到账；已转账请勿重新生成。": {
+    "en": "The original order is not confirmed expired. Check its payment status; do not generate again if you have transferred funds.",
+    "tw": "原訂單尚未確認過期，請查詢到帳；已轉帳請勿重新產生。"
+  },
+  "原订单状态已变化，请查询到账后重试。": {
+    "en": "The original order status changed. Check its payment status before trying again.",
+    "tw": "原訂單狀態已變化，請查詢到帳後重試。"
+  },
+  "检查完成，版本信息已刷新。": {
+    "en": "Check complete. Version information refreshed.",
+    "tw": "檢查完成，版本資訊已重新整理。"
+  }
+}

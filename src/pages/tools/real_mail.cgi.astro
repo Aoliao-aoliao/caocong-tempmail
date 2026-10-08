@@ -1,0 +1,33 @@
+---
+import { getMemberToolInbox } from '../../../server/member/inbox-selection.mjs';
+import { freeMailboxMinutes } from '../../../server/member/mailbox-policy.mjs';
+import MemberLayout from '../../layouts/MemberLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
+import RelayMailbox from '../../components/RelayMailbox';
+import { getSessionUser,sessionCookieName } from '../../../server/auth/service.mjs';
+import { getMemberData,getPublicToolData } from '../../../server/member/read-model.mjs';
+import { getRelayPublicData } from '../../../server/relay/service.mjs';
+import { guestCookieName,listGuestMessages } from '../../../server/guest/service.mjs';
+import { getResolvedTurnstilePublicConfig } from '../../../server/security/turnstile.mjs';
+const sessionUser=await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+const data:any=sessionUser?await getMemberData(sessionUser.id):await getPublicToolData();
+const suffixes=await getRelayPublicData();
+const turnstile=await getResolvedTurnstilePublicConfig();
+const fallback=[{id:'hour',label:'1 小时',minutes:60,points:0},{id:'day',label:'1 天',minutes:1440,points:3},{id:'week',label:'7 天',minutes:10080,points:10},{id:'month',label:'30 天',minutes:43200,points:20},{id:'season',label:'120 天',minutes:172800,points:40}];
+let plans=fallback;try{const parsed=JSON.parse(data.settings.mailbox_duration_plans||'[]');if(Array.isArray(parsed)&&parsed.length)plans=parsed}catch{}
+let inboxError='';
+let inbox:any={mailbox:null,messages:[],pagination:{page:1,pages:1,total:0,pageSize:10}};
+if(sessionUser){
+  try{inbox=await getMemberToolInbox(Astro,sessionUser.id,'relay');}
+  catch(error){const unavailable=[400,404].includes(Number((error as {status?:number})?.status));Astro.response.status=unavailable?404:503;inboxError=unavailable?'所选邮箱已失效，请返回邮箱列表重新选择，或创建新邮箱。':'收件箱读取失败，请稍后重试。';}
+}else if(!sessionUser){
+  const guestCookie=Astro.cookies.get(guestCookieName)?.value;
+  if(guestCookie){
+    try{inbox=await listGuestMessages({cookieValue:guestCookie,userAgent:Astro.request.headers.get('user-agent')||'',query:'',page:1,relayOnly:true})}catch{}
+  }
+}
+plans=plans.filter((plan:any)=>plan.enabled!==false);
+if(!sessionUser){const minutes=freeMailboxMinutes(data.settings.free_mailbox_minutes);plans=[{id:"guest-free",label:minutes===60?"1 小时":`${minutes} 分钟`,minutes,points:0},...plans.filter((plan:any)=>Number(plan.points)>0)];}
+const props={initialError:inboxError,authenticated:Boolean(sessionUser),suffixes,plans,currentPoints:sessionUser?data.user.points_balance:0,isMember:Boolean(sessionUser&&data.membership),discountPercent:sessionUser?(data.membership?.mailbox_discount_percent||100):100,memberPreviewDiscountPercent:sessionUser?(data.membership?.mailbox_discount_percent??data.plans?.[0]?.mailbox_discount_percent??100):(data.memberDiscountPercent??100),captchaEnabled:sessionUser?data.settings.captcha_before_mailbox_create==='true':true,turnstileSiteKey:turnstile.siteKey,turnstileConfigured:turnstile.configured,initialMailbox:inbox.mailbox,initialMessages:inbox.messages,initialPagination:inbox.pagination};
+---
+{sessionUser?<MemberLayout title="中继邮箱 | NodeMail" active="relay"><RelayMailbox {...props} client:load/></MemberLayout>:<AppLayout title="中继邮箱 | NodeMail"><RelayMailbox {...props} client:load/></AppLayout>}

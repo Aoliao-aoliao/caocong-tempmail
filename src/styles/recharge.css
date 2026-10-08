@@ -1,0 +1,72 @@
+/* Recharge layout follows the observed reference; prices and payment capability remain NodeMail's. */
+.recharge-content { --content-outer-gutter:max(calc(6vw - 15.12px),calc((100vw - 1632px)/2)); max-width:1380px; }
+.recharge-content .recharge-shell { grid-template-columns:minmax(0,1fr) minmax(310px,.36fr); gap:18px; align-items:stretch; }
+.recharge-content .recharge-left-column { min-width:0; grid-template-rows:minmax(0,1fr) auto; gap:18px; }
+.recharge-content .recharge-main { min-width:0; padding:28px 30px 34px; }
+.recharge-content .section-heading { display:block; margin:0; }
+.recharge-content .section-heading>span { display:block; font-size:18px; font-weight:800; color:#20242b; }
+.recharge-content .section-heading small { margin-top:6px; font-size:12px; }
+.recharge-content .plan-grid { margin-top:20px; gap:10px; }
+.recharge-content .plan-option>span { min-height:88px; padding:17px 14px; justify-content:space-between; background:#fff; }
+.recharge-content .plan-option strong { font-size:15px; }.recharge-content .plan-option small { margin-top:0; color:#585d6a; font-size:12px; font-weight:400; }
+.recharge-content .plan-option:hover>span { border-color:#bfeadf; }
+.recharge-content .plan-option input:checked+span { border-color:#00c497; background:linear-gradient(145deg,#f0faf7,#fff); }
+.recharge-content .plan-option input:focus-visible+span { outline:3px solid #bfeadf; outline-offset:2px; }
+.recharge-content .payment-heading { margin-top:32px!important; }
+.recharge-content .payment-picker-grid { margin-top:20px; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px 10px; }
+.recharge-content .payment-field:first-of-type { grid-column:1/-1; }
+.recharge-content .payment-field { position:relative; display:block; }
+.recharge-content .payment-field .payment-field-label { display:block!important; position:absolute; z-index:3; top:-7px; left:15px; margin:0; padding:0 6px; color:#737990; background:#fff; font-size:11px; font-weight:400; line-height:14px; }
+.recharge-content .payment-picker-grid .choice-trigger { min-height:56px; padding:8px 14px; border:1px solid #dfe3e8; background:#fff; }
+.recharge-content .choice-selected-detail { min-width:0; display:flex; gap:10px; align-items:center; text-align:left; }
+.recharge-content .choice-selected-detail>span { min-width:0; display:grid; gap:2px; }
+.recharge-content .choice-selected-detail strong { font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.recharge-content .choice-selected-detail small { font-size:12px; color:#737990; font-weight:400; }
+.recharge-content .choice-symbol { display:grid; flex:0 0 30px; width:30px; height:30px; place-items:center; color:#009b77; background:#effaf7; border:1px solid #dfe8e5; font-size:19px; }
+.recharge-content .pending-orders { padding:22px 24px 24px; }
+.recharge-content .pending-orders-heading { min-height:0; padding:0; align-items:flex-start; border:0; }
+.recharge-content .pending-orders-heading h2 { font-size:16px; font-weight:800; }
+.recharge-content .pending-orders-heading>span { padding:5px 9px; border:1px solid #ccece4; background:#f0faf7; font-size:11px; white-space:nowrap; }
+.recharge-content .pending-order-empty { min-height:0; margin:16px 0 0; padding:18px; border:1px dashed #dfe3e8; background:#f8f9fb; }
+.recharge-content .transaction-item { min-width:0; flex-wrap:wrap; }.recharge-content .item-main { min-width:0; overflow-wrap:anywhere; }
+.recharge-content .order-panel { position:relative; padding:28px; text-align:left; border-color:#e3f7f2; background:linear-gradient(145deg,#fff,#f0faf7); }
+.recharge-content .order-panel:before { content:''; position:absolute; inset:0 0 auto; height:3px; background:linear-gradient(90deg,#8ddac9,#00c497 62%,#bfeadf); }
+.recharge-content .order-score { margin:13px 0 0; color:#20242b; font-size:clamp(25px,3vw,36px); letter-spacing:-.04em; }
+.recharge-content .order-panel>p { margin-top:8px; font-size:13px; line-height:1.5; }.recharge-content [data-order-usd] { margin-left:4px; font-weight:400; }
+.recharge-content .qr-stage { min-height:0; margin:23px auto 16px; padding:12px; gap:9px; border:1px solid #e5e7eb; background:#fff; text-align:center; }
+.recharge-content .payment-placeholder { width:min(100%,220px); aspect-ratio:1; display:block; }.recharge-content .qr-stage small { font-size:11px; line-height:1.45; color:#585d6a; }
+.recharge-content .create-order { min-height:48px; margin-top:26px; font-size:14px; }.recharge-content .order-status { margin-top:12px!important; text-align:center; font-size:12px; }
+.recharge-history { margin-top:20px; }.recharge-history>summary { cursor:pointer; color:#008f70; font-size:13px; padding:12px 0; }
+
+/* Reference layout: selection and pending orders on the left, a full-height cashier on the right. */
+.recharge-content .unified-recharge .recharge-shell{grid-template-columns:minmax(0,1fr) minmax(310px,.36fr);align-items:stretch}
+.recharge-content .recharge-left-column{display:grid;grid-template-rows:minmax(0,1fr) auto;align-content:start}
+.recharge-content .unified-recharge .order-panel{display:block;position:relative;padding:28px;text-align:left}
+.recharge-content .order-payable{margin-top:8px;font-size:13px;color:#585d6a}
+.recharge-code-placeholder>span{display:grid;place-items:center;width:min(100%,220px);aspect-ratio:1;font-size:64px;color:#9ccec1;background:#f5fbf8}
+.recharge-content .recharge-code-placeholder small{font-size:11px}
+.recharge-content .plan-option.unavailable{opacity:.5}.recharge-content .plan-option input:disabled+span{cursor:not-allowed}
+.recharge-content .pending-order-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+.recharge-content .pending-order-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;min-width:0;padding:14px;border:1px solid #dfe3e8;background:#fff}
+.recharge-content .pending-order-main{display:grid;gap:4px;min-width:0}
+.recharge-content .pending-order-main small{font-size:11px;color:#008f70;overflow-wrap:anywhere}.recharge-content .pending-order-main strong{font-size:15px}.recharge-content .pending-order-main>span{font-size:11px;color:#585d6a}
+.recharge-content .pending-order-meta{display:flex;grid-column:1/-1;align-items:center;justify-content:space-between;gap:10px;color:#858a9e;font-size:10px;min-width:0}.recharge-content .pending-order-meta small{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.recharge-content .pending-order-meta span{flex-shrink:0}
+.recharge-history-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.recharge-history-actions button{border:1px solid #caeee3;background:#effaf6;color:#00886b;padding:6px 9px;white-space:nowrap;font-size:11px;cursor:pointer}.recharge-history-actions button:disabled{opacity:.5;cursor:default}
+.recharge-content .pending-order-more>summary{margin-top:12px;font-size:12px;color:#008f70;cursor:pointer}
+.recharge-content .pending-orders .recharge-history-feedback{padding:8px;margin-top:10px;font-size:12px}
+.recharge-content .pending-order-empty{border-style:dashed;font-size:12px;color:#858a9e;text-align:center}
+.recharge-content .recharge-history{margin:18px 0 0;min-width:0}
+.recharge-content .recharge-history>summary{padding:10px 0;cursor:pointer;color:#008f70;font-size:12px}
+.recharge-content .recharge-history .page-panel{margin-top:0;min-width:0}
+.recharge-content .recharge-history .panel-header{padding:16px 20px}.recharge-content .recharge-history h2{font-size:16px}.recharge-content .recharge-history .panel-header p{font-size:12px}
+.recharge-content .recharge-history .list-tools{padding:12px 20px}
+.recharge-content .recharge-history .table-wrap td{font-size:11px;padding:10px}.recharge-content .recharge-history .table-wrap td:first-child{overflow-wrap:anywhere;max-width:180px}
+@media(max-width:1360px){.recharge-content .plan-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.recharge-content .unified-recharge .recharge-shell{grid-template-columns:1fr}.recharge-content .pending-order-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.recharge-content .recharge-main,.recharge-content .unified-recharge .order-panel,.recharge-content .pending-orders{padding:22px 19px}.recharge-content .plan-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.recharge-content .payment-picker-grid{grid-template-columns:1fr}.recharge-content .pending-order-list{grid-template-columns:1fr}.recharge-content .recharge-history .list-tools{padding:12px}.recharge-content .recharge-history .panel-header{padding:14px}}
+@media(max-width:420px){.recharge-content .plan-grid{grid-template-columns:1fr}.recharge-content .plan-option>span{min-height:72px}}
+.recharge-content .choice-symbol{background:#fff;border-color:#e5e7eb}.recharge-content .choice-symbol svg{display:block;width:22px;height:22px}
+.recharge-content .choice-trigger>i{color:#737990;border-width:1.5px;width:8px;height:8px}
+.recharge-content .pending-order-actions{grid-column:2;grid-row:1;flex-direction:column;gap:4px;align-items:stretch}
+.recharge-content .pending-order-actions .continue-order{min-height:34px;padding:7px 11px;font-weight:800}
+.recharge-content .pending-order-actions .pending-query{padding:0;border:0;background:none;font-size:10px;text-align:center}
+@media(max-width:980px){.recharge-content .pending-order-list{grid-template-columns:1fr}}

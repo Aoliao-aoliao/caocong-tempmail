@@ -1,0 +1,17 @@
+---
+import { site } from '../config/site';
+import Layout from './Layout.astro';
+import type { LibraryEntry } from '../content/library';
+interface Props { entry: LibraryEntry; sectionLabel: string; locale?: 'zh' | 'en'; }
+const { entry, sectionLabel, locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
+const prefix = isEn ? '/en' : '';
+---
+<Layout title={`${entry.title} · NodeMail`} description={entry.summary} locale={locale}>
+  <article>
+    <header class="article-hero"><div class="shell" data-reveal><p class="eyebrow">{entry.eyebrow}</p><h1>{entry.title}</h1><p>{entry.summary}</p><div class="hero-actions"><a class="btn btn-primary" href={site.appPath}>{isEn ? 'Get an anonymous inbox' : '领取一个匿名邮箱'}</a><a class="btn btn-secondary" href={`${prefix}/custom-domain/`}>{isEn ? 'Explore custom domains' : '查看自定义域名'}</a></div></div></header>
+    <section class="section"><div class="shell"><div class="section-heading" data-reveal><p class="eyebrow">{sectionLabel}</p><h2>{isEn ? 'What you may run into' : '你可能遇到的情况'}</h2></div><div class="article-card-grid">{entry.cards.map(([title, text]) => <article data-reveal><h2>{title}</h2><p>{text}</p></article>)}</div></div></section>
+    <section class="section section-soft"><div class="shell detail-split"><div class="section-heading" data-reveal><p class="eyebrow">{isEn ? 'Mechanism' : '机制'}</p><h2>{entry.sectionTitle}</h2></div><div class="article-prose" data-reveal><p>{entry.sectionBody}</p><p>{isEn ? 'Choose an address by asking whether this service may send important mail later. Disposable mail fits one-off flows; a controllable alias fits a lasting account.' : '选择地址类型时，应先判断这项服务未来是否还会发送重要邮件。一次性流程使用临时收件箱，长期账户使用可控制的别名，通常是最稳妥的分工。'}</p><h3>{isEn ? 'Keep the boundary clear' : '保持边界清楚'}</h3><p>{isEn ? 'Anonymous email protects privacy and organizes notifications. It must not be used to impersonate people, commit fraud or evade a platform policy.' : '匿名邮箱用于保护隐私和管理通知，不应被用于冒充真实身份、欺诈或规避第三方平台规则。'}</p></div></div></section>
+  </article>
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>{isEn ? 'Give the next account its own address' : '为下一个账户分配独立地址'}</h2><p>{isEn ? 'Leaks become traceable and disabling one address affects nothing else.' : '从此以后，泄露来源和停用范围都清清楚楚。'}</p><div class="cta-actions"><a class="btn btn-primary" href={site.appPath}>{isEn ? 'Start free' : '免费开始'}</a></div></div></section>
+</Layout>

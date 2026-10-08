@@ -1,0 +1,34 @@
+# Private installation state
+.env
+.env.*
+!installer/.env.example
+**/data/
+**/tls/
+*.key
+*.pem
+*.p12
+*.pfx
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+*.sql.gz
+*.sql.zip
+*.sql.zst
+# Only reviewed schema definitions are tracked as SQL.
+*.sql
+!server/db/migrations/*.sql
+installer/.active-image
+installer/.operation.lock
+installer/*.tmp
+installer/.*.tmp
+# Generated development/build state
+node_modules/
+dist/
+.astro/
+coverage/
+__pycache__/
+*.pyc
+*.log
+.DS_Store

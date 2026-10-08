@@ -1,0 +1,21 @@
+---
+import { site } from '../config/site';
+import Layout from '../layouts/Layout.astro';
+
+const qa = [
+  ['临时邮箱与匿名邮箱别名有什么区别？', '临时邮箱面向短期收信，到期自动销毁；匿名别名长期有效，并持续把邮件转发到你的常用邮箱。'],
+  ['不注册也能使用吗？', '临时收件箱和测试身份生成器无需账户。长期别名、自定义域名和转发设置需要登录后保存。'],
+  ['邮件会保存多久？', '邮箱有效期和邮件保留策略由运营后台配置，用户中心会显示每个邮箱的实际到期时间。'],
+  ['生成的姓名和地址是真实的吗？', '不是。它们按常见格式组合，只用于开发、测试和占位，不代表任何真实个人或住址。'],
+  ['可以使用自己的域名吗？', '可以。验证域名所有权并配置邮件记录后，即可在自己的域名上创建别名。'],
+  ['转发会改变邮件内容吗？', '转发能力需由运营方配置邮件接收与投递服务；启用后的处理规则以隐私政策和控制台说明为准。'],
+  ['公共临时邮箱会被网站拒绝吗？', '可能。部分网站维护一次性邮箱域名名单，需要持续联系的账户更适合长期别名或自定义域名。'],
+  ['现在能真正收信吗？', '账户、邮箱、会员、积分、域名和 OpenAPI 已连接数据库；互联网收信还需要运营方为可用域名配置 MX 与邮件接收网关。'],
+];
+---
+
+<Layout title="常见问题 · NodeMail" description="关于临时邮箱、匿名别名、转发和测试身份的常见问题。">
+  <header class="directory-hero"><div class="shell" data-reveal><p class="eyebrow">FAQ</p><h1>常见问题</h1><p>从地址有效期到转发方式，把使用前最常见的问题一次说清楚。</p></div></header>
+  <section class="section"><div class="shell faq-page-grid"><div class="section-heading" data-reveal><p class="eyebrow">全部问题</p><h2>临时还是长期，先从用途判断</h2></div><div class="faq-list" data-reveal>{qa.map(([question, answer], index) => <details class="faq-item"><summary><span class="faq-index">{String(index + 1).padStart(2, '0')}</span><span class="faq-question">{question}</span><span class="faq-plus">+</span></summary><p class="faq-answer">{answer}</p></details>)}</div></div></section>
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>仍然拿不准用哪一种？</h2><p>一次验证码用临时邮箱，需要长期找回账号时使用匿名别名。</p><div class="cta-actions"><a class="btn btn-primary" href={site.appPath}>打开临时邮箱</a><a class="btn btn-secondary" href="/contact/">联系我们</a></div></div></section>
+</Layout>

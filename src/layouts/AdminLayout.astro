@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+import '../styles/telegram.css';
+import '../styles/workspace-layout.css';
+import Brand from '../components/Brand.astro';
+import AdminUpdates from '../components/AdminUpdates';
+import { getSessionUser, sessionCookieName } from '../../server/auth/service.mjs';
+
+interface Props { title: string; active: string; }
+const { title, active } = Astro.props;
+const isLocalAdminPreview = import.meta.env.DEV && (Astro.url.hostname === '127.0.0.1' || Astro.url.hostname === 'localhost');
+const sessionUser = isLocalAdminPreview
+  ? { email: 'admin@localhost', role: 'SUPER_ADMIN' }
+  : await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+const adminEmail = String(sessionUser?.email || '管理员');
+const adminInitial = adminEmail.slice(0, 1).toUpperCase() || 'A';
+const adminRole = sessionUser?.role === 'SUPER_ADMIN' ? '超级管理员' : '管理员';
+const groups = [
+  { label: '总览', items: [['overview','/admin/index.cgi','运营概览','home-icon']] },
+  { label: '账户', items: [['users','/admin/users.cgi','用户管理','mailbox-icon'],['memberships','/admin/memberships.cgi','会员管理','score-icon']] },
+  { label: '邮箱服务', items: [['mailboxes','/admin/mailboxes.cgi','邮箱管理','apply-icon'],['relays','/admin/relays.cgi','中继邮箱','mail-icon'],['messages','/admin/messages.cgi','邮件管理','mail-icon'],['domains','/admin/domains.cgi','域名管理','address-icon']] },
+  { label: '财务', items: [['orders','/admin/orders.cgi','充值订单','score-icon'],['commerce','/admin/commerce.cgi','充值配置','score-icon'],['transactions','/admin/transactions.cgi','积分流水','score-icon']] },
+  { label: '开发与系统', items: [['api','/admin/openapi.cgi','OpenAPI','address-icon'],['security','/admin/security.cgi','人机验证','apply-icon'],['settings','/admin/settings.cgi','系统配置','mailbox-icon'],['audit','/admin/audit.cgi','审计日志','mail-icon']] },
+];
+const pageNames: Record<string,string> = { overview:'运营概览',users:'用户管理',memberships:'会员管理',mailboxes:'邮箱管理',relays:'中继邮箱',messages:'邮件管理',domains:'域名管理',orders:'充值订单',commerce:'充值配置',transactions:'积分流水',api:'OpenAPI',security:'人机验证',settings:'系统配置',audit:'审计日志' };
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="/openapi/assets/css/user_center.css?v=20260908.6" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="workspace admin-workspace">
+      <aside class="sidebar admin-sidebar">
+        <div class="admin-brand-panel">
+          <a class="brand" href="/admin/index.cgi" aria-label="NodeMail 管理后台"><Brand /></a>
+          <div class="admin-product-mark"><span>ADMIN</span><small>管理控制台</small></div>
+        </div>
+        <nav class="side-nav admin-side-nav" aria-label="管理员菜单">
+          {groups.map((group) => <section><small>{group.label}</small>{group.items.map(([key,href,label,icon]) => <a class:list={['nav-item',{active:active===key}]} href={href}><span class:list={['nav-icon',icon]} aria-hidden="true"></span><span>{label}</span></a>)}</section>)}
+        </nav>
+        <a class="back-home" href="/user/center.cgi">返回用户后台</a>
+      </aside>
+      <main class="content admin-content">
+        <nav class="workspace-topbar" aria-label="管理员工具栏">
+          <h1 class="workspace-topbar-title">{pageNames[active] || title}</h1>
+          <div class="top-account-bar">
+            <a class="openapi-entry" href="/">查看前台</a>
+            <span class="admin-role-pill">{adminRole}</span>
+            <details class="admin-account-menu"><summary><span class="avatar">{adminInitial}</span><span><small>当前管理员</small><strong>{adminEmail}</strong></span><i>⌄</i></summary><div><a href="/admin/settings.cgi">账户与安全</a><a href="/admin/audit.cgi">操作日志</a><a href="/user/login.cgi" data-admin-logout>退出登录</a></div></details>
+          </div>
+        </nav>
+        <AdminUpdates compact client:load />
+        <noscript><p class="admin-service-note" role="alert">请启用 JavaScript 后使用管理功能；当前配置尚未更改。</p></noscript>
+        <slot />
+      </main>
+    </div>
+    <script src="/openapi/assets/js/app_dialog.js?v=20260918.1" defer></script>
+    <script is:inline>
+      document.querySelector('[data-admin-logout]')?.addEventListener('click', async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('/api/auth/logout', { method: 'POST', headers: { 'content-type': 'application/json' } });
+          if (!response.ok) throw new Error('logout failed');
+          window.location.replace('/user/login.cgi');
+        } catch (_error) {
+          await window.NodeMailDialog?.alert('退出失败，请稍后重试。', { title: '退出登录' });
+        }
+      });
+    </script>
+  </body>
+</html>

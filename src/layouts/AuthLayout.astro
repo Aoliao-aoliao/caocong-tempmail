@@ -1,0 +1,36 @@
+---
+import {requestLocale,translator} from '../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import '../styles/global.css';
+import '../styles/reference-ui.css';
+import LanguageMenu from '../components/LanguageMenu.astro';
+import Brand from '../components/Brand.astro';
+import { site } from '../config/site';
+
+interface Props { title: string; }
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8faf9" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="stylesheet" href="/openapi/assets/css/language_selector.css"/>
+    <title>{title}</title>
+  </head>
+  <body class="auth-body">
+    <div class="auth-page">
+      <header class="auth-topbar">
+        <a href={site.publicOrigin} aria-label={`${site.name} 首页`}><Brand /></a>
+        <div class="auth-top-tools">
+          <LanguageMenu />
+          <slot name="top-action" />
+        </div>
+      </header>
+      <main class="auth-main"><slot /></main>
+    </div>
+
+  </body>
+</html>

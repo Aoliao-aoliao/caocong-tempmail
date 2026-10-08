@@ -1,0 +1,41 @@
+.nodeloc-oauth-settings{display:block!important;width:100%;min-width:0;box-sizing:border-box}
+.nodeloc-oauth-settings header>.admin-badge{flex-shrink:0;white-space:nowrap}
+.nodeloc-oauth-body{padding:24px;min-width:0}
+.nodeloc-oauth-settings .nodeloc-config-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+.nodeloc-config-fields .nodeloc-full-row{grid-column:1 / -1}
+.nodeloc-config-fields>label{align-content:start}
+.nodeloc-oauth-settings>header{gap:16px;flex-wrap:wrap}
+.nodeloc-level{display:inline-flex;align-items:center;flex-shrink:0;padding:3px 9px;border:1px solid #bce5d8;background:#effaf5;color:#00866c;border-radius:4px;font-size:12px;font-weight:700}
+.nodeloc-profile-note{display:block;font-size:12px;line-height:1.7;color:#7c8e86;margin-top:8px;white-space:normal}
+.nodeloc-account dd{gap:8px!important}
+.nodeloc-bind-action{min-height:44px}
+.nodeloc-oauth-settings .admin-form-grid{min-width:0}
+.nodeloc-oauth-settings label,.nodeloc-oauth-settings input{min-width:0;max-width:100%;box-sizing:border-box}
+.nodeloc-oauth-settings small{white-space:normal;line-height:1.7}
+.nodeloc-oauth-callback{display:grid;gap:8px;margin:20px 0;padding:14px 16px;background:#f3faf7;border:1px solid #d8eae3;font-size:12px;color:#667a74;min-width:0}
+.nodeloc-oauth-callback code{overflow-wrap:anywhere;white-space:normal;color:#237c69}
+.nodeloc-oauth-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:12px;margin-top:20px}
+.nodeloc-oauth-message{display:block;white-space:normal;overflow-wrap:anywhere;padding:10px 12px;border:1px solid #cce8df;background:#edf8f3;color:#276b59;font-size:12px;line-height:1.65}
+.nodeloc-oauth-guide{margin-top:24px;padding:20px;border:1px solid #e0eae5;background:#fbfdfc;font-size:13px;line-height:1.9;color:#657770;overflow-wrap:anywhere}
+.nodeloc-oauth-guide h3{margin:0 0 10px;color:#304f45;font-size:14px}
+.nodeloc-oauth-guide ol{list-style:decimal;margin:0;padding-left:20px}
+.nodeloc-oauth-guide li+li{margin-top:8px}
+.nodeloc-oauth-guide a,.nodeloc-oauth-actions a{color:#00886c;text-decoration:underline;text-underline-offset:3px}
+.nodeloc-login{display:grid;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid #e0ebe5;min-width:0}
+.nodeloc-login button{width:100%;min-height:46px;border:1px solid #bcded0;background:#effaf5;color:#00866c;font:inherit;font-weight:700;border-radius:4px;cursor:pointer;padding:12px}
+.nodeloc-login small{font-size:12px;line-height:1.7;color:#7c8e86;white-space:normal}
+.nodeloc-login p{font-size:13px;color:#a04545;overflow-wrap:anywhere}
+.nodeloc-account dd{flex-wrap:wrap!important;white-space:normal!important;min-width:0}
+.nodeloc-account strong{overflow-wrap:anywhere;min-width:0}
+.nodeloc-bind-action{font:inherit;font-size:13px;color:#00a985;background:none;border:0;padding:6px;cursor:pointer}
+.nodeloc-unlink-dialog{margin:auto;box-sizing:border-box;width:min(460px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;padding:24px;border:1px solid #cde4db;background:#fff;color:#344c43;box-shadow:0 20px 60px #153d3333;border-radius:4px;font-size:14px;line-height:1.7}
+.nodeloc-unlink-dialog::backdrop{background:#0b242973;backdrop-filter:blur(3px)}
+.nodeloc-unlink-dialog header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.nodeloc-unlink-dialog h2{font-size:18px;margin:0}
+.nodeloc-unlink-dialog header button{background:none;border:0;min-width:40px;min-height:40px;font-size:28px;color:#718a80;cursor:pointer}
+.nodeloc-unlink-dialog label{display:grid;gap:8px}
+.nodeloc-unlink-dialog input{box-sizing:border-box;width:100%;min-width:0;padding:10px;border:1px solid #cde4db;background:#fff;border-radius:3px}
+.nodeloc-unlink-dialog button[type=submit]{min-height:44px;padding:10px 16px;background:#00b98c;color:white;border:1px solid #00ac82;border-radius:3px;font:inherit;font-weight:700;cursor:pointer}
+.nodeloc-login button:disabled,.nodeloc-bind-action:disabled,.nodeloc-unlink-dialog button:disabled{opacity:.55;cursor:not-allowed}
+.nodeloc-login button:focus-visible,.nodeloc-bind-action:focus-visible,.nodeloc-unlink-dialog button:focus-visible{outline:2px solid #00a982;outline-offset:3px}
+@media(max-width:620px){.nodeloc-oauth-body{padding:16px}.nodeloc-oauth-settings .nodeloc-config-fields{grid-template-columns:1fr;gap:16px}.nodeloc-oauth-actions{display:grid;grid-template-columns:1fr}.nodeloc-oauth-actions button{width:100%}.nodeloc-oauth-guide{padding:14px}.nodeloc-unlink-dialog{padding:18px}}

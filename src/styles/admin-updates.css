@@ -1,0 +1,20 @@
+.admin-update-notice{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 20px;padding:10px 16px;border:1px solid #e2eeec;background:#fff;font-size:13px;color:#657780;min-width:0}
+.admin-update-notice a{color:#008f78;text-decoration:none;overflow-wrap:anywhere}
+.admin-update-notice.has-update{background:#effbf7;border-color:#a1e4d4}
+.admin-updates{min-width:0}
+.admin-updates>header{gap:16px;flex-wrap:wrap}
+.admin-updates-body{padding:24px;min-width:0;color:#657780;line-height:1.7}
+.admin-update-summary{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:20px;align-items:center}
+.admin-update-summary small,.admin-update-summary strong{display:block;overflow-wrap:anywhere}
+.admin-update-summary strong{font-size:24px;color:#23353e}
+.admin-update-status{font-weight:700;color:#008f78;margin:20px 0 8px}
+.admin-update-release{margin-top:20px;padding:20px;background:#f5fbf9;border:1px solid #e0eee9;min-width:0}
+.admin-update-release-heading{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.admin-update-release-heading h3{margin:0;font-size:16px;color:#23353e}
+.admin-update-release-heading a{color:#008f78;overflow-wrap:anywhere}
+.admin-update-notes{white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto}
+.admin-update-meta{margin:20px 0;display:grid;gap:10px;font-size:13px}
+.admin-update-meta>div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px}
+.admin-update-meta dd{margin:0;overflow-wrap:anywhere}
+.admin-update-help{font-size:13px;margin:8px 0}
+@media(max-width:600px){.admin-updates-body{padding:16px}.admin-update-summary{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}.admin-update-summary button{grid-column:1/-1;width:100%;min-height:44px}.admin-update-summary strong{font-size:20px}.admin-update-release{padding:14px}.admin-update-meta>div{grid-template-columns:1fr;gap:2px}.admin-update-notice{padding:10px 12px}.admin-update-notice a{min-height:32px;display:inline-flex;align-items:center;gap:6px}}

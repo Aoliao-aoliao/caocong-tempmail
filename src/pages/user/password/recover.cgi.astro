@@ -1,0 +1,20 @@
+---
+import {requestLocale,translator} from '../../../lib/locale';
+const locale=requestLocale(Astro);const t=translator(locale);
+import AuthLayout from '../../../layouts/AuthLayout.astro';
+import PasswordRecovery from '../../../components/PasswordRecovery';
+import {site} from '../../../config/site';
+import {getResolvedTurnstilePublicConfig} from '../../../../server/security/turnstile.mjs';
+import {readMailConfig} from '../../../../server/auth/password-mail.mjs';
+const turnstile=await getResolvedTurnstilePublicConfig();
+const mail=await readMailConfig();
+const enabled=Boolean(mail?.enabled && mail?.secret);
+---
+<AuthLayout title={`找回密码 | ${site.name}`}>
+  <a slot="top-action" class="auth-top-action" href="/user/login.cgi">{t("返回登录")}</a>
+  <section class="auth-story"><p class="auth-story-label">{t("账户安全")}</p><h1>{t("找回您的账户访问权限")}</h1><p class="auth-story-copy">{t("通过账户邮箱验证身份。验证码十分钟内有效、仅可使用一次；重置成功后，原有登录会话会退出。")}</p><ul class="auth-trust-list"><li><strong>{t("十分钟有效")}</strong><small>{t("验证码超时后自动失效")}</small></li><li><strong>{t("一次使用")}</strong><small>{t("验证成功后立即失效")}</small></li><li><strong>{t("错误限制")}</strong><small>{t("连续错误将提前使验证码失效")}</small></li></ul></section>
+  <section class="auth-card"><h2>{t("密码找回")}</h2>
+    {enabled?<PasswordRecovery siteKey={turnstile.siteKey} configured={turnstile.configured} client:load/>:<p>{t("密码找回邮件服务尚未启用，请联系账户支持。")}</p>}
+    <p class="auth-card-footnote"><a href={`mailto:${site.contactEmail}`}>{t("联系账户支持")}</a> · <a href="/user/login.cgi">{t("返回登录")}</a></p>
+  </section>
+</AuthLayout>

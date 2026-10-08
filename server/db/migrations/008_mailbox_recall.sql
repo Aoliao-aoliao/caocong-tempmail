@@ -1,0 +1,20 @@
+CREATE TABLE mailbox_recall_requests (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  public_id VARCHAR(64) NOT NULL,
+  request_id CHAR(36) NOT NULL,
+  user_id BIGINT UNSIGNED NOT NULL,
+  mailbox_id BIGINT UNSIGNED NOT NULL,
+  duration_minutes INT UNSIGNED NOT NULL,
+  price_points BIGINT UNSIGNED NOT NULL,
+  points_balance_after BIGINT UNSIGNED NOT NULL,
+  expires_at DATETIME(3) NOT NULL,
+  created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_mailbox_recall_public_id (public_id),
+  UNIQUE KEY uq_mailbox_recall_user_request (user_id, request_id),
+  KEY idx_mailbox_recall_mailbox_created (mailbox_id, created_at DESC),
+  CONSTRAINT fk_mailbox_recall_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  CONSTRAINT fk_mailbox_recall_mailbox FOREIGN KEY (mailbox_id) REFERENCES mailboxes(id) ON DELETE CASCADE,
+  CONSTRAINT chk_mailbox_recall_duration CHECK (duration_minutes > 0),
+  CONSTRAINT chk_mailbox_recall_balance CHECK (points_balance_after >= 0)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

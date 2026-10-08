@@ -1,0 +1,7 @@
+---
+import ArticlePage from '../../../layouts/ArticlePage.astro';
+import { alternativeEntriesEn } from '../../../content/library-en';
+const entry = alternativeEntriesEn.find((item) => item.slug === Astro.params.slug);
+if (!entry) return new Response('Page not found.', { status: 404 });
+---
+<ArticlePage locale="en" entry={entry} sectionLabel="COMPARISON" />

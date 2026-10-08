@@ -1,0 +1,113 @@
+---
+import Layout from './Layout.astro';
+import ProductHeroVisual from '../components/ProductHeroVisual.astro';
+import { site } from '../config/site';
+
+interface Feature {
+  no: string;
+  title: string;
+  description: string;
+  points: string[];
+}
+
+interface Props {
+  locale?: 'zh' | 'en';
+  pageTitle: string;
+  description: string;
+  eyebrow: string;
+  titleTop: string;
+  titleAccent: string;
+  primary: string;
+  secondary: string;
+  note: string;
+  primaryHref?: string;
+  secondaryHref?: string;
+  variant: 'temp' | 'alias' | 'forward' | 'domain';
+  metrics: [string, string][];
+  features: Feature[];
+  detailTitle: string;
+  detailText: string;
+  faq: [string, string][];
+}
+
+const {
+  locale = 'zh',
+  pageTitle,
+  description,
+  eyebrow,
+  titleTop,
+  titleAccent,
+  primary,
+  secondary,
+  note,
+  primaryHref = site.appOrigin,
+  secondaryHref = '#details',
+  variant,
+  metrics,
+  features,
+  detailTitle,
+  detailText,
+  faq,
+} = Astro.props;
+const isEn = locale === 'en';
+const prefix = isEn ? '/en' : '';
+const labels = isEn ? {
+  mechanism: 'Core mechanism', status: 'Every entry uses clear status, expiry and traceable controls, so you can see whether an address is active at a glance.', faq: 'FAQ', common: 'Common questions', startTitle: 'Start with one address', startText: 'Try it free, then decide which accounts need a lasting point of contact.', cases: 'Explore use cases',
+} : {
+  mechanism: '核心机制', status: '所有入口都使用一致的状态提示、清晰的剩余时间和可以追溯的操作记录，让每个地址目前是否可用一眼可见。', faq: 'FAQ', common: '常见问题', startTitle: '从一个地址开始', startText: '先免费体验，再决定哪些账户值得保留长期联系方式。', cases: '查看使用场景',
+};
+---
+
+<Layout title={`${pageTitle} · NodeMail`} description={description} locale={locale}>
+  <section class="product-hero">
+    <div class="shell product-hero-grid">
+      <div data-reveal>
+        <p class="eyebrow">{eyebrow}</p>
+        <h1 class="product-display">{titleTop}<br /><span>{titleAccent}</span></h1>
+        <p class="product-lede">{description}</p>
+        <div class="hero-actions"><a class="btn btn-primary" href={primaryHref}>{primary}</a><a class="btn btn-secondary" href={secondaryHref}>{secondary}</a></div>
+        <p class="product-note">{note}</p>
+      </div>
+      <div class="product-visual-wrap" data-reveal><ProductHeroVisual variant={variant} locale={locale} /></div>
+    </div>
+  </section>
+
+  <div class="metrics-band">
+    <div class="shell metrics-grid">
+      {metrics.map(([key, value]) => <div><strong>{key}</strong><span>{value}</span></div>)}
+    </div>
+  </div>
+
+  <section class="section section-soft">
+    <div class="shell feature-grid">
+      {features.map((feature) => (
+        <article class="feature-card plate" data-reveal>
+          <span class="feature-no">{feature.no}</span>
+          <h2>{feature.title}</h2>
+          <p>{feature.description}</p>
+          <ul>{feature.points.map((point) => <li>{point}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" id="details">
+    <div class="shell detail-split">
+      <div class="section-heading" data-reveal><p class="eyebrow">{labels.mechanism}</p><h2>{detailTitle}</h2></div>
+      <div class="detail-copy" data-reveal><p>{detailText}</p><p>{labels.status}</p></div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell faq-layout">
+      <div class="section-heading" data-reveal><p class="eyebrow">{labels.faq}</p><h2>{labels.common}</h2></div>
+      <div class="faq-list" data-reveal>
+        {faq.map(([question, answer], index) => (
+          <details class="faq-item"><summary><span class="faq-index">{String(index + 1).padStart(2, '0')}</span><span class="faq-question">{question}</span><span class="faq-plus">+</span></summary><p class="faq-answer">{answer}</p></details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band"><div class="shell cta-inner" data-reveal><h2>{labels.startTitle}</h2><p>{labels.startText}</p><div class="cta-actions"><a class="btn btn-primary" href={primaryHref}>{primary}</a><a class="btn btn-secondary" href={`${prefix}/use/`}>{labels.cases}</a></div></div></section>
+</Layout>

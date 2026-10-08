@@ -1,0 +1,31 @@
+---
+import { site } from '../../config/site';
+import Layout from '../../layouts/Layout.astro';
+import IdentityGenerator from '../../components/IdentityGenerator';
+import type { CountryCode } from '../../lib/random';
+
+const countries = {
+  us: ['美国', '美国使用 5 位 ZIP Code，州名通常使用两字母缩写。'],
+  uk: ['英国', '英国邮编由字母和数字组成，地址由城市与郡等层级构成。'],
+  ca: ['加拿大', '加拿大邮编使用字母与数字交替的六位格式。'],
+  au: ['澳大利亚', '澳大利亚使用 4 位邮编，并在地址中标注州缩写。'],
+  de: ['德国', '德国使用 5 位邮编，门牌号通常写在街道名之后。'],
+  jp: ['日本', '日本地址由都道府县、市区町村和邮编组成。'],
+  sg: ['新加坡', '新加坡使用 6 位邮编定位建筑或投递点。'],
+  hk: ['香港', '香港没有邮政编码，地址按地区与街道层级表达。'],
+} as const;
+
+const country = Astro.params.country as CountryCode;
+if (!country || !(country in countries)) return new Response('页面不存在。', { status: 404 });
+const [countryName, rule] = countries[country];
+---
+<Layout title={`${countryName}地址生成器 · NodeMail`}>
+  <section class="generator-hero">
+    <div class="shell generator-hero-grid">
+      <div data-reveal><p class="eyebrow">地址生成器</p><h1>{countryName}地址生成器</h1><p>按照{countryName}常见地址格式生成，一次获得姓名、地址、电话和一个匿名邮箱。</p><div class="hero-actions"><a class="btn btn-primary" href={site.appPath}>领取匿名邮箱</a><a class="btn btn-secondary" href="/identity/">查看生成原理</a></div></div>
+      <div data-reveal><IdentityGenerator country={country} client:load /></div>
+    </div>
+  </section>
+  <section class="section section-soft"><div class="shell generator-rule-grid"><article data-reveal><h2>{countryName}的邮编规则</h2><p>{rule}</p></article><article data-reveal><h2>{countryName}地址怎么写</h2><p>生成结果会保持门牌、街道、城市、行政区与邮编的顺序一致，并使用本地常见电话号码分组方式。</p></article></div></section>
+  <section class="section"><div class="shell section-heading" data-reveal><p class="eyebrow">实操</p><h2>最容易写错的地方</h2><p>国家码、州或地区缩写、邮编空格与地址顺序常常不同。复制整套资料可以避免单独修改字段后造成互相冲突。</p></div></section>
+</Layout>

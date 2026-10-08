@@ -1,0 +1,53 @@
+---
+import Layout from './Layout.astro';
+
+interface Section {
+  title: string;
+  paragraphs: string[];
+}
+
+interface Props {
+  title: string;
+  eyebrow: string;
+  intro: string;
+  updated?: string;
+  sections: Section[];
+  locale?: 'zh' | 'en';
+}
+
+const { title, eyebrow, intro, updated, sections, locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
+---
+
+<Layout title={`${title} · NodeMail`} description={intro} locale={locale}>
+  <header class="info-hero">
+    <div class="shell" data-reveal>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p>{intro}</p>
+      {updated && <small>{isEn ? 'Last updated:' : '最后更新：'} {updated}</small>}
+    </div>
+  </header>
+
+  <section class="section info-section">
+    <div class="shell info-grid">
+      <aside class="info-index" aria-label={isEn ? 'On this page' : '本页目录'} data-reveal>
+        <span>{isEn ? 'ON THIS PAGE' : '目录'}</span>
+        <ol>
+          {sections.map((section, index) => (
+            <li><a href={`#section-${index + 1}`}>{String(index + 1).padStart(2, '0')} {section.title}</a></li>
+          ))}
+        </ol>
+      </aside>
+      <div class="info-copy">
+        {sections.map((section, index) => (
+          <article id={`section-${index + 1}`} data-reveal>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,38 @@
+---
+import { getMemberToolInbox } from '../../../server/member/inbox-selection.mjs';
+import { freeMailboxMinutes as resolveFreeMinutes } from '../../../server/member/mailbox-policy.mjs';
+import MemberLayout from '../../layouts/MemberLayout.astro';
+import AppLayout from '../../layouts/AppLayout.astro';
+import MailApply from '../../components/MailApply';
+import GuestMailbox from '../../components/GuestMailbox';
+import { getSessionUser, sessionCookieName } from '../../../server/auth/service.mjs';
+import { getMemberData, getPublicToolData } from '../../../server/member/read-model.mjs';
+import { getResolvedTurnstilePublicConfig } from '../../../server/security/turnstile.mjs';
+const sessionUser=await getSessionUser(Astro.cookies.get(sessionCookieName)?.value);
+const requestedLocale=Astro.url.searchParams.get('lang');
+const storedLocale=Astro.cookies.get('nodemail_locale')?.value;
+const locale=(['zh-CN','zh-TW','en-US'].includes(requestedLocale||'')?requestedLocale:['zh-CN','zh-TW','en-US'].includes(storedLocale||'')?storedLocale:'zh-CN') as 'zh-CN'|'zh-TW'|'en-US';
+const memberData=sessionUser ? await getMemberData(sessionUser.id) : null;
+let inboxError='';
+let initialInbox:any=null;
+if(sessionUser && memberData){
+  try{initialInbox=await getMemberToolInbox(Astro,sessionUser.id,'ordinary');}
+  catch(error){const unavailable=[400,404].includes(Number((error as {status?:number})?.status));Astro.response.status=unavailable?404:503;inboxError=unavailable?'所选邮箱已失效，请返回邮箱列表重新选择，或创建新邮箱。':'收件箱读取失败，请稍后重试。';}
+}
+const publicData=sessionUser ? null : await getPublicToolData();
+const data=memberData || publicData!;
+const turnstile=await getResolvedTurnstilePublicConfig();
+const freeMailboxMinutes=resolveFreeMinutes(data.settings.free_mailbox_minutes);
+const fallbackPlans=[{id:'hour',label:'1 小时',minutes:60,points:0},{id:'day',label:'1 天',minutes:1440,points:3},{id:'week',label:'7 天',minutes:10080,points:10},{id:'month',label:'30 天',minutes:43200,points:20},{id:'season',label:'120 天',minutes:172800,points:40}];
+let mailboxPlans=fallbackPlans;try{const parsed=JSON.parse(data.settings.mailbox_duration_plans||'[]');if(Array.isArray(parsed)&&parsed.length)mailboxPlans=parsed}catch{}
+mailboxPlans=mailboxPlans.filter((plan:any)=>plan.enabled!==false);
+---
+{sessionUser && memberData ? (
+  <MemberLayout title="邮箱申请 | NodeMail" active="apply">
+    <><MailApply initialError={inboxError} requestedAddress={Astro.url.searchParams.get('address') || ''} domains={memberData.mailboxDomains} plans={mailboxPlans} currentPoints={memberData.user.points_balance} isMember={Boolean(memberData.membership)} discountPercent={memberData.membership?.mailbox_discount_percent||100} memberPreviewDiscountPercent={memberData.membership?.mailbox_discount_percent ?? memberData.plans[0]?.mailbox_discount_percent ?? 100} captchaEnabled={memberData.settings.captcha_before_mailbox_create==='true'} turnstileSiteKey={turnstile.siteKey} turnstileConfigured={turnstile.configured} initialMailbox={initialInbox?.mailbox||null} initialMessages={initialInbox?.messages||[]} initialPagination={initialInbox?.pagination||{page:1,pages:1,total:0,pageSize:10}} client:load /></>
+  </MemberLayout>
+) : publicData ? (
+  <AppLayout locale={locale} title={`${locale === 'zh-CN' ? '临时邮箱' : locale === 'zh-TW' ? '臨時郵箱' : 'Temporary mailbox'} | NodeMail`}>
+    <GuestMailbox domains={publicData.publicDomains} plans={mailboxPlans} memberDiscountPercent={publicData.memberDiscountPercent} turnstileSiteKey={turnstile.siteKey} turnstileConfigured={turnstile.configured} freeMailboxMinutes={freeMailboxMinutes} locale={locale} client:load />
+  </AppLayout>
+) : null}

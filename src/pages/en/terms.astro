@@ -1,0 +1,11 @@
+---
+import InfoPage from '../../layouts/InfoPage.astro';
+const sections = [
+  { title: 'The service', paragraphs: ['The NodeMail frontend presents disposable inboxes, anonymous aliases, forwarding, custom domains and test identity generation. Actual limits and availability will be defined by the connected application backend.'] },
+  { title: 'Acceptable use', paragraphs: ['The service is for privacy, testing and legitimate communication. Fraud, harassment, spam, impersonation, unlawful activity and evasion of legal responsibility are prohibited.'] },
+  { title: 'Accounts and termination', paragraphs: ['Accounts that violate these terms may be limited or terminated. Users should also be able to delete their own account and associated aliases.'] },
+  { title: 'Service disclaimer', paragraphs: ['Disposable inboxes are not suitable for information you cannot afford to lose. Third-party sites may reject public mail domains and upstream services may introduce delays.'] },
+  { title: 'Changes', paragraphs: ['Material changes will be published here with an updated date. This frontend-stage copy needs professional review against the final service before launch.'] },
+];
+---
+<InfoPage locale="en" title="Terms of service" eyebrow="USE BOUNDARY" intro="These rules exist to keep a privacy tool in honest and lawful hands." updated="September 2026" sections={sections} />

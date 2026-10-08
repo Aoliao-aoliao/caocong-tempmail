@@ -2,7 +2,7 @@ name: Deploy owner website
 on:
   push:
     branches: [main]
-    paths-ignore: ['docs-site/**', '**/*.md']
+    paths-ignore: ['docs-site/**', '**/*.md', '.github/workflows/docs.yml']
   workflow_dispatch:
 permissions:
   contents: read

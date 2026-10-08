@@ -49,7 +49,7 @@ jobs:
         with:
           path: docs-site/.vitepress/dist
   deploy:
-    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.event_name == 'release') && !github.event.repository.private
+    if: always() && needs.build.result == 'success' && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.event_name == 'release') && !github.event.repository.private
     needs: build
     runs-on: ubuntu-24.04
     permissions:

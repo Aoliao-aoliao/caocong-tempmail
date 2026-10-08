@@ -8,7 +8,7 @@ export default defineConfig({
   head: [['meta', { name: 'robots', content: 'noindex, nofollow' }]],
   themeConfig: {
     logo: '/brand.jpg', siteTitle: '草丛临时邮箱',
-    nav: [{ text: '搭建教程', link: '/panel' }, { text: '使用与配置', link: '/admin' }, { text: '常见问题', link: '/troubleshooting' }, { text: '演示站', link: 'https://app.513399.xyz/' }],
+    nav: [{ text: '搭建教程', link: '/panel' }, { text: '使用与配置', link: '/admin' }, { text: '常见问题', link: '/troubleshooting' }, { text: '演示站', link: 'https://nodemail.513399.xyz/' }],
     sidebar: [
       { text: '开始之前', items: [{ text: '先了解 草丛临时邮箱', link: '/introduction' }, { text: '准备服务器与域名', link: '/preparation' }] },
       { text: '安装', items: [{ text: '1Panel 图文搭建', link: '/panel' }, { text: 'Linux 命令行搭建', link: '/linux' }, { text: '安装参数与网络', link: '/installation' }] },

@@ -8,7 +8,7 @@
 
 文档仓库：https://github.com/Aoliao-aoliao/caocong-tempmail-docs
 
-演示站：https://app.513399.xyz/
+演示站：https://nodemail.513399.xyz/
 
 英文项目名为 Caocong TempMail；与另一个草丛 Mail 项目及其 `nodemail-docs` 仓库分开维护。公开仓库只保存明确挑选的文档、图示及构建文件，不含应用源码、数据库或生产配置。
 
@@ -62,3 +62,7 @@ npm audit
 - `npm audit`：0 个已知漏洞。未连接生产环境，未进行 1Panel 实机安装或真实邮件/支付测试。
 
 Copyright © 2026 草丛（Aoliao-aoliao） · 草丛临时邮箱
+
+## 公开文档更新（2026-10-09）
+
+公开仓库提交 `5b40912` 已重排首页、加入 GitHub 图标，并添加 `payment-nodeloc.md`、`payment-usdt.md` 两篇详细对接教程。演示站以 `https://nodemail.513399.xyz/` 为准。本站预览内容不能直接覆盖公开文档仓库；继续维护时先读取公开仓库最新版本。

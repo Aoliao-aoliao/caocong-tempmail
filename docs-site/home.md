@@ -13,7 +13,7 @@ hero:
       link: /panel
     - theme: alt
       text: 打开演示站
-      link: https://app.513399.xyz/
+      link: https://nodemail.513399.xyz/
     - theme: alt
       text: 先看看需要准备什么
       link: /preparation

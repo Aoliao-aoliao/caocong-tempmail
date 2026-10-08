@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import uuid
 
@@ -16,7 +17,7 @@ def run(*args):
     return subprocess.run(args, check=True, capture_output=True, text=True).stdout
 
 def main():
-    image = 'nodemail:' + os.environ['GITHUB_SHA']
+    image = sys.argv[1] if len(sys.argv) == 2 else 'nodemail:' + os.environ['GITHUB_SHA']
     project = 'nodemail-ci-snapshot-' + uuid.uuid4().hex[:12]
     tag = 'nodemail:rollback-' + os.environ['GITHUB_SHA'] + '-1-1'
     container = project + '-fixture'

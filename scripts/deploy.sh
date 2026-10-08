@@ -84,7 +84,7 @@ verify_services() {
 import { createConnection } from 'node:net';
 const health = await fetch('http://127.0.0.1:4321/api/health', { signal: AbortSignal.timeout(10000) });
 if (!health.ok || (await health.json()).ok !== true) throw new Error('NodeMail HTTP/database health failed');
-const origins = [process.env.NODEMAIL_PUBLIC_ORIGIN, process.env.NODEMAIL_SITE_ORIGIN].filter(Boolean);
+const origins = [process.env.NODEMAIL_PUBLIC_ORIGIN, process.env.NODEMAIL_SITE_ORIGIN || process.env.GMPAY_SITE_ORIGIN].filter(Boolean);
 if (!origins.length) throw new Error('Deployment origins are not configured');
 for (const url of origins) {
   const response = await fetch(url, { signal: AbortSignal.timeout(15000) });

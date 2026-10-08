@@ -7,7 +7,6 @@ COPY src ./src
 COPY public ./public
 COPY server ./server
 COPY shared ./shared
-COPY scripts ./scripts
 COPY distribution/astro-adapter.mjs ./distribution/astro-adapter.mjs
 COPY distribution/runtime ./distribution/runtime
 COPY openapi-docs ./openapi-docs
@@ -22,7 +21,6 @@ RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/server ./server
 COPY --from=build /app/shared ./shared
-COPY --from=build /app/scripts ./scripts
 COPY --from=build /app/distribution/runtime ./distribution/runtime
 COPY --from=build /app/openapi-docs ./openapi-docs
 RUN mkdir -p /app/data/mail-attachments && chown -R node:node /app/data

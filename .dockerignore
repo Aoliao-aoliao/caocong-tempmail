@@ -15,8 +15,6 @@
 !server/**
 !shared/
 !shared/**
-!scripts/
-!scripts/**
 !distribution/
 !distribution/astro-adapter.mjs
 !distribution/runtime/

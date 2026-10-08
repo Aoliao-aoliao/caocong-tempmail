@@ -1,4 +1,6 @@
 # Private installation state
+.deploy/
+site-profile.json
 .env
 .env.*
 !installer/.env.example

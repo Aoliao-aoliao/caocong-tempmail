@@ -44,6 +44,18 @@ docker build -t nodemail-local:0.0.2 .
 - 当前升级工具只处理数据库结构不变的版本。涉及迁移时会拒绝，需按该版本专门的迁移说明操作。
 - 1Panel 文档经过代码与官方资料核对，但未完成真实面板的逐屏实装验收；真实第三方收信、付款和授权需各安装者验收。
 
+## 仓库目录说明
+
+| 目录 | 用途 |
+| --- | --- |
+| `src`、`server`、`shared`、`public` | 网站页面、后端、共享配置和静态资源 |
+| `installer`、`distribution` | 独立安装、初始化与容器启动 |
+| `docs-site`、`openapi-docs` | 在线教程与登录后的 API 文档模板 |
+| `release-tools`、`scripts` | 版本公告生成、部署、回滚与旧产物清理 |
+| `tests`、`.github/workflows` | 安装、升级和安全边界的自动检查；测试代码不进入运行镜像 |
+
+这里的 `tests` 是维护项目所需的检查代码，不包含真实用户或邮件，也不会在网站运行时执行。临时日志、测试数据库、构建缓存和本地安装配置不提交到仓库。
+
 ## 开发与验证
 
 ```bash
@@ -60,4 +72,4 @@ npm audit --omit=dev
 
 Copyright © 2026 草丛（Aoliao-aoliao） · Caocong TempMail。
 
-项目原创内容采用 [AGPL-3.0-only](LICENSE)。第三方字体、依赖及基础软件保留各自的版权与许可，见 [第三方说明](THIRD_PARTY_NOTICES.md)。安全问题请使用 [安全报告说明](SECURITY.md) 中的渠道。
+项目原创内容采用 [AGPL-3.0-only](LICENSE)。第三方字体、依赖及基础软件保留各自的版权与许可，见 [第三方说明](legal/THIRD_PARTY_NOTICES.md)。安全问题请使用 [安全报告说明](.github/SECURITY.md) 中的渠道。

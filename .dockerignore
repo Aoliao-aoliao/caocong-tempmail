@@ -1,8 +1,8 @@
 **
 !Dockerfile
-!COPYRIGHT.md
+!legal/
+!legal/**
 !LICENSE
-!THIRD_PARTY_NOTICES.md
 !package.json
 !package-lock.json
 !astro.config.mjs

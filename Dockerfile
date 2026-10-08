@@ -15,7 +15,8 @@ RUN npm run build
 FROM node:22-bookworm-slim AS runtime
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=4321
 WORKDIR /app
-COPY COPYRIGHT.md LICENSE THIRD_PARTY_NOTICES.md ./
+COPY LICENSE ./
+COPY legal ./legal
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist

@@ -6,9 +6,9 @@
 
 `public/assets/fonts/` 中的字体采用 SIL Open Font License 1.1。发布时随字体保留以下上游版权与完整许可：
 
-- Marcellus：[许可](public/assets/fonts/LICENSE-Marcellus.txt)，来源 https://github.com/google/fonts/tree/main/ofl/marcellus
-- Schibsted Grotesk：[许可](public/assets/fonts/LICENSE-Schibsted-Grotesk.txt)，来源 https://github.com/google/fonts/tree/main/ofl/schibstedgrotesk
-- IBM Plex Mono：[许可](public/assets/fonts/LICENSE-IBM-Plex-Mono.txt)，来源 https://github.com/google/fonts/tree/main/ofl/ibmplexmono
+- Marcellus：[许可](../public/assets/fonts/LICENSE-Marcellus.txt)，来源 https://github.com/google/fonts/tree/main/ofl/marcellus
+- Schibsted Grotesk：[许可](../public/assets/fonts/LICENSE-Schibsted-Grotesk.txt)，来源 https://github.com/google/fonts/tree/main/ofl/schibstedgrotesk
+- IBM Plex Mono：[许可](../public/assets/fonts/LICENSE-IBM-Plex-Mono.txt)，来源 https://github.com/google/fonts/tree/main/ofl/ibmplexmono
 
 字体许可证不会被项目 AGPL 取代。字体的保留名称和再分发条件以对应文件为准。
 

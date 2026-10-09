@@ -17,7 +17,7 @@ export default defineConfig({
       { text: '收信与账号接入', items: [{ text: '域名与收信', link: '/mail' }, { text: '中继邮箱 · Gmail / Outlook', link: '/relay-setup' }, { text: '人机验证 · Turnstile', link: '/turnstile' }, { text: '找回密码 · 发信邮箱', link: '/password-mail' }, { text: 'NodeLoc 登录与绑定', link: '/nodeloc-login' }, { text: 'Telegram 绑定', link: '/telegram' }, { text: '第三方接入总览', link: '/integrations' }] },
       { text: '支付对接', items: [{ text: '渠道选择与充值档位', link: '/payments' }, { text: 'NodeLoc 能量支付 · 逐项配置', link: '/payment-nodeloc' }, { text: 'USDT 网关 · 逐项配置', link: '/payment-usdt' }] },
       { text: '日常维护', items: [{ text: '更新与恢复', link: '/upgrading' }, { text: '备份自己的数据', link: '/backup' }, { text: '问题排查', link: '/troubleshooting' }] },
-      { text: '项目信息', items: [{ text: '数据存在哪里', link: '/data' }, { text: '测试与功能边界', link: '/validation' }, { text: '版权与署名', link: '/copyright' }, { text: '发布与许可状态', link: '/license' }] }
+      { text: '项目信息', items: [{ text: '数据存在哪里', link: '/data' }, { text: '测试与功能边界', link: '/validation' }, { text: '二次开发与更新提示', link: '/fork' }, { text: '版权与署名', link: '/copyright' }, { text: '发布与许可状态', link: '/license' }] }
     ],
     search: { provider: 'local', options: { translations: {
       button: { buttonText: '搜索文档', buttonAriaLabel: '搜索文档' },

@@ -62,3 +62,5 @@ jobs:
       - run: python3 tests/snapshot-rollback-docker.py "nodemail-distribution-ci:${GITHUB_SHA}"
       - name: Login, authorization and data-preserving image replacement
         run: python3 tests/container.py "nodemail-distribution-ci:${GITHUB_SHA}"
+      - name: Documented pure-Docker deployment, backup and upgrade
+        run: python3 tests/docker-quickstart.py "nodemail-distribution-ci:${GITHUB_SHA}"

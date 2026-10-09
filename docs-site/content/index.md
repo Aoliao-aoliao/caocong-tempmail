@@ -36,6 +36,16 @@ features:
 
 [第一次进入后台 →](/admin)
 
+[Gmail / Outlook 怎么接 →](/relay-setup)
+
+[人机验证怎么配 →](/turnstile)
+
+[用户找回密码收不到验证码 →](/password-mail)
+
+[后台每个菜单是干什么的 →](/admin-guide)
+
+[给用户看的使用说明 →](/user-guide)
+
 [NodeLoc 支付怎么填 →](/payment-nodeloc)
 
 [USDT 网关怎么接 →](/payment-usdt)

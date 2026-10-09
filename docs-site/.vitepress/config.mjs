@@ -12,7 +12,7 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: 'https://github.com/Aoliao-aoliao/caocong-tempmail', ariaLabel: 'GitHub 项目源码' }],
     sidebar: [
       { text: '开始之前', items: [{ text: '先了解 草丛临时邮箱', link: '/introduction' }, { text: '准备服务器与域名', link: '/preparation' }] },
-      { text: '安装', items: [{ text: '1Panel 图文搭建', link: '/panel' }, { text: 'Linux 命令行搭建', link: '/linux' }, { text: '安装参数与网络', link: '/installation' }] },
+      { text: '安装', items: [{ text: '1Panel 图文搭建', link: '/panel' }, { text: 'Linux 命令行搭建', link: '/linux' }, { text: '纯 Docker 部署', link: '/docker' }, { text: '安装参数与网络', link: '/installation' }] },
       { text: '把网站用起来', items: [{ text: '第一次进入后台', link: '/admin' }, { text: '后台功能说明', link: '/admin-guide' }, { text: '用户使用指南', link: '/user-guide' }] },
       { text: '收信与账号接入', items: [{ text: '域名与收信', link: '/mail' }, { text: '中继邮箱 · Gmail / Outlook', link: '/relay-setup' }, { text: '人机验证 · Turnstile', link: '/turnstile' }, { text: '找回密码 · 发信邮箱', link: '/password-mail' }, { text: 'NodeLoc 登录与绑定', link: '/nodeloc-login' }, { text: 'Telegram 绑定', link: '/telegram' }, { text: '第三方接入总览', link: '/integrations' }] },
       { text: '支付对接', items: [{ text: '渠道选择与充值档位', link: '/payments' }, { text: 'NodeLoc 能量支付 · 逐项配置', link: '/payment-nodeloc' }, { text: 'USDT 网关 · 逐项配置', link: '/payment-usdt' }] },

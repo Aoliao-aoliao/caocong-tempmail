@@ -36,6 +36,8 @@ features:
 
 [第一次进入后台 →](/admin)
 
+[不装 Node.js，纯 Docker 部署 →](/docker)
+
 [Gmail / Outlook 怎么接 →](/relay-setup)
 
 [人机验证怎么配 →](/turnstile)

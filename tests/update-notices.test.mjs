@@ -12,6 +12,9 @@ import { isSameOriginRequest } from '../server/auth/request-security.mjs';
 import { readBoundedText } from '../server/http/request-body.mjs';
 
 const config = { currentVersion: '1.2.0', repository: 'example/nodemail' };
+// Explicit feed config: forks may point releaseConfig at their own Releases
+// without breaking these checks of the feed mode itself.
+const feedConfig = { currentVersion: releaseConfig.currentVersion, repository: '', feed: STABLE_FEED_URL };
 const release = (tag = 'v1.3.0') => ({ tag_name: tag, draft: false, prerelease: false, published_at: '2026-10-08T00:00:00Z', body: 'Updates' });
 const response = data => new Response(JSON.stringify(data));
 const feed = (version = '1.3.0') => ({ schema: 1, product: 'NodeMail', channel: 'stable', version, publishedAt: '2026-10-08T00:00:00.000Z', notes: 'Public release notes' });
@@ -28,12 +31,12 @@ test('metadata schema, product and stable channel are validated; arbitrary sourc
     const check = createReleaseChecker({ config: { currentVersion: '1.2.0', feed: source }, fetcher: () => assert.fail('network not allowed') });
     assert.equal((await check()).status, 'invalid-config');
   }
-  assert.equal((await createReleaseChecker({ config: { ...releaseConfig, repository: 'example/nodemail' }, fetcher: () => assert.fail('ambiguous source') })()).status, 'invalid-config');
+  assert.equal((await createReleaseChecker({ config: { ...feedConfig, repository: 'example/nodemail' }, fetcher: () => assert.fail('ambiguous source') })()).status, 'invalid-config');
 });
 
 test('metadata fetch failure is visible and cache/manual retry cannot turn an outage into up-to-date', async () => {
   let time = 0, fails = false, calls = 0;
-  const check = createReleaseChecker({ config: releaseConfig, now: () => time, fetcher: async () => {
+  const check = createReleaseChecker({ config: feedConfig, now: () => time, fetcher: async () => {
     calls++; return fails ? new Response('<html>challenge</html>') : response(feed(releaseConfig.currentVersion));
   } });
   assert.equal((await check()).cached, false);

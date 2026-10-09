@@ -56,3 +56,16 @@
   .vp-doc { font-size: 16px; }
   .vp-doc img { border-radius: 8px; }
 }
+/* Readability for step-by-step guides: tables, callouts and step headings. */
+.vp-doc table { display: table; width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--vp-c-divider); border-radius: 12px; overflow: hidden; }
+.vp-doc th { background: var(--vp-c-brand-soft); color: var(--vp-c-text-1); font-weight: 650; }
+.vp-doc tr { border-top: 0; }
+.vp-doc td, .vp-doc th { border: 0; border-bottom: 1px solid var(--vp-c-divider); padding: 10px 14px; }
+.vp-doc tr:last-child td { border-bottom: 0; }
+.vp-doc tr:nth-child(2n) { background: var(--vp-c-bg-soft); }
+.vp-doc h3 { padding-left: 12px; border-left: 4px solid var(--vp-c-brand-2); line-height: 1.5; }
+.vp-doc .custom-block { padding: 14px 18px; }
+.vp-doc .custom-block.details { background: var(--vp-c-bg-soft); border: 1px solid var(--vp-c-divider); }
+.vp-doc .custom-block.details summary { font-weight: 650; cursor: pointer; }
+.vp-doc ol > li::marker { color: var(--vp-c-brand-1); font-weight: 700; }
+@media (max-width: 640px) { .vp-doc table { display: block; overflow-x: auto; } .vp-doc td, .vp-doc th { padding: 8px 10px; } }

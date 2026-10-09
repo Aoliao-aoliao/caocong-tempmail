@@ -55,6 +55,8 @@ jobs:
       - run: npm audit
       - name: Fresh installation in disposable local MySQL
         run: node --test tests/installation.test.mjs
+      - name: Business regressions on the fresh disposable installation
+        run: npm run test:integration
       - name: Build complete-source image
         run: docker build -t "nodemail-distribution-ci:${GITHUB_SHA}" .
       - run: python3 tests/snapshot-rollback-docker.py "nodemail-distribution-ci:${GITHUB_SHA}"

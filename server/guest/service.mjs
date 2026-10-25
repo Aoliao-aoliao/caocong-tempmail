@@ -1,3 +1,4 @@
+import { withVerificationCode } from '../mail/verification-code.mjs';
 import { htmlToPlainText } from '../mail/body-text.mjs';
 import { freeMailboxMinutes } from '../member/mailbox-policy.mjs';
 import {
@@ -401,7 +402,7 @@ export async function listGuestMessages({ cookieValue, userAgent, query: rawQuer
     const offset = (safePage - 1) * MESSAGE_PAGE_SIZE;
     const [rows] = await connection.execute(`
       SELECT m.public_id AS id, m.from_address AS sender, COALESCE(m.subject,'') AS subject,
-             m.size_bytes, m.is_read, m.received_at
+             m.size_bytes, m.is_read, m.received_at, LEFT(m.text_content,65536) AS _code_text, LEFT(m.html_content,65536) AS _code_html
       FROM messages m
       JOIN mailboxes mb ON mb.id=m.mailbox_id
       WHERE mb.public_id=? AND mb.guest_session_id=? AND mb.status='ACTIVE'
@@ -415,6 +416,7 @@ export async function listGuestMessages({ cookieValue, userAgent, query: rawQuer
         id: row.id,
         sender: row.sender,
         subject: row.subject || '（无主题）',
+        verificationCode: withVerificationCode(row).verificationCode,
         sizeBytes: Number(row.size_bytes || 0),
         isRead: Boolean(row.is_read),
         receivedAt: asIso(row.received_at),

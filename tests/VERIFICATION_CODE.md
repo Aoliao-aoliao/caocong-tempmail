@@ -1,0 +1,7 @@
+# Verification code regression checks
+
+`npm run test:offline` includes the bounded extractor cases. `npm run test:integration` includes existing-message extraction for owned member/guest lists, body-snippet removal, unread-state preservation, unsafe-message filtering and foreign-mailbox rejection. These database tests refuse anything except `NODEMAIL_ISOLATED_TESTS=1`, `MYSQL_HOST=127.0.0.1`, `MYSQL_DATABASE=nodemail_ci`.
+
+For browser validation use only a disposable initialized local CI database and fictional origins, with Playwright and Chromium available. Set `NODEMAIL_BROWSER_WORKDIR` to a private temporary directory. Run `tests/support/verification-code-browser-fixture.mjs`, build, then run `dist/server/entry.mjs` bound to `127.0.0.1:14324` with `NODEMAIL_SITE_ORIGIN` and `NODEMAIL_PUBLIC_ORIGIN` both `https://mail.installer.example`. Do not start upstream mail polling. Run `node tests/verification-code-browser.cjs` with the same isolated database variables.
+
+The browser routes that fictional HTTPS origin exclusively to the local listener using normal trusted proxy headers, aborting other network requests. It checks 36 combinations (desktop/mobile, three locales, member/guest, ordinary/relay and member lists), clipboard contents, failure feedback, keyboard copying, reader activation, layout and page errors. Temporary cookie files are private test data: never commit them. Stop the listener and remove the disposable database/container/volume and the temporary directory after validation. No production accounts, messages or credentials are needed.

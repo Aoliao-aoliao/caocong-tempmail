@@ -2307,5 +2307,13 @@
   "检查完成，版本信息已刷新。": {
     "en": "Check complete. Version information refreshed.",
     "tw": "檢查完成，版本資訊已重新整理。"
+  },
+  "复制验证码": {
+    "en": "Copy verification code",
+    "tw": "複製驗證碼"
+  },
+  "复制失败，请重试": {
+    "en": "Copy failed. Try again.",
+    "tw": "複製失敗，請重試"
   }
 }

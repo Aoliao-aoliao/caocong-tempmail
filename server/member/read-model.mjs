@@ -1,3 +1,4 @@
+import { withVerificationCode } from '../mail/verification-code.mjs';
 import { normalizePage, normalizeQuery } from '../http/pagination.mjs';
 import { openDatabase } from '../db/database.mjs';
 import { ensureUserApiKey } from './api-key.mjs';
@@ -127,10 +128,10 @@ async function queryMemberMessagePage(connection,{userId,query='',page=1,mailbox
   const total=Number(count.total),pages=Math.max(1,Math.ceil(total/10));page=Math.min(page,pages);
   const [messages]=await connection.execute(`
     SELECT m.public_id AS id,mb.address AS recipient,m.from_address AS sender,m.subject,
-      m.size_bytes,m.is_read,m.received_at ${from}
+      m.size_bytes,m.is_read,m.received_at, LEFT(m.text_content,65536) AS _code_text, LEFT(m.html_content,65536) AS _code_html ${from}
     ORDER BY m.received_at DESC,m.id DESC LIMIT ? OFFSET ?
   `,[...params,10,(page-1)*10]);
-  return {mailbox,messages:messages.map(row=>({...row,size_bytes:number(row.size_bytes),is_read:Boolean(row.is_read),received_at:iso(row.received_at)})),pagination:{page,pages,total,pageSize:10}};
+  return {mailbox,messages:messages.map(row=>({...withVerificationCode(row),size_bytes:number(row.size_bytes),is_read:Boolean(row.is_read),received_at:iso(row.received_at)})),pagination:{page,pages,total,pageSize:10}};
 }
 export async function getMemberMessagePage(options) {
   const connection=await openDatabase();
@@ -323,7 +324,7 @@ export async function getMailboxInbox({ userId, mailboxId:rawMailboxId='', query
     const offset = (page-1)*pageSize;
     const [messages] = await connection.execute(`
       SELECT m.public_id AS id, mb.address AS recipient, m.from_address AS sender,
-             m.subject, m.size_bytes, m.is_read, m.received_at
+             m.subject, m.size_bytes, m.is_read, m.received_at, LEFT(m.text_content,65536) AS _code_text, LEFT(m.html_content,65536) AS _code_html
       FROM messages m
       JOIN mailboxes mb ON mb.id=m.mailbox_id
       WHERE mb.user_id=? AND mb.public_id=?
@@ -337,7 +338,7 @@ export async function getMailboxInbox({ userId, mailboxId:rawMailboxId='', query
     return {
       mailbox:serializeMailbox(mailbox),
       messages:messages.map(row=>({
-        ...row,
+        ...withVerificationCode(row),
         subject:String(row.subject || ''),
         size_bytes:number(row.size_bytes),
         is_read:Boolean(row.is_read),

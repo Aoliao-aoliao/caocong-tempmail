@@ -165,7 +165,7 @@ async function mountMailbox(kind, expired) {
   };
   const imports = {
     react: hooks, 'react/jsx-runtime': { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }), Fragment: 'fragment' },
-    './ui/MailReader': { __esModule: true, default: 'mail-reader' }, './TurnstileWidget': { __esModule: true, default: 'captcha' },
+    './ui/VerificationCode':{__esModule:true,default:'verification-code'},'./ui/MailReader': { __esModule: true, default: 'mail-reader' }, './TurnstileWidget': { __esModule: true, default: 'captcha' },
     '../lib/useTranslator': { useTranslator: () => text => text }, './ui/ChoicePicker': { __esModule: true, default: 'picker' },
     '../lib/clipboard': { copyText: async () => true }, './ui/useDialog': { useDialog() {} },
   };

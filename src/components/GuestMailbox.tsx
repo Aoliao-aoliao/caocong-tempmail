@@ -1,3 +1,4 @@
+import VerificationCode from './ui/VerificationCode';
 import MailReader from './ui/MailReader';
 import { useGuestAttempt } from './ui/useGuestAttempt';
 import { discountedMailboxPrice } from "../../server/member/mailbox-price.mjs";
@@ -8,7 +9,7 @@ type Domain = { domain: string; kind: "PUBLIC" | "LOGIN" | "MEMBER" };
 type Plan = { id: string; label: string; minutes: number; points: number };
 type AppLocale = "zh-CN" | "zh-TW" | "en-US";
 type GuestMailboxData = { available?:boolean; id:string; address:string; localPart:string; domain:string; durationMinutes:number; receivedCount:number; expiresAt:string; createdAt:string };
-type GuestMessage = { id:string; sender:string; subject:string; sizeBytes:number; isRead:boolean; receivedAt:string };
+type GuestMessage = { verificationCode?:string|null; id:string; sender:string; subject:string; sizeBytes:number; isRead:boolean; receivedAt:string };
 type GuestMessageDetail = GuestMessage & { recipient:string; contentType:string; bodyText:string };
 
 const LOGIN_URL = "/user/login.cgi";
@@ -177,7 +178,7 @@ export default function GuestMailbox({ domains,plans,memberDiscountPercent,turns
     <section className="guest-inbox-preview" aria-label={t.inbox}>
       <div className="guest-inbox-header"><div><span className="guest-section-kicker">{t.inbox}</span><h2>{t.inbox}</h2><p>{t.inboxDescription}</p></div><div className="guest-inbox-actions"><span><i aria-hidden="true"></i>{t.waitingMail}</span><button type="button" disabled={!mailbox||loading||refreshCooldown>0} onClick={refreshInbox}>{refreshCooldown>0?`${refreshCooldown}s`:<><b aria-hidden="true"></b>{t.refresh}</>}</button></div></div>
       <div className="guest-inbox-tools"><form role="search" onSubmit={searchInbox}><input type="search" maxLength={100} placeholder={t.searchPlaceholder} value={query} aria-label={t.searchPlaceholder} onChange={(event)=>setQuery(event.target.value)}/><button type="submit" disabled={!mailbox||loading}>{t.search}</button></form></div>
-      {mailbox&&<div className="app-mail-table-head" aria-hidden="true"><span>{t.sender}</span><span>{t.subject}</span><span>{t.keyInfo}</span><span>{t.receivedAt}</span><span>{t.action}</span></div>}{mailItems.map((item)=><button className="app-mail-row" type="button" key={item.id} onClick={()=>void openMessage(item)}><span title={item.sender}>{item.sender}</span><span title={item.subject}>{item.subject}</span><span>{item.isRead?"—":"●"}</span><span>{formatTime(item.receivedAt)}</span><span>{t.openMail}</span></button>)}{!mailItems.length&&<div className="guest-inbox-empty">{loading?`${t.refresh}…`:t.noData}</div>}
+      {mailbox&&<div className="app-mail-table-head" aria-hidden="true"><span>{t.sender}</span><span>{t.subject}</span><span>{t.keyInfo}</span><span>{t.receivedAt}</span><span>{t.action}</span></div>}{mailItems.map((item)=><article className="app-mail-row" key={item.id} onClick={()=>void openMessage(item)}><span title={item.sender}>{item.sender}</span><span title={item.subject}>{item.subject}</span><span><VerificationCode code={item.verificationCode}/></span><span>{formatTime(item.receivedAt)}</span><button type="button" className="mail-code-open">{t.openMail}</button></article>)}{!mailItems.length&&<div className="guest-inbox-empty">{loading?`${t.refresh}…`:t.noData}</div>}
       <nav className="guest-inbox-pagination" aria-label={t.inbox}><span>{locale==="en-US"?`${total} items, 10 per page`:locale==="zh-TW"?`共 ${total} 條，每頁 10 條`:`共 ${total} 条，每页 10 条`}</span><button type="button" disabled={!mailbox||loading||page<=1} onClick={()=>void loadMessages(page-1,submittedQuery)}>{t.previous}</button><span>{locale==="en-US"?`Page ${page} / ${pages}`:`第 ${page} / ${pages} 页`}</span><button type="button" disabled={!mailbox||loading||page>=pages} onClick={()=>void loadMessages(page+1,submittedQuery)}>{t.next}</button></nav>
     </section>
 

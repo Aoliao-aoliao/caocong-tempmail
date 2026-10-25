@@ -1,0 +1,12 @@
+.verification-code{display:inline-flex;align-items:center;gap:6px;max-width:100%;vertical-align:middle}
+.verification-code .verification-code-value{white-space:normal;overflow:visible;font-variant-numeric:tabular-nums;font-weight:600;letter-spacing:.04em;overflow-wrap:anywhere;min-width:0}
+.verification-code .verification-code-copy{display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;min-height:28px;padding:5px;border:1px solid #ccebe3;background:#f0faf7;color:#009f80;border-radius:0;cursor:pointer;line-height:1}
+.verification-code-copy svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+.verification-code-copy:focus-visible,.mail-code-open:focus-visible{outline:2px solid #00a986;outline-offset:2px}
+.verification-code-feedback{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.inbox-message-row .mail-code-open,.app-mail-row .mail-code-open{font:inherit;cursor:pointer;color:#009f80;background:#f0faf7;border:1px solid #ccebe3;padding:5px 8px;justify-self:start;white-space:nowrap}
+@media(max-width:760px){.verification-code{gap:4px}.verification-code .verification-code-copy{width:30px;height:30px;flex-basis:30px}}
+
+@media(max-width:760px){.app-mail-row>.mail-code-open{grid-column:2;grid-row:3}}
+
+@media(max-width:760px){.mailer-content .inbox-message-row>span:nth-child(3),.app-mail-row>span:nth-child(3){grid-column:1;grid-row:3}}

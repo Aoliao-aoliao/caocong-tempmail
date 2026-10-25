@@ -1,3 +1,4 @@
+import VerificationCode from './ui/VerificationCode';
 import MailReader from './ui/MailReader';
 import {copyText} from '../lib/clipboard';
 import {useTranslator} from '../lib/useTranslator';
@@ -18,6 +19,7 @@ type Mailbox = {
   created_at: string | null;
 };
 type MailItem = {
+  verificationCode?: string | null;
   id: string;
   recipient: string;
   sender: string;
@@ -653,11 +655,11 @@ export default function MailApply({
           <span>{t("发件人")}</span><span>{t("主题")}</span><span>{t("关键信息")}</span><span>{t("收信时间")}</span><span>{t("操作")}</span>
         </div>}
         {mailItems.length > 0 && <div className="inbox-list">
-          {mailItems.map((item) => <button className="inbox-message-row" type="button" key={item.id} onClick={() => void openMessage(item)}>
+          {mailItems.map((item) => <article className="inbox-message-row" key={item.id} onClick={() => void openMessage(item)}>
             <span className="inbox-message-sender" title={item.sender}><i aria-hidden="true">{String(item.sender || t("邮")).trim().charAt(0).toUpperCase()}</i><b>{item.sender}</b></span>
             <span className="inbox-message-subject" title={item.subject || t("（无主题）")}><b>{item.subject || t("（无主题）")}</b><small>{item.is_read ? t("已读") : t("未读")}</small></span>
-            <span>—</span><time>{formatTime(item.received_at)}</time><span className="inbox-message-open">{t("查阅邮件")}</span>
-          </button>)}
+            <span><VerificationCode code={item.verificationCode}/></span><time>{formatTime(item.received_at)}</time><button type="button" className="inbox-message-open mail-code-open">{t("查阅邮件")}</button>
+          </article>)}
         </div>}
         {!mailItems.length && <div className="inbox-empty">{inboxLoading ? t("正在刷新…") : inboxStatus || t("暂无数据")}</div>}
         <nav className="inbox-pagination" aria-label={t("收件箱")}>

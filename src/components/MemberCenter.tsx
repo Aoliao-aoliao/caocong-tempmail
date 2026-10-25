@@ -1,3 +1,4 @@
+import VerificationCode from './ui/VerificationCode';
 import TelegramBinding from './TelegramBinding';
 import NodelocBinding from './NodelocBinding';
 import {purchaseIntent,completePurchaseIntent} from '../lib/purchase-intent';
@@ -419,7 +420,7 @@ function Overview({ data }: { data: MemberData }) {
                     <img src="/openapi/assets/images/icons/copy.svg" alt="" />
                   </button>
                 </div>
-                <div className="mail-keyword"><span>—</span></div>
+                <div className="mail-keyword"><VerificationCode code={m.verificationCode}/></div>
                 <time className="recent-mail-time"><span>{received.date}</span><span>{received.time}</span></time>
                 <button className="mail-open-button" type="button" onClick={() => openRecentMessage(m)}>{t("查阅邮件")}</button>
               </article>
@@ -1032,7 +1033,7 @@ function Messages({ data }: { data: MemberData }) {
                 <strong>{m.subject || t("（无主题）")}</strong>
                 <span>{m.sender} → {m.recipient}</span>
               </div>
-              <div className="mc-mail-keyword"><span>—</span></div>
+              <div className="mc-mail-keyword"><VerificationCode code={m.verificationCode}/></div>
               <span className="mc-mail-status">{m.is_read ? t("已读") : t("未读")}</span>
               <time>{dt(m.received_at)}</time>
               <button className="mc-mail-open" type="button" onClick={() => openMessage(m)}>{t("查阅邮件")}</button>
